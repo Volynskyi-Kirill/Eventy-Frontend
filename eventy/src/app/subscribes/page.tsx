@@ -1,7 +1,7 @@
-export default function HomeSubscribesPage() {
+export default function SubscribesPage() {
   return (
     <div>
-      <h1>Home Subscribes</h1>
+      <h1>Subscribes Page</h1>
       <p>Here are your subscriptions.</p>
     </div>
   );
