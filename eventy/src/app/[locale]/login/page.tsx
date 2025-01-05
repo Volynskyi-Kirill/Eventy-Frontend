@@ -2,113 +2,116 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import Image from 'next/image';
+import { Eye } from 'lucide-react';
 
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-background text-foreground'>
-      {/* Контейнер страницы */}
-      <div className='container mx-auto px-4 lg:px-0 flex flex-col lg:flex-row items-center max-w-5xl'>
-        {/* Левая часть с изображением */}
-        <div className='hidden lg:block lg:w-1/2 h-[500px] rounded-lg overflow-hidden relative'>
+    <div className='grid h-screen w-full lg:grid-cols-2'>
+      {/* Left side - Image */}
+      <div className='relative hidden lg:block'>
+        <Image
+          src='/background-login-img.jpeg'
+          alt='Login background image'
+          fill
+          className='object-cover'
+          priority
+        />
+        <div className='absolute inset-0 bg-black/50' />
+        <div className='absolute inset-0 flex items-center justify-center'>
           <Image
-            // src='/login-event.jpg'
-            src='/background-login-img.jpeg'
-            alt='Login background image'
-            layout='fill'
-            objectFit='cover'
-            priority
+            src='/login-image-logo.svg'
+            alt='Logo'
+            width={80}
+            height={80}
+            className='opacity-80'
           />
-          {/* Затемнение через overlay */}
-          <div className='absolute inset-0 bg-black bg-opacity-50'></div>
-
-          {/* Контейнер для логотипа */}
-          <div className='absolute inset-0 flex items-center justify-center'>
-            <Image
-              src='/login-image-logo.svg'
-              alt='Logo'
-              width={80}
-              height={80}
-              className='opacity-80'
-            />
-          </div>
         </div>
+      </div>
 
-        {/* Правая часть с формой */}
-        <div className='w-full lg:w-1/2 bg-card p-6 lg:p-12 rounded-lg shadow-lg'>
-          <h1 className='text-2xl lg:text-4xl font-bold text-primary mb-4'>
-            {t('title')}
-          </h1>
-          <p className='text-muted-foreground mb-6'>{t('subtitle')}</p>
+      {/* Right side - Form */}
+      <div className='flex items-center justify-center bg-black px-6 lg:px-16'>
+        <div className='w-full max-w-[440px] space-y-6'>
+          <div className='space-y-2'>
+            <h1 className='text-3xl font-bold tracking-tight text-white'>
+              {t('title')}
+            </h1>
+            <p className='text-base text-muted-foreground'>{t('subtitle')}</p>
+          </div>
 
           <form className='space-y-4'>
-            {/* Поле Email */}
-            <div>
-              <Label htmlFor='email'>{t('emailPlaceholder')}</Label>
+            <div className='space-y-2'>
               <Input
                 id='email'
                 type='email'
                 placeholder={t('emailPlaceholder')}
-                className='mt-2'
+                className='h-12 border-0 bg-white/5 text-white placeholder:text-muted-foreground'
               />
             </div>
 
-            {/* Поле Password */}
-            <div>
-              <Label htmlFor='password'>{t('passwordPlaceholder')}</Label>
+            <div className='relative space-y-2'>
               <Input
                 id='password'
                 type='password'
                 placeholder={t('passwordPlaceholder')}
-                className='mt-2'
+                className='h-12 border-0 bg-white/5 pr-10 text-white placeholder:text-muted-foreground'
               />
+              <Button
+                type='button'
+                variant='ghost'
+                size='icon'
+                className='absolute right-0 top-0 h-12 w-12 text-muted-foreground hover:text-white'
+              >
+                <Eye className='h-5 w-5' />
+              </Button>
             </div>
 
-            {/* Забыл пароль */}
             <div className='text-right'>
               <Link
                 href='/forgot-password'
-                className='text-sm text-primary hover:underline'
+                className='text-sm text-emerald-500 hover:text-emerald-400'
               >
                 {t('forgotPassword')}
               </Link>
             </div>
 
-            {/* Кнопка логина */}
-            <Button className='w-full mt-4'>{t('loginButton')}</Button>
+            <Button className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'>
+              {t('loginButton')}
+            </Button>
           </form>
 
-          {/* Разделитель */}
-          <div className='flex items-center justify-center my-6 text-muted-foreground'>
-            <span className='w-1/4 border-t border-muted'></span>
-            <span className='mx-4 text-sm'>{t('orContinueWith')}</span>
-            <span className='w-1/4 border-t border-muted'></span>
+          <div className='relative'>
+            <div className='absolute inset-0 flex items-center'>
+              <div className='w-full border-t border-white/10' />
+            </div>
+            <div className='relative flex justify-center text-xs uppercase'>
+              <span className='bg-black px-2 text-muted-foreground'>
+                {t('orContinueWith')}
+              </span>
+            </div>
           </div>
 
-          {/* Кнопка Google */}
           <Button
             variant='outline'
-            className='w-full flex items-center justify-center gap-2'
+            className='h-12 w-full border-white/10 bg-white/5 text-white hover:bg-white/10'
           >
             <Image
               src='/login-button-google.png'
               alt='Google'
               width={20}
               height={20}
-              className='w-5 h-5'
+              className='mr-2 h-5 w-5'
             />
             {t('loginWithGoogle')}
           </Button>
 
-          {/* Ссылка на регистрацию */}
-          <p className='mt-6 text-center text-sm text-muted-foreground'>
+          <p className='text-center text-sm text-muted-foreground'>
             {t('noAccount')}{' '}
             <Link
               href='/sign-up'
-              className='text-primary hover:underline font-medium'
+              className='text-emerald-500 hover:text-emerald-400'
             >
               {t('signUp')}
             </Link>
