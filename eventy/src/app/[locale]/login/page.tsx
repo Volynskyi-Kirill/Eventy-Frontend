@@ -15,18 +15,22 @@ export default function LoginPage() {
         {/* Левая часть с изображением */}
         <div className='hidden lg:block lg:w-1/2 h-[500px] rounded-lg overflow-hidden relative'>
           <Image
+            // src='/login-event.jpg'
             src='/background-login-img.jpeg'
             alt='Login background image'
             layout='fill'
             objectFit='cover'
             priority
           />
+          {/* Затемнение через overlay */}
+          <div className='absolute inset-0 bg-black bg-opacity-50'></div>
+
           {/* Контейнер для логотипа */}
           <div className='absolute inset-0 flex items-center justify-center'>
             <Image
-              src='/login-image-logo.svg' 
+              src='/login-image-logo.svg'
               alt='Logo'
-              width={80} 
+              width={80}
               height={80}
               className='opacity-80'
             />
