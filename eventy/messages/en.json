@@ -1,0 +1,33 @@
+{
+  "LoginPage": {
+    "title": "LOG IN",
+    "subtitle": "Discover the Perfect Events for You! Try Evently and Enjoy Unforgettable Moments with Us!",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "LOG IN",
+    "orContinueWith": "or continue with",
+    "loginWithGoogle": "Login with Google",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign Up"
+  },
+  "Navigation": {
+    "home": "Home",
+    "events": "Events",
+    "subscribers": "Subscribers",
+    "openSpace": "Open Space",
+    "login": "Log in"
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found",
+    "goHome": "Go to Home"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, uk {🇺🇦 Українська} en {🇺🇸 English} other {Unknown}}"
+  },
+  "LocaleLayout": {
+    "title": "Eventy"
+  }
+}
