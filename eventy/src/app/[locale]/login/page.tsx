@@ -13,20 +13,18 @@ export default function LoginPage() {
       {/* Left side - Image */}
       <div className='relative hidden lg:block'>
         <Image
-          src='/background-login-img.jpeg'
+          src='/event.jpg'
           alt='Login background image'
           fill
           className='object-cover'
           priority
         />
-        <div className='absolute inset-0 bg-black/50' />
         <div className='absolute inset-0 flex items-center justify-center'>
           <Image
             src='/login-image-logo.svg'
             alt='Logo'
             width={80}
             height={80}
-            className='opacity-80'
           />
         </div>
       </div>
