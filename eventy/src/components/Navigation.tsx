@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,15 +10,23 @@ import LocaleSwitcher from './LocaleSwitcher';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
+const HIDDEN_NAVIGATION_PATHS = ['/login', '/register'];
+
+function shouldHideNavigation(pathname: string): boolean {
+  return HIDDEN_NAVIGATION_PATHS.some((path) => pathname.includes(path));
+}
+
 export default function Navigation() {
   const t = useTranslations('Navigation');
-  const selectedLayoutSegment = useSelectedLayoutSegment();
-  const pathname = selectedLayoutSegment ? `/${selectedLayoutSegment}` : '/';
+  const pathname = usePathname() || '';
+
+  if (shouldHideNavigation(pathname)) {
+    return null;
+  }
 
   return (
     <div className='border-b border-white/10'>
       <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
-        {/* Left section - Logo and Search */}
         <div className='flex items-center gap-4'>
           <Link href='/' className='flex items-center'>
             <Image
@@ -37,8 +45,6 @@ export default function Navigation() {
             />
           </div>
         </div>
-
-        {/* Center section - Navigation Links */}
         <div className='flex items-center gap-1'>
           {[
             { href: '/', label: t('home') },
@@ -60,8 +66,6 @@ export default function Navigation() {
             </Link>
           ))}
         </div>
-
-        {/* Right section - Location and Login */}
         <div className='flex items-center gap-4'>
           <Button variant='ghost' size='sm' className='text-muted-foreground'>
             <MapPin className='mr-2 h-4 w-4' />
