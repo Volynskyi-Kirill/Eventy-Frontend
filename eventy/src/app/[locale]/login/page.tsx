@@ -1,12 +1,19 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import { Eye } from 'lucide-react';
+import PasswordInput from '@/components/originUI/PasswordInput';
+import { Input } from '@/components/ui/input';
 
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert('Form submitted!'); 
+  };
 
   return (
     <div className='grid h-screen w-full lg:grid-cols-2'>
@@ -33,7 +40,7 @@ export default function LoginPage() {
             <h1 className='text-5xl font-bold tracking-tight text-white'>
               {t('title')}
             </h1>
-            <div className="w-[100px] h-[2px] bg-emerald-500"></div>
+            <div className='w-[100px] h-[2px] bg-emerald-500'></div>
             <p className='text-base text-white'>
               {t.rich('subtitle', {
                 br: () => <br />,
@@ -43,31 +50,20 @@ export default function LoginPage() {
               })}
             </p>
           </div>
-          <form className='space-y-4'>
+          <form className='space-y-4' onSubmit={handleSubmit}>
             <div className='space-y-2'>
               <Input
                 id='email'
                 type='email'
                 placeholder={t('emailPlaceholder')}
                 className='h-12 border-0 bg-white/5 text-white placeholder:text-muted-foreground'
+                required
               />
             </div>
-            <div className='relative space-y-2'>
-              <Input
-                id='password'
-                type='password'
-                placeholder={t('passwordPlaceholder')}
-                className='h-12 border-0 bg-white/5 pr-10 text-white placeholder:text-muted-foreground'
-              />
-              <Button
-                type='button'
-                variant='ghost'
-                size='icon'
-                className='absolute right-0 top-0 h-12 w-12 text-muted-foreground hover:text-white'
-              >
-                <Eye className='h-5 w-5' />
-              </Button>
-            </div>
+            <PasswordInput
+              placeholder={t('passwordPlaceholder')}
+              className='h-12'
+            />
             <div className='text-right'>
               <Link
                 href='/forgot-password'
@@ -76,10 +72,14 @@ export default function LoginPage() {
                 {t('forgotPassword')}
               </Link>
             </div>
-            <Button className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'>
+            <Button
+              type='submit'
+              className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'
+            >
               {t('loginButton')}
             </Button>
           </form>
+
           <div className='relative'>
             <div className='absolute inset-0 flex items-center'>
               <div className='w-full border-t border-emerald-500'></div>
