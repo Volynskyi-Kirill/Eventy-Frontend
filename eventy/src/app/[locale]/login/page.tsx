@@ -10,10 +10,9 @@ export default function LoginPage() {
 
   return (
     <div className='grid h-screen w-full lg:grid-cols-2'>
-      {/* Left side - Image */}
       <div className='relative hidden lg:block'>
         <Image
-          src='/event.jpg'
+          src='/login-page/login-event-background-img.jpg'
           alt='Login background image'
           fill
           className='object-cover'
@@ -21,15 +20,13 @@ export default function LoginPage() {
         />
         <div className='absolute inset-0 flex items-center justify-center'>
           <Image
-            src='/login-image-logo.svg'
+            src='/login-page/login-image-logo.svg'
             alt='Logo'
             width={80}
             height={80}
           />
         </div>
       </div>
-
-      {/* Right side - Form */}
       <div className='flex items-center justify-center bg-black px-6 lg:px-16'>
         <div className='w-full max-w-[440px] space-y-6'>
           <div className='space-y-2'>
@@ -38,7 +35,6 @@ export default function LoginPage() {
             </h1>
             <p className='text-base text-muted-foreground'>{t('subtitle')}</p>
           </div>
-
           <form className='space-y-4'>
             <div className='space-y-2'>
               <Input
@@ -48,7 +44,6 @@ export default function LoginPage() {
                 className='h-12 border-0 bg-white/5 text-white placeholder:text-muted-foreground'
               />
             </div>
-
             <div className='relative space-y-2'>
               <Input
                 id='password'
@@ -65,7 +60,6 @@ export default function LoginPage() {
                 <Eye className='h-5 w-5' />
               </Button>
             </div>
-
             <div className='text-right'>
               <Link
                 href='/forgot-password'
@@ -74,12 +68,10 @@ export default function LoginPage() {
                 {t('forgotPassword')}
               </Link>
             </div>
-
             <Button className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'>
               {t('loginButton')}
             </Button>
           </form>
-
           <div className='relative'>
             <div className='absolute inset-0 flex items-center'>
               <div className='w-full border-t border-white/10' />
@@ -90,13 +82,12 @@ export default function LoginPage() {
               </span>
             </div>
           </div>
-
           <Button
             variant='outline'
             className='h-12 w-full border-white/10 bg-white/5 text-white hover:bg-white/10'
           >
             <Image
-              src='/login-button-google.png'
+              src='/login-page/login-button-google.png'
               alt='Google'
               width={20}
               height={20}
@@ -104,7 +95,6 @@ export default function LoginPage() {
             />
             {t('loginWithGoogle')}
           </Button>
-
           <p className='text-center text-sm text-muted-foreground'>
             {t('noAccount')}{' '}
             <Link
