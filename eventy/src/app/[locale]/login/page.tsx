@@ -30,9 +30,10 @@ export default function LoginPage() {
       <div className='flex items-center justify-center bg-black px-6 lg:px-16'>
         <div className='w-full max-w-[440px] space-y-6'>
           <div className='space-y-2'>
-            <h1 className='text-3xl font-bold tracking-tight text-white'>
+            <h1 className='text-5xl font-bold tracking-tight text-white'>
               {t('title')}
             </h1>
+            <div className="w-[100px] h-[2px] bg-emerald-500"></div>
             <p className='text-base text-white'>
               {t.rich('subtitle', {
                 br: () => <br />,
@@ -81,7 +82,7 @@ export default function LoginPage() {
           </form>
           <div className='relative'>
             <div className='absolute inset-0 flex items-center'>
-              <div className='w-full border-t border-white/10' />
+              <div className='w-full border-t border-emerald-500'></div>
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
               <span className='bg-black px-2 text-muted-foreground text-white'>
