@@ -10,10 +10,52 @@ import LocaleSwitcher from './LocaleSwitcher';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
-const HIDDEN_NAVIGATION_PATHS = ['/login', '/register'];
+export const URLS = {
+  HOME: '/',
+  EVENTS: '/events',
+  SUBSCRIBERS: '/subscribers',
+  OPEN_SPACE: '/open-space',
+  LOGIN: '/login',
+  REGISTER: '/register',
+};
+
+const HIDDEN_NAVIGATION_PATHS = [URLS.LOGIN, URLS.REGISTER];
 
 function shouldHideNavigation(pathname: string): boolean {
   return HIDDEN_NAVIGATION_PATHS.some((path) => pathname.includes(path));
+}
+
+const NAV_LINKS = [
+  { href: URLS.HOME, labelKey: 'home' },
+  { href: URLS.EVENTS, labelKey: 'events' },
+  { href: URLS.SUBSCRIBERS, labelKey: 'subscribers' },
+  { href: URLS.OPEN_SPACE, labelKey: 'openSpace' },
+];
+
+type NavigationLinksProps = {
+  pathname: string;
+  t: (key: string) => string;
+};
+
+function NavigationLinks({ pathname, t }: NavigationLinksProps) {
+  return (
+    <div className='flex items-center gap-1'>
+      {NAV_LINKS.map(({ href, labelKey }) => (
+        <Link
+          key={href}
+          href={href}
+          className={cn(
+            'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors hover:text-white',
+            pathname === href
+              ? 'bg-emerald-500 text-white'
+              : 'text-muted-foreground'
+          )}
+        >
+          {t(labelKey)}
+        </Link>
+      ))}
+    </div>
+  );
 }
 
 export default function Navigation() {
@@ -28,7 +70,7 @@ export default function Navigation() {
     <div className='border-b border-white/10'>
       <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center gap-4'>
-          <Link href='/' className='flex items-center'>
+          <Link href={URLS.HOME} className='flex items-center'>
             <Image
               src='/subscribers/logo-nav.svg'
               alt='Company Logo'
@@ -45,37 +87,17 @@ export default function Navigation() {
             />
           </div>
         </div>
-        <div className='flex items-center gap-1'>
-          {[
-            { href: '/', label: t('home') },
-            { href: '/events', label: t('events') },
-            { href: '/subscribes', label: t('subscribers') },
-            { href: '/open-space', label: t('openSpace') },
-          ].map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors hover:text-white',
-                pathname === href
-                  ? 'bg-emerald-500 text-white'
-                  : 'text-muted-foreground'
-              )}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
+        <NavigationLinks pathname={pathname} t={t} />
         <div className='flex items-center gap-4'>
           <Button variant='ghost' size='sm' className='text-muted-foreground'>
             <MapPin className='mr-2 h-4 w-4' />
             Location (City)
           </Button>
           <Link
-            href='/login'
+            href={URLS.LOGIN}
             className={cn(
               'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
-              pathname === '/login'
+              pathname === URLS.LOGIN
                 ? 'bg-emerald-500 text-white'
                 : 'text-muted-foreground hover:text-white'
             )}
