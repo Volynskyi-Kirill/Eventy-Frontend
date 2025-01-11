@@ -4,20 +4,22 @@ import { Input } from '@/components/ui/input';
 import { Eye, EyeOff } from 'lucide-react';
 import { useId, useState } from 'react';
 
+interface PasswordInputProps {
+  placeholder?: string;
+  className?: string;
+}
+
 export default function PasswordInput({
   placeholder = 'Password',
   className = '',
-}: {
-  placeholder?: string;
-  className?: string;
-}) {
+}: PasswordInputProps) {
   const id = useId();
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
   return (
-    <div className='relative space-y-2'>
+    <div className='relative'>
       <Input
         id={id}
         className={`h-12 border-0 bg-white/5 pr-10 text-white placeholder:text-muted-foreground ${className}`}
@@ -26,11 +28,14 @@ export default function PasswordInput({
         required
       />
       <button
-        className='absolute inset-y-0 right-0 flex h-12 w-12 items-center justify-center text-muted-foreground transition-colors hover:text-white'
         type='button'
         onClick={toggleVisibility}
         aria-label={isVisible ? 'Hide password' : 'Show password'}
         aria-pressed={isVisible}
+        className='absolute top-1/2 right-2 -translate-y-1/2 
+                   flex h-8 w-8 items-center justify-center
+                   text-muted-foreground transition-colors 
+                   hover:text-white'
       >
         {isVisible ? (
           <EyeOff size={16} strokeWidth={2} aria-hidden='true' />
