@@ -1,7 +1,7 @@
 {
   "LoginPage": {
     "title": "LOG IN",
-    "subtitle": "Discover the Perfect Events for You! Try Evently and Enjoy Unforgettable Moments with Us!",
+    "subtitle": "Discover the Perfect Events for You!<br></br>Try <strong>Evently</strong> and Enjoy Unforgettable Moments with Us!",
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
     "forgotPassword": "Forgot Password?",

@@ -33,7 +33,14 @@ export default function LoginPage() {
             <h1 className='text-3xl font-bold tracking-tight text-white'>
               {t('title')}
             </h1>
-            <p className='text-base text-muted-foreground'>{t('subtitle')}</p>
+            <p className='text-base text-white'>
+              {t.rich('subtitle', {
+                br: () => <br />,
+                strong: (chunks) => (
+                  <strong className='text-emerald-500'>{chunks}</strong>
+                ),
+              })}
+            </p>
           </div>
           <form className='space-y-4'>
             <div className='space-y-2'>
@@ -77,7 +84,7 @@ export default function LoginPage() {
               <div className='w-full border-t border-white/10' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='bg-black px-2 text-muted-foreground'>
+              <span className='bg-black px-2 text-muted-foreground text-white'>
                 {t('orContinueWith')}
               </span>
             </div>
@@ -95,7 +102,7 @@ export default function LoginPage() {
             />
             {t('loginWithGoogle')}
           </Button>
-          <p className='text-center text-sm text-muted-foreground'>
+          <p className='text-center text-sm text-muted-foreground text-white'>
             {t('noAccount')}{' '}
             <Link
               href='/sign-up'
