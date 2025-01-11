@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { ReactNode } from 'react';
-import Navigation from './Navigation';
+import Navigation from './Navigation/Navigation';
 
 type Props = {
   children: ReactNode;

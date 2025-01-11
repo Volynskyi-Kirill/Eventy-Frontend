@@ -1,62 +1,17 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
-import { usePathname } from 'next/navigation';
-import { Search, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import LocaleSwitcher from './LocaleSwitcher';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { MapPin, Search } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-
-export const URLS = {
-  HOME: '/',
-  EVENTS: '/events',
-  SUBSCRIBERS: '/subscribers',
-  OPEN_SPACE: '/open-space',
-  LOGIN: '/login',
-  REGISTER: '/register',
-};
-
-const HIDDEN_NAVIGATION_PATHS = [URLS.LOGIN, URLS.REGISTER];
-
-function shouldHideNavigation(pathname: string): boolean {
-  return HIDDEN_NAVIGATION_PATHS.some((path) => pathname.includes(path));
-}
-
-const NAV_LINKS = [
-  { href: URLS.HOME, labelKey: 'home' },
-  { href: URLS.EVENTS, labelKey: 'events' },
-  { href: URLS.SUBSCRIBERS, labelKey: 'subscribers' },
-  { href: URLS.OPEN_SPACE, labelKey: 'openSpace' },
-];
-
-type NavigationLinksProps = {
-  pathname: string;
-  t: (key: string) => string;
-};
-
-function NavigationLinks({ pathname, t }: NavigationLinksProps) {
-  return (
-    <div className='flex items-center gap-1'>
-      {NAV_LINKS.map(({ href, labelKey }) => (
-        <Link
-          key={href}
-          href={href}
-          className={cn(
-            'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors hover:text-white',
-            pathname === href
-              ? 'bg-emerald-500 text-white'
-              : 'text-muted-foreground'
-          )}
-        >
-          {t(labelKey)}
-        </Link>
-      ))}
-    </div>
-  );
-}
+import { usePathname } from 'next/navigation';
+import LocaleSwitcher from '../LocaleSwitcher';
+import { NavigationLinks } from './NavigationLinks';
+import { URLS } from './urls';
+import { shouldHideNavigation } from './utils';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
@@ -87,7 +42,7 @@ export default function Navigation() {
             />
           </div>
         </div>
-        <NavigationLinks pathname={pathname} t={t} />
+        <NavigationLinks pathname={pathname} />
         <div className='flex items-center gap-4'>
           <Button variant='ghost' size='sm' className='text-muted-foreground'>
             <MapPin className='mr-2 h-4 w-4' />
