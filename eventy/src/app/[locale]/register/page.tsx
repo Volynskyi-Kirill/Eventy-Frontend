@@ -83,7 +83,7 @@ export default function RegisterPage() {
                 {t('title')}
                 <div className='w-[100px] h-[2px] bg-emerald-500 mt-2'></div>
               </h1>
-              <p className='text-gray-400'>
+              <p className='text-white'>
                 {t.rich('subtitle', {
                   br: () => <br />,
                   strong: (chunks) => (
@@ -153,7 +153,7 @@ export default function RegisterPage() {
                   {isSubmitting ? t('submitting') : t('signUpButton')}
                 </Button>
 
-                <p className='text-center text-gray-400'>
+                <p className='text-center text-white'>
                   {t('haveAccount')}{' '}
                   <Link
                     href={URLS.LOGIN}
