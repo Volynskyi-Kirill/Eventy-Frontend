@@ -12,10 +12,19 @@ import LocaleSwitcher from '../LocaleSwitcher';
 import { NavigationLinks } from './NavigationLinks';
 import { URLS } from './urls';
 import { shouldHideNavigation } from './utils';
+import { UserMenu } from './UserMenu';
+import { useEffect, useState } from 'react';
+import { TokenService } from '@/lib/token.service';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
   const pathname = usePathname() || '';
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = TokenService.getAccessToken();
+    setIsLoggedIn(!!token);
+  }, []);
 
   if (shouldHideNavigation(pathname)) {
     return (
@@ -52,17 +61,21 @@ export default function Navigation() {
             <MapPin className='mr-2 h-4 w-4' />
             Location (City)
           </Button>
-          <Link
-            href={URLS.LOGIN}
-            className={cn(
-              'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
-              pathname === URLS.LOGIN
-                ? 'bg-emerald-500 text-white'
-                : 'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10'
-            )}
-          >
-            {t('login')}
-          </Link>
+          {isLoggedIn ? (
+            <UserMenu />
+          ) : (
+            <Link
+              href={URLS.LOGIN}
+              className={cn(
+                'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
+                pathname === URLS.LOGIN
+                  ? 'bg-emerald-500 text-white'
+                  : 'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10'
+              )}
+            >
+              {t('login')}
+            </Link>
+          )}
           <LocaleSwitcher />
         </div>
       </nav>

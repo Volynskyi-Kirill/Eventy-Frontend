@@ -52,6 +52,7 @@ export default function LoginPage() {
       router.push(URLS.HOME);
     } catch (error: any) {
       if (error.response?.data) {
+        //TODO handle 401 invalid credentials
         const apiError: ApiErrorResponse = error.response.data;
         toast.error(apiError.message || t('loginError'));
       } else {

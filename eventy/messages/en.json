@@ -15,14 +15,17 @@
       "emailInvalid": "Invalid email address",
       "passwordRequired": "Password is required"
     },
-    "loginError": "Login error. Please try later."
+    "loginError": "Login error. Please try later.",
+    "loginSuccess": "Login successful! Welcome!"
   },
   "Navigation": {
     "home": "Home",
     "events": "Events",
     "subscribers": "Subscribers",
     "openSpace": "Open Space",
-    "login": "Log in"
+    "login": "Log in",
+    "accountSettings": "Account Settings",
+    "logout": "Log Out"
   },
   "NotFoundPage": {
     "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
