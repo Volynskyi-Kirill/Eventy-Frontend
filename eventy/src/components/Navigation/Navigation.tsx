@@ -58,7 +58,7 @@ export default function Navigation() {
               'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
               pathname === URLS.LOGIN
                 ? 'bg-emerald-500 text-white'
-                : 'text-muted-foreground hover:text-white'
+                : 'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10'
             )}
           >
             {t('login')}
