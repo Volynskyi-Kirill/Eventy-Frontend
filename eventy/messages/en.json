@@ -42,6 +42,14 @@
     "signUpButton": "SIGN UP",
     "submitting": "registration...",
     "haveAccount": "Do you have an account?",
-    "login": "Login"
+    "login": "Login",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "surnameMin": "Surname must be at least 2 characters",
+      "phoneInvalid": "Invalid phone number",
+      "emailInvalid": "Invalid email address",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordsMatch": "Passwords don't match"
+    }
   }
 }

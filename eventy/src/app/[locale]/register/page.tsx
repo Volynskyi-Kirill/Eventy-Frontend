@@ -12,25 +12,27 @@ import { useState } from 'react';
 import { Form } from '@/components/ui/form';
 import { FormField } from '@/components/auth/FormField';
 
-const registerSchema = z
-  .object({
-    name: z.string().min(2, 'Name must be at least 2 characters'),
-    surname: z.string().min(2, 'Surname must be at least 2 characters'),
-    phone: z.string().regex(/^\+?[0-9]\d{1,14}$/, 'Invalid phone number'),
-    email: z.string().email('Invalid email address'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ['confirmPassword'],
-  });
-
-type RegisterFormData = z.infer<typeof registerSchema>;
-
 export default function RegisterPage() {
   const t = useTranslations('RegisterPage');
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const registerSchema = z
+    .object({
+      name: z.string().min(2, t('validation.nameMin')),
+      surname: z.string().min(2, t('validation.surnameMin')),
+      phone: z
+        .string()
+        .regex(/^\+?[0-9]\d{1,14}$/, t('validation.phoneInvalid')),
+      email: z.string().email(t('validation.emailInvalid')),
+      password: z.string().min(8, t('validation.passwordMin')),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: t('validation.passwordsMatch'),
+      path: ['confirmPassword'],
+    });
+
+  type RegisterFormData = z.infer<typeof registerSchema>;
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
@@ -46,9 +48,8 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsSubmitting(true);
-    // Here you would typically send the data to your API
     console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating API call
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSubmitting(false);
     alert('Form submitted successfully!');
   };

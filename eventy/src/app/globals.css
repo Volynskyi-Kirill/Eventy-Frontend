@@ -50,8 +50,9 @@ body {
     --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 65%; /* Яркий красный для темной темы */
+    /* --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%; */
     --border: 210 16% 90%;
     --input: 210 16% 90%;
     /* --border: 0 0% 14.9%;
