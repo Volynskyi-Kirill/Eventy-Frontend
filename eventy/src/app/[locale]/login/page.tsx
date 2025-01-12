@@ -1,20 +1,32 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import { URLS } from '@/components/Navigation/urls';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { useState } from 'react';
-import { Form } from '@/components/ui/form';
 import { FormField } from '@/components/auth/FormField';
+import { URLS } from '@/components/Navigation/urls';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
+import { Link, useRouter } from '@/i18n/routing';
+import { authService } from '@/lib/api/auth.service';
+import { ApiErrorResponse } from '@/lib/api/types';
+import { TokenService } from '@/lib/token.service';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import * as z from 'zod';
 
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = TokenService.getAccessToken();
+    if (token) {
+      router.push(URLS.HOME);
+    }
+  }, [router]);
 
   const loginSchema = z.object({
     email: z.string().email(t('validation.emailInvalid')),
@@ -33,10 +45,22 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     setIsSubmitting(true);
-    console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    alert('Form submitted successfully!');
+    try {
+      const response = await authService.login(data);
+      TokenService.setAccessToken(response.access_token);
+      toast.success(t('loginSuccess'));
+      router.push(URLS.HOME);
+    } catch (error: any) {
+      if (error.response?.data) {
+        const apiError: ApiErrorResponse = error.response.data;
+        toast.error(apiError.message || t('loginError'));
+      } else {
+        toast.error(t('loginError'));
+      }
+      console.error('Login error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

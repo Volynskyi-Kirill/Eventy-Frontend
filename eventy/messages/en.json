@@ -14,7 +14,8 @@
     "validation": {
       "emailInvalid": "Invalid email address",
       "passwordRequired": "Password is required"
-    }
+    },
+    "loginError": "Login error. Please try later."
   },
   "Navigation": {
     "home": "Home",

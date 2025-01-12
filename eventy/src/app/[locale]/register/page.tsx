@@ -11,7 +11,7 @@ import { TokenService } from '@/lib/token.service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
@@ -20,6 +20,13 @@ export default function RegisterPage() {
   const t = useTranslations('RegisterPage');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const token = TokenService.getAccessToken();
+    if (token) {
+      router.push(URLS.HOME);
+    }
+  }, [router]);
 
   const registerSchema = z
     .object({

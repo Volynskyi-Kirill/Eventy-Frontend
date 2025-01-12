@@ -14,7 +14,8 @@
     "validation": {
       "emailInvalid": "Невірна електронна адреса",
       "passwordRequired": "Пароль обов'язковий"
-    }
+    },
+    "loginError": "Помилка входу. Будь ласка, спробуйте пізніше"
   },
   "Navigation": {
     "home": "Головна",
