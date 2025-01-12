@@ -5,13 +5,13 @@ import { URLS } from '@/components/Navigation/urls';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Link, useRouter } from '@/i18n/routing';
-import { authService } from '@/lib/api/auth.service';
 import { ApiErrorResponse } from '@/lib/api/types';
 import { TokenService } from '@/lib/token.service';
+import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
@@ -46,13 +46,12 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.login(data);
-      TokenService.setAccessToken(response.access_token);
+      await useAuthStore.getState().login(data.email, data.password);
       toast.success(t('loginSuccess'));
       router.push(URLS.HOME);
     } catch (error: any) {
+      //TODO handle error 401 invalid credentials
       if (error.response?.data) {
-        //TODO handle 401 invalid credentials
         const apiError: ApiErrorResponse = error.response.data;
         toast.error(apiError.message || t('loginError'));
       } else {

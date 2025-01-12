@@ -5,9 +5,9 @@ import { URLS } from '@/components/Navigation/urls';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Link, useRouter } from '@/i18n/routing';
-import { authService } from '@/lib/api/auth.service';
 import { ApiErrorResponse } from '@/lib/api/types';
 import { TokenService } from '@/lib/token.service';
+import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -61,7 +61,7 @@ export default function RegisterPage() {
   const onSubmit = async (data: RegisterFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.register({
+      await useAuthStore.getState().register({
         userName: data.name,
         userSurname: data.surname,
         phoneNumber: data.phone,
@@ -69,11 +69,10 @@ export default function RegisterPage() {
         password: data.password,
       });
 
-      TokenService.setAccessToken(response.access_token);
-
       toast.success(t('registerSuccess'));
       router.push(URLS.HOME);
     } catch (error: any) {
+      //TODO handle error user already exist
       if (error.response?.data) {
         const apiError: ApiErrorResponse = error.response.data;
         toast.error(apiError.message || t('registerError'));

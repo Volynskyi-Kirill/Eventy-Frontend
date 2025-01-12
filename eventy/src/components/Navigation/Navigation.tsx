@@ -13,18 +13,12 @@ import { NavigationLinks } from './NavigationLinks';
 import { URLS } from './urls';
 import { shouldHideNavigation } from './utils';
 import { UserMenu } from './UserMenu';
-import { useEffect, useState } from 'react';
-import { TokenService } from '@/lib/token.service';
+import { useAuthStore } from '@/store/authStore';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
   const pathname = usePathname() || '';
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = TokenService.getAccessToken();
-    setIsLoggedIn(!!token);
-  }, []);
+  const { isLoggedIn } = useAuthStore();
 
   if (shouldHideNavigation(pathname)) {
     return (

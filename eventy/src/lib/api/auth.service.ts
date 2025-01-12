@@ -2,7 +2,7 @@ import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
 import { AuthSuccessResponse } from './types';
 
-interface RegisterData {
+export interface RegisterData {
   userName: string;
   userSurname: string;
   phoneNumber: string;
@@ -29,6 +29,10 @@ export const authService = {
       API_ENDPOINTS.AUTH.LOGIN,
       data
     );
+    return response.data;
+  },
+  fetchUser: async () => {
+    const response = await axiosInstance.get(API_ENDPOINTS.USERS.ME);
     return response.data;
   },
 };

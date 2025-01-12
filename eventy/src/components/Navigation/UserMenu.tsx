@@ -9,16 +9,17 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTranslations } from 'next-intl';
-import { TokenService } from '@/lib/token.service';
+import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import { URLS } from './urls';
 
 export function UserMenu() {
   const t = useTranslations('Navigation');
   const router = useRouter();
+  const logout = useAuthStore((state) => state.logout);
 
   const handleLogout = () => {
-    TokenService.removeAccessToken();
+    logout();
     router.push(URLS.HOME);
   };
 
