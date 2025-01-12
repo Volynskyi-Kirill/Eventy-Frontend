@@ -40,6 +40,7 @@
     "passwordPlaceholder": "Пароль",
     "confirmPasswordPlaceholder": "Підтвердьте пароль",
     "signUpButton": "ЗАРЕЄСТРУВАТИСЯ",
+    "submitting": "реєстрація...",
     "haveAccount": "Вже маєте акаунт?",
     "login": "Увійти"
   }

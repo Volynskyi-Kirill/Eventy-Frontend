@@ -3,17 +3,54 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import Image from 'next/image';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import PasswordInput from '@/components/originUI/PasswordInput';
 import { URLS } from '@/components/Navigation/urls';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { useState } from 'react';
+import { Form } from '@/components/ui/form';
+import { FormField } from '@/components/auth/FormField';
+
+const registerSchema = z
+  .object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    surname: z.string().min(2, 'Surname must be at least 2 characters'),
+    phone: z.string().regex(/^\+?[0-9]\d{1,14}$/, 'Invalid phone number'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  });
+
+type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const t = useTranslations('RegisterPage');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Form submitted!');
+  const form = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      surname: '',
+      phone: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+
+  const onSubmit = async (data: RegisterFormData) => {
+    setIsSubmitting(true);
+    // Here you would typically send the data to your API
+    console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulating API call
+    setIsSubmitting(false);
+    alert('Form submitted successfully!');
   };
 
   return (
@@ -55,68 +92,77 @@ export default function RegisterPage() {
               </p>
             </div>
 
-            <form className='space-y-4' onSubmit={handleSubmit}>
-              <div className='grid grid-cols-2 gap-4'>
-                <div>
-                  <Input
-                    type='text'
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className='space-y-4'
+              >
+                <div className='grid grid-cols-2 gap-4'>
+                  <FormField
+                    control={form.control}
+                    name='name'
+                    label={t('namePlaceholder')}
                     placeholder={t('namePlaceholder')}
-                    className='bg-transparent border-gray-800 text-white'
-                    required
                   />
-                </div>
-                <div>
-                  <Input
-                    type='text'
+                  <FormField
+                    control={form.control}
+                    name='surname'
+                    label={t('surnamePlaceholder')}
                     placeholder={t('surnamePlaceholder')}
-                    className='bg-transparent border-gray-800 text-white'
-                    required
                   />
                 </div>
-              </div>
 
-              <div>
-                <Input
-                  type='tel'
+                <FormField
+                  control={form.control}
+                  name='phone'
+                  label={t('phonePlaceholder')}
                   placeholder={t('phonePlaceholder')}
-                  className='bg-transparent border-gray-800 text-white'
-                  required
+                  type='tel'
                 />
-              </div>
 
-              <div>
-                <Input
-                  type='email'
+                <FormField
+                  control={form.control}
+                  name='email'
+                  label={t('emailPlaceholder')}
                   placeholder={t('emailPlaceholder')}
-                  className='bg-transparent border-gray-800 text-white'
-                  required
+                  type='email'
                 />
-              </div>
 
-              <PasswordInput
-                placeholder={t('passwordPlaceholder')}
-                className='bg-transparent border-gray-800 text-white'
-              />
+                <FormField
+                  control={form.control}
+                  name='password'
+                  label={t('passwordPlaceholder')}
+                  placeholder={t('passwordPlaceholder')}
+                  type='password'
+                />
 
-              <PasswordInput
-                placeholder={t('confirmPasswordPlaceholder')}
-                className='bg-transparent border-gray-800 text-white'
-              />
+                <FormField
+                  control={form.control}
+                  name='confirmPassword'
+                  label={t('confirmPasswordPlaceholder')}
+                  placeholder={t('confirmPasswordPlaceholder')}
+                  type='password'
+                />
 
-              <Button className='w-full bg-emerald-500 hover:bg-emerald-600 text-white'>
-                {t('signUpButton')}
-              </Button>
-
-              <p className='text-center text-gray-400'>
-                {t('haveAccount')}{' '}
-                <Link
-                  href={URLS.LOGIN}
-                  className='text-emerald-500 hover:text-emerald-400'
+                <Button
+                  type='submit'
+                  className='w-full bg-emerald-500 hover:bg-emerald-600 text-white'
+                  disabled={isSubmitting}
                 >
-                  {t('login')}
-                </Link>
-              </p>
-            </form>
+                  {isSubmitting ? t('submitting') : t('signUpButton')}
+                </Button>
+
+                <p className='text-center text-gray-400'>
+                  {t('haveAccount')}{' '}
+                  <Link
+                    href={URLS.LOGIN}
+                    className='text-emerald-500 hover:text-emerald-400'
+                  >
+                    {t('login')}
+                  </Link>
+                </p>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

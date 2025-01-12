@@ -40,6 +40,7 @@
     "passwordPlaceholder": "Password",
     "confirmPasswordPlaceholder": "Confirm password",
     "signUpButton": "SIGN UP",
+    "submitting": "registration...",
     "haveAccount": "Do you have an account?",
     "login": "Login"
   }

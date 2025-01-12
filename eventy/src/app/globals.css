@@ -52,9 +52,12 @@ body {
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --border: 210 16% 90%;
+    --input: 210 16% 90%;
+    /* --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%; */
+    --ring: 220 90% 60%; /* яркий синий для фокуса */
+    /* --ring: 0 0% 83.1%; */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -70,4 +73,18 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff; /* Устанавливает цвет текста белым */
+  -webkit-box-shadow: 0 0 0px 1000px #000000 inset; /* Устанавливает фон черным */
+  transition: background-color 5000s ease-in-out 0s; /* Предотвращает мгновенное изменение фона */
 }
