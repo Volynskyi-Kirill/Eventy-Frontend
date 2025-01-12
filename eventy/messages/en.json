@@ -56,6 +56,7 @@
       "passwordMin": "Password must be at least 8 characters",
       "passwordsMatch": "Passwords don't match"
     },
-    "registerError": "Помилка реєстрації. Будь ласка, спробуйте пізніше"
+    "registerError": "Registration error. Please try later.",
+    "registerSuccess": "Registration successful! Welcome!"
   }
 }

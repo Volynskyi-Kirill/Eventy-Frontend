@@ -1,20 +1,20 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { Link, useRouter } from '@/i18n/routing';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { URLS } from '@/components/Navigation/urls';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { useState } from 'react';
-import { Form } from '@/components/ui/form';
 import { FormField } from '@/components/auth/FormField';
+import { URLS } from '@/components/Navigation/urls';
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
+import { Link, useRouter } from '@/i18n/routing';
 import { authService } from '@/lib/api/auth.service';
-import { toast } from 'react-hot-toast';
-import { TokenService } from '@/lib/token.service';
 import { ApiErrorResponse } from '@/lib/api/types';
+import { TokenService } from '@/lib/token.service';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import * as z from 'zod';
 
 export default function RegisterPage() {
   const t = useTranslations('RegisterPage');
