@@ -55,6 +55,7 @@
       "emailInvalid": "Невірна електронна адреса",
       "passwordMin": "Пароль повинен містити щонайменше 8 символів",
       "passwordsMatch": "Паролі не співпадають"
-    }
+    },
+    "registerError": "Registration error. Please try later."
   }
 }

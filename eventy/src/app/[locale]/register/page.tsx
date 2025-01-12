@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
+import { Link, useRouter } from '@/i18n/routing';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { URLS } from '@/components/Navigation/urls';
@@ -11,10 +11,15 @@ import * as z from 'zod';
 import { useState } from 'react';
 import { Form } from '@/components/ui/form';
 import { FormField } from '@/components/auth/FormField';
+import { authService } from '@/lib/api/auth.service';
+import { toast } from 'react-hot-toast';
+import { TokenService } from '@/lib/token.service';
+import { ApiErrorResponse } from '@/lib/api/types';
 
 export default function RegisterPage() {
   const t = useTranslations('RegisterPage');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const registerSchema = z
     .object({
@@ -48,10 +53,30 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsSubmitting(true);
-    console.log(data);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    alert('Form submitted successfully!');
+    try {
+      const response = await authService.register({
+        userName: data.name,
+        userSurname: data.surname,
+        phoneNumber: data.phone,
+        email: data.email,
+        password: data.password,
+      });
+
+      TokenService.setAccessToken(response.access_token);
+
+      toast.success(t('registerSuccess'));
+      router.push(URLS.HOME);
+    } catch (error: any) {
+      if (error.response?.data) {
+        const apiError: ApiErrorResponse = error.response.data;
+        toast.error(apiError.message || t('registerError'));
+      } else {
+        toast.error(t('registerError'));
+      }
+      console.error('Registration error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

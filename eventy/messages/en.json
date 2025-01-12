@@ -55,6 +55,7 @@
       "emailInvalid": "Invalid email address",
       "passwordMin": "Password must be at least 8 characters",
       "passwordsMatch": "Passwords don't match"
-    }
+    },
+    "registerError": "Помилка реєстрації. Будь ласка, спробуйте пізніше"
   }
 }
