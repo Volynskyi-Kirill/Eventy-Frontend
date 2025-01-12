@@ -2,12 +2,19 @@ import { STORAGE_KEYS } from './constants';
 
 export const TokenService = {
   setAccessToken: (token: string) => {
-    localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token);
+    }
   },
   getAccessToken: (): string | null => {
-    return localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
+    }
+    return null;
   },
   removeAccessToken: () => {
-    localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+    }
   },
 };
