@@ -9,7 +9,12 @@
     "orContinueWith": "або продовжити через",
     "loginWithGoogle": "Увійти через Google",
     "noAccount": "Немає акаунта?",
-    "signUp": "Зареєструватися"
+    "signUp": "Зареєструватися",
+    "submitting": "вхід...",
+    "validation": {
+      "emailInvalid": "Невірна електронна адреса",
+      "passwordRequired": "Пароль обов'язковий"
+    }
   },
   "Navigation": {
     "home": "Головна",

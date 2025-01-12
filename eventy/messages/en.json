@@ -9,7 +9,12 @@
     "orContinueWith": "or continue with",
     "loginWithGoogle": "Login with Google",
     "noAccount": "Don't have an account?",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "submitting": "logging in...",
+    "validation": {
+      "emailInvalid": "Invalid email address",
+      "passwordRequired": "Password is required"
+    }
   },
   "Navigation": {
     "home": "Home",

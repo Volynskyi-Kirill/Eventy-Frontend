@@ -4,16 +4,39 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import PasswordInput from '@/components/originUI/PasswordInput';
-import { Input } from '@/components/ui/input';
 import { URLS } from '@/components/Navigation/urls';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { useState } from 'react';
+import { Form } from '@/components/ui/form';
+import { FormField } from '@/components/auth/FormField';
 
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Form submitted!');
+  const loginSchema = z.object({
+    email: z.string().email(t('validation.emailInvalid')),
+    password: z.string().min(1, t('validation.passwordRequired')),
+  });
+
+  type LoginFormData = z.infer<typeof loginSchema>;
+
+  const form = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
+    setIsSubmitting(true);
+    console.log(data);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSubmitting(false);
+    alert('Form submitted successfully!');
   };
 
   return (
@@ -52,46 +75,42 @@ export default function LoginPage() {
                 })}
               </p>
             </div>
-            <form className='space-y-4' onSubmit={handleSubmit}>
-              <Input
-                id='email'
-                type='email'
-                placeholder={t('emailPlaceholder')}
-                className='
-    w-full max-w-[483px] h-14 sm:h-[56px] sm:max-w-full
-    rounded-lg border border-input
-    bg-background px-4 text-base text-foreground
-    placeholder:text-muted-foreground focus:outline-none
-    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mt-10
-  '
-                required
-              />
-              <PasswordInput
-                placeholder={t('passwordPlaceholder')}
-                className='
-    w-full max-w-[483px] h-14 sm:h-[56px] sm:max-w-full
-    rounded-lg border border-input
-    bg-background px-4 text-base text-foreground
-    placeholder:text-muted-foreground focus:outline-none
-    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mt-5
-  '
-              />
-
-              <div className='text-right'>
-                <Link
-                  href='/forgot-password'
-                  className='text-sm text-emerald-500 hover:text-emerald-400'
-                >
-                  {t('forgotPassword')}
-                </Link>
-              </div>
-              <Button
-                type='submit'
-                className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className='space-y-4'
               >
-                {t('loginButton')}
-              </Button>
-            </form>
+                <FormField
+                  control={form.control}
+                  name='email'
+                  label={t('emailPlaceholder')}
+                  placeholder={t('emailPlaceholder')}
+                  type='email'
+                />
+                <FormField
+                  control={form.control}
+                  name='password'
+                  label={t('passwordPlaceholder')}
+                  placeholder={t('passwordPlaceholder')}
+                  type='password'
+                />
+                <div className='text-right'>
+                  <Link
+                    href='/forgot-password'
+                    className='text-sm text-emerald-500 hover:text-emerald-400'
+                  >
+                    {t('forgotPassword')}
+                  </Link>
+                </div>
+                <Button
+                  type='submit'
+                  className='h-12 w-full bg-emerald-500 text-white hover:bg-emerald-600'
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? t('submitting') : t('loginButton')}
+                </Button>
+              </form>
+            </Form>
 
             <div className='relative'>
               <div className='absolute inset-0 flex items-center'>
