@@ -18,7 +18,11 @@ export default function Navigation() {
   const pathname = usePathname() || '';
 
   if (shouldHideNavigation(pathname)) {
-    return null;
+    return (
+      <div className='fixed top-4 right-4 z-50'>
+        <LocaleSwitcher />
+      </div>
+    );
   }
 
   return (
