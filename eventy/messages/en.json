@@ -29,5 +29,18 @@
   },
   "LocaleLayout": {
     "title": "Eventy"
+  },
+  "RegisterPage": {
+    "title": "SIGN UP",
+    "subtitle": "Discover the Perfect Events for You!<br></br>Try <strong>Evently</strong> and Enjoy Unforgettable Moments with Us!",
+    "namePlaceholder": "Name",
+    "surnamePlaceholder": "Surname",
+    "phonePlaceholder": "Phone number",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "signUpButton": "SIGN UP",
+    "haveAccount": "Do you have an account?",
+    "login": "Login"
   }
 }

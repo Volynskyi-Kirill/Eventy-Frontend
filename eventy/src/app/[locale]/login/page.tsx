@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import PasswordInput from '@/components/originUI/PasswordInput';
 import { Input } from '@/components/ui/input';
+import { URLS } from '@/components/Navigation/urls';
 
 export default function LoginPage() {
   const t = useTranslations('LoginPage');
@@ -61,7 +62,7 @@ export default function LoginPage() {
     rounded-lg border border-input
     bg-background px-4 text-base text-foreground
     placeholder:text-muted-foreground focus:outline-none
-    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mt-10
   '
                 required
               />
@@ -72,7 +73,7 @@ export default function LoginPage() {
     rounded-lg border border-input
     bg-background px-4 text-base text-foreground
     placeholder:text-muted-foreground focus:outline-none
-    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500
+    focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 mt-5
   '
               />
 
@@ -118,7 +119,7 @@ export default function LoginPage() {
             <p className='text-center text-sm text-muted-foreground text-white'>
               {t('noAccount')}{' '}
               <Link
-                href='/sign-up'
+                href={URLS.REGISTER}
                 className='text-emerald-500 hover:text-emerald-400'
               >
                 {t('signUp')}
