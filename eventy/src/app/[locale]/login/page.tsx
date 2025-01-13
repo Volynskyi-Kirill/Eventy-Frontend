@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Link, useRouter } from '@/i18n/routing';
 import { ApiErrorResponse } from '@/lib/api/types';
-import { TokenService } from '@/lib/token.service';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -20,13 +19,14 @@ export default function LoginPage() {
   const t = useTranslations('LoginPage');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
+  //TODO в свой кастомный хук?
   useEffect(() => {
-    const token = TokenService.getAccessToken();
-    if (token) {
+    if (isLoggedIn) {
       router.push(URLS.HOME);
     }
-  }, [router]);
+  }, [isLoggedIn, router]);
 
   const loginSchema = z.object({
     email: z.string().email(t('validation.emailInvalid')),

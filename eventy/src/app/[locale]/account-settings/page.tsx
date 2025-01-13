@@ -5,6 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 export default function AccountSettingsPage() {
   const { user } = useAuthStore();
+  //TODO loader пока достаем юзера
   console.log('user: ', user);
 
   if (!user) {
