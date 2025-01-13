@@ -37,7 +37,10 @@ export function UserMenu() {
         <DropdownMenuItem onClick={() => router.push(URLS.ACCOUNT_SETTINGS)}>
           {t('accountSettings')}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleLogout}>
+        <DropdownMenuItem
+          onClick={handleLogout}
+          className='text-red-500 hover:text-red-700'
+        >
           {t('logout')}
         </DropdownMenuItem>
       </DropdownMenuContent>
