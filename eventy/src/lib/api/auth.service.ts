@@ -31,12 +31,6 @@ export const authService = {
     );
     return response.data;
   },
-  loginWithGoogle: async () => {
-    const response = await axiosInstance.post<AuthSuccessResponse>(
-      API_ENDPOINTS.AUTH.GOOGLE
-    );
-    return response.data;
-  },
   fetchUser: async () => {
     const response = await axiosInstance.get(API_ENDPOINTS.USERS.ME);
     return response.data;
