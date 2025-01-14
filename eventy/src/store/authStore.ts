@@ -17,6 +17,7 @@ interface AuthState {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   fetchUser: () => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
 }
 
 export const useAuthStore = create(
@@ -45,6 +46,18 @@ export const useAuthStore = create(
           await get().fetchUser();
         } catch (error) {
           console.error('Login failed', error);
+          throw error;
+        }
+      },
+
+      loginWithGoogle: async () => {
+        try {
+          const response = await authService.loginWithGoogle();
+          TokenService.setAccessToken(response.access_token);
+          set({ isLoggedIn: true });
+          await get().fetchUser();
+        } catch (error) {
+          console.error('Google login failed', error);
           throw error;
         }
       },

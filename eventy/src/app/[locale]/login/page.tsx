@@ -63,6 +63,20 @@ export default function LoginPage() {
     }
   };
 
+  const onGoogleLogin = async () => {
+    setIsSubmitting(true);
+    try {
+      await useAuthStore.getState().loginWithGoogle();
+      toast.success(t('loginSuccess'));
+      router.push(URLS.HOME);
+    } catch (error: any) {
+      toast.error(t('loginError'));
+      console.error('Google login error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className='dark'>
       <div className='grid h-screen w-full lg:grid-cols-2'>
@@ -149,6 +163,7 @@ export default function LoginPage() {
             <Button
               variant='outline'
               className='h-12 w-full border-white/10 bg-white/5 text-white hover:bg-white/10'
+              onClick={onGoogleLogin}
             >
               <Image
                 src='/login-page/login-button-google.png'

@@ -49,6 +49,7 @@
     "passwordPlaceholder": "Пароль",
     "confirmPasswordPlaceholder": "Підтвердьте пароль",
     "signUpButton": "ЗАРЕЄСТРУВАТИСЯ",
+    "loginWithGoogle": "Продовжити через Google",
     "submitting": "реєстрація...",
     "haveAccount": "Вже маєте акаунт?",
     "login": "Увійти",

@@ -84,6 +84,20 @@ export default function RegisterPage() {
     }
   };
 
+  const onGoogleLogin = async () => {
+    setIsSubmitting(true);
+    try {
+      await useAuthStore.getState().loginWithGoogle();
+      toast.success(t('loginSuccess'));
+      router.push(URLS.HOME);
+    } catch (error: any) {
+      toast.error(t('loginError'));
+      console.error('Google login error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className='dark'>
       <div className='grid lg:grid-cols-2 min-h-screen'>
@@ -181,6 +195,20 @@ export default function RegisterPage() {
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? t('submitting') : t('signUpButton')}
+                </Button>
+                <Button
+                  variant='outline'
+                  className='h-12 w-full border-white/10 bg-white/5 text-white hover:bg-white/10'
+                  onClick={onGoogleLogin}
+                >
+                  <Image
+                    src='/login-page/login-button-google.png'
+                    alt='Google'
+                    width={20}
+                    height={20}
+                    className='mr-2 h-5 w-5'
+                  />
+                  {t('loginWithGoogle')}
                 </Button>
 
                 <p className='text-center text-white'>
