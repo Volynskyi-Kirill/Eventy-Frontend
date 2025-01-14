@@ -8,6 +8,11 @@ interface User {
   email: string;
   userName: string;
   userSurname: string;
+  phoneNumber: string | null;
+  pwdHash: string | null;
+  avatarUrl: string | null;
+  provider: string | null;
+  providerId: string | null;
 }
 
 interface AuthState {
