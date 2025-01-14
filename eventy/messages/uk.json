@@ -1,0 +1,66 @@
+{
+  "LoginPage": {
+    "title": "УВІЙТИ",
+    "subtitle": "Знайдіть ідеальні події для себе!<br></br>Спробуйте <strong>Evently</strong> і насолоджуйтесь незабутніми моментами разом з нами!",
+    "emailPlaceholder": "Електронна пошта",
+    "passwordPlaceholder": "Пароль",
+    "forgotPassword": "Забули пароль?",
+    "loginButton": "УВІЙТИ",
+    "orContinueWith": "або продовжити через",
+    "loginWithGoogle": "Увійти через Google",
+    "noAccount": "Немає акаунта?",
+    "signUp": "Зареєструватися",
+    "submitting": "вхід...",
+    "validation": {
+      "emailInvalid": "Невірна електронна адреса",
+      "passwordRequired": "Пароль обов'язковий"
+    },
+    "loginError": "Помилка входу. Будь ласка, спробуйте пізніше",
+    "loginSuccess": "Вхід успішний! Ласкаво просимо!"
+  },
+  "Navigation": {
+    "home": "Головна",
+    "events": "Події",
+    "subscribers": "Підписки",
+    "openSpace": "Відкритий простір",
+    "login": "Увійти",
+    "accountSettings": "Налаштування",
+    "logout": "Вийти"
+  },
+  "NotFoundPage": {
+    "description": "Будь ласка, перевірте адресу в рядку браузера або скористайтеся навігацією, щоб перейти на відому сторінку.",
+    "title": "Сторінку не знайдено",
+    "goHome": "На головну"
+  },
+  "LocaleSwitcher": {
+    "label": "Змінити мову",
+    "locale": "{locale, select, uk {🇺🇦 Українська} en {🇺🇸 English} other {Невідома}}"
+  },
+  "LocaleLayout": {
+    "title": "Eventy"
+  },
+  "RegisterPage": {
+    "title": "ЗАРЕЄСТРУВАТИСЯ",
+    "subtitle": "Знайдіть ідеальні події для себе!<br></br>Спробуйте <strong>Evently</strong> і насолоджуйтесь незабутніми моментами разом з нами!",
+    "namePlaceholder": "Ім'я",
+    "surnamePlaceholder": "Прізвище",
+    "phonePlaceholder": "Номер телефону",
+    "emailPlaceholder": "Електронна пошта",
+    "passwordPlaceholder": "Пароль",
+    "confirmPasswordPlaceholder": "Підтвердьте пароль",
+    "signUpButton": "ЗАРЕЄСТРУВАТИСЯ",
+    "submitting": "реєстрація...",
+    "haveAccount": "Вже маєте акаунт?",
+    "login": "Увійти",
+    "validation": {
+      "nameMin": "Ім'я повинно містити щонайменше 2 символи",
+      "surnameMin": "Прізвище повинно містити щонайменше 2 символи",
+      "phoneInvalid": "Невірний номер телефону",
+      "emailInvalid": "Невірна електронна адреса",
+      "passwordMin": "Пароль повинен містити щонайменше 8 символів",
+      "passwordsMatch": "Паролі не співпадають"
+    },
+    "registerError": "Помилка реєстрації. Будь ласка, спробуйте пізніше",
+    "registerSuccess": "Реєстрація пройшла успішно! Ласкаво просимо!"
+  }
+}
