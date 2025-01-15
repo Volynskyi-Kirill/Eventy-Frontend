@@ -8,6 +8,11 @@ interface User {
   email: string;
   userName: string;
   userSurname: string;
+  phoneNumber: string | null;
+  pwdHash: string | null;
+  avatarUrl: string | null;
+  provider: string | null;
+  providerId: string | null;
 }
 
 interface AuthState {
@@ -17,6 +22,7 @@ interface AuthState {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   fetchUser: () => Promise<void>;
+  loginWithGoogle: (token: string) => Promise<void>;
 }
 
 export const useAuthStore = create(
@@ -45,6 +51,18 @@ export const useAuthStore = create(
           await get().fetchUser();
         } catch (error) {
           console.error('Login failed', error);
+          throw error;
+        }
+      },
+
+      loginWithGoogle: async (token: string) => {
+        console.log('loginWithGoogle token: ', token);
+        try {
+          TokenService.setAccessToken(token);
+          set({ isLoggedIn: true });
+          await get().fetchUser();
+        } catch (error) {
+          console.error('Google login failed:', error);
           throw error;
         }
       },

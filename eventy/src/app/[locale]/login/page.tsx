@@ -5,6 +5,7 @@ import { URLS } from '@/components/Navigation/urls';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Link, useRouter } from '@/i18n/routing';
+import { API_ENDPOINTS } from '@/lib/api/endpoints';
 import { ApiErrorResponse } from '@/lib/api/types';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -61,6 +62,10 @@ export default function LoginPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const redirectToGoogleAuth = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}${API_ENDPOINTS.AUTH.GOOGLE}`;
   };
 
   return (
@@ -149,6 +154,7 @@ export default function LoginPage() {
             <Button
               variant='outline'
               className='h-12 w-full border-white/10 bg-white/5 text-white hover:bg-white/10'
+              onClick={redirectToGoogleAuth}
             >
               <Image
                 src='/login-page/login-button-google.png'

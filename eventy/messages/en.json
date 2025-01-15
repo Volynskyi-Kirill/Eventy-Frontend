@@ -49,6 +49,7 @@
     "passwordPlaceholder": "Password",
     "confirmPasswordPlaceholder": "Confirm password",
     "signUpButton": "SIGN UP",
+    "loginWithGoogle": "Sign up with Google",
     "submitting": "registration...",
     "haveAccount": "Do you have an account?",
     "login": "Login",
