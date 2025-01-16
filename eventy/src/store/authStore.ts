@@ -9,7 +9,7 @@ interface User {
   userName: string;
   userSurname: string;
   phoneNumber: string | null;
-  pwdHash: string | null;
+  isHavePassword: boolean;
   avatarUrl: string | null;
   provider: string | null;
   providerId: string | null;
