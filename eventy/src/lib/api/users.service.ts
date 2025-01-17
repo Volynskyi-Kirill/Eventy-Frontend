@@ -1,19 +1,14 @@
+import { AccountSettingsFormData } from '../validation/accountSettingsSchema';
 import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
 
-interface UpdateUserData {
-  userName?: string;
-  userSurname?: string;
-  phoneNumber?: string;
-  email?: string;
-  password?: string;
-  newPassword?: string;
-  avatarUrl?: string;
-}
-
 export const usersService = {
-  updateUser: async (data: UpdateUserData) => {
-    const response = await axiosInstance.patch(API_ENDPOINTS.USERS.BASE, data);
+  updateUser: async (data: AccountSettingsFormData) => {
+    const { confirmPassword, ...restData } = data;
+    const response = await axiosInstance.patch(
+      API_ENDPOINTS.USERS.BASE,
+      restData
+    );
     return response.data;
   },
 

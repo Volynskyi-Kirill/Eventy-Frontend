@@ -11,12 +11,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
+import { usersService } from '@/lib/api/users.service';
 import {
   AccountSettingsFormData,
   accountSettingsSchema,
 } from '@/lib/validation/accountSettingsSchema';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -69,16 +71,31 @@ export default function AccountSettingsPage() {
   const onSubmit = async (data: AccountSettingsFormData) => {
     setIsSubmitting(true);
     try {
-      console.log('data: ', data);
-      toast.success('form submitted');
-      return;
-      // await usersService.updateUser(data);
-      // await fetchUser();
-      // setIsDirty(false);
+      await usersService.updateUser(data);
+      await fetchUser();
+      setIsDirty(false);
       toast.success('Profile updated successfully');
     } catch (error) {
-      toast.error('Failed to update profile');
-      console.error('Update error:', error);
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status;
+        const serverMessage =
+          error.response?.data?.message || 'An error occurred.';
+
+        switch (status) {
+          case 409: {
+            const conflictField = 'email';
+            form.setError(conflictField as keyof AccountSettingsFormData, {
+              type: 'manual',
+              message: serverMessage,
+            });
+            break;
+          }
+          default:
+            toast.error(serverMessage);
+        }
+      } else {
+        toast.error('Unexpected error occurred.');
+      }
     } finally {
       setIsSubmitting(false);
     }
