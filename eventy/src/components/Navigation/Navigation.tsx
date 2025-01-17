@@ -29,7 +29,7 @@ export default function Navigation() {
   }
 
   return (
-    <div className='border-b border-white/10'>
+    <div className='border-b border-white/10 mb-16'>
       <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
         <div className='flex items-center gap-4'>
           <Link href={URLS.HOME} className='flex items-center'>
