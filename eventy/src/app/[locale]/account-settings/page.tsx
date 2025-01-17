@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { usersService } from '@/lib/api/users.service';
+import { ERROR_MESSAGES } from '@/lib/constants';
 import {
   AccountSettingsFormData,
   accountSettingsSchema,
@@ -88,6 +89,17 @@ export default function AccountSettingsPage() {
               type: 'manual',
               message: serverMessage,
             });
+            break;
+          }
+          case 400: {
+            if (serverMessage === ERROR_MESSAGES.INVALID_OLD_PASSWORD) {
+              form.setError('password', {
+                type: 'manual',
+                message: serverMessage,
+              });
+            } else {
+              toast.error(serverMessage);
+            }
             break;
           }
           default:
