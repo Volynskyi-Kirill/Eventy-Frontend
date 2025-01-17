@@ -1,7 +1,7 @@
 'use client';
 
+import { AvatarUpload } from '@/components/account/AvatarUpload';
 import { FormField } from '@/components/auth/FormField';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,47 +11,23 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
-import { usersService } from '@/lib/api/users.service';
+import {
+  AccountSettingsFormData,
+  accountSettingsSchema,
+} from '@/lib/validation/accountSettingsSchema';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import * as z from 'zod';
-
-const isCurrentPasswordRequired = (data: any) =>
-  data.newPassword && !data.password;
-const doPasswordsMatch = (data: any) =>
-  data.newPassword === data.confirmPassword;
-
-const accountSettingsSchema = z
-  .object({
-    userName: z.string().min(1, 'Name is required'),
-    userSurname: z.string().min(1, 'Surname is required'),
-    phoneNumber: z.string().optional(),
-    email: z.string().email('Invalid email address'),
-    password: z.string().optional(),
-    newPassword: z.string().optional(),
-    confirmPassword: z.string().optional(),
-  })
-  .refine((data) => !isCurrentPasswordRequired(data), {
-    message: 'Current password is required when setting a new password',
-    path: ['password'],
-  })
-  .refine((data) => doPasswordsMatch(data), {
-    message: 'New password and confirm password must match',
-    path: ['confirmPassword'],
-  });
-
-type FormData = z.infer<typeof accountSettingsSchema>;
 
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
 
-  const form = useForm<FormData>({
+  const form = useForm<AccountSettingsFormData>({
     resolver: zodResolver(accountSettingsSchema),
     defaultValues: {
       userName: '',
@@ -90,26 +66,7 @@ export default function AccountSettingsPage() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isDirty]);
 
-  const handleAvatarUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    try {
-      // const response = await usersService.uploadAvatar(file);
-      toast.success('will be available later');
-      return;
-
-      await fetchUser();
-      toast.success('Avatar updated successfully');
-    } catch (error) {
-      toast.error('Failed to upload avatar');
-      console.error('Avatar upload error:', error);
-    }
-  };
-
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: AccountSettingsFormData) => {
     setIsSubmitting(true);
     try {
       console.log('data: ', data);
@@ -148,26 +105,7 @@ export default function AccountSettingsPage() {
               onChange={() => setIsDirty(true)}
             >
               <CardContent className='space-y-6'>
-                <div className='flex flex-col items-center space-y-4'>
-                  <Avatar className='h-32 w-32'>
-                    <AvatarImage src={user.avatarUrl || ''} />
-                    <AvatarFallback>
-                      {user.userName?.[0]}
-                      {user.userSurname?.[0]}
-                    </AvatarFallback>
-                  </Avatar>
-                  <Button variant='outline' className='relative' asChild>
-                    <label>
-                      Load photo
-                      <input
-                        type='file'
-                        className='absolute inset-0 w-full opacity-0 cursor-pointer'
-                        accept='image/*'
-                        onChange={handleAvatarUpload}
-                      />
-                    </label>
-                  </Button>
-                </div>
+                <AvatarUpload />
 
                 <div className='grid grid-cols-2 gap-4'>
                   <FormField
