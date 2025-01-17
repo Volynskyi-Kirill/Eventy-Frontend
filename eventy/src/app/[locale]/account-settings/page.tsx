@@ -1,5 +1,6 @@
 'use client';
 
+import { FormField } from '@/components/auth/FormField';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,23 +10,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Form } from '@/components/ui/form';
 import { usersService } from '@/lib/api/users.service';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import * as z from 'zod';
+
+const isCurrentPasswordRequired = (data: any) =>
+  data.newPassword && !data.password;
+const doPasswordsMatch = (data: any) =>
+  data.newPassword === data.confirmPassword;
 
 const accountSettingsSchema = z
   .object({
@@ -37,31 +35,20 @@ const accountSettingsSchema = z
     newPassword: z.string().optional(),
     confirmPassword: z.string().optional(),
   })
-  .refine(
-    (data) => {
-      if (data.newPassword && !data.password) {
-        return false;
-      }
-      if (data.newPassword !== data.confirmPassword) {
-        return false;
-      }
-      return true;
-    },
-    {
-      message:
-        'New password and confirm password must match and current password is required',
-      path: ['confirmPassword'],
-    }
-  );
+  .refine((data) => !isCurrentPasswordRequired(data), {
+    message: 'Current password is required when setting a new password',
+    path: ['password'],
+  })
+  .refine((data) => doPasswordsMatch(data), {
+    message: 'New password and confirm password must match',
+    path: ['confirmPassword'],
+  });
 
 type FormData = z.infer<typeof accountSettingsSchema>;
 
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
 
   const form = useForm<FormData>({
@@ -125,9 +112,12 @@ export default function AccountSettingsPage() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      await usersService.updateUser(data);
-      await fetchUser();
-      setIsDirty(false);
+      console.log('data: ', data);
+      toast.success('form submitted');
+      return;
+      // await usersService.updateUser(data);
+      // await fetchUser();
+      // setIsDirty(false);
       toast.success('Profile updated successfully');
     } catch (error) {
       toast.error('Failed to update profile');
@@ -183,57 +173,30 @@ export default function AccountSettingsPage() {
                   <FormField
                     control={form.control}
                     name='userName'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Name</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    label='Name'
+                    placeholder='Enter your name'
                   />
                   <FormField
                     control={form.control}
                     name='userSurname'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Surname</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    label='Surname'
+                    placeholder='Enter your surname'
                   />
                 </div>
 
                 <FormField
                   control={form.control}
                   name='phoneNumber'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone number</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label='Phone number'
+                  placeholder='Enter your phone number'
                 />
 
                 <FormField
                   control={form.control}
                   name='email'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  label='Email'
+                  placeholder='Enter your email'
+                  type='email'
                 />
 
                 {user.isHavePassword && (
@@ -241,101 +204,23 @@ export default function AccountSettingsPage() {
                     <FormField
                       control={form.control}
                       name='password'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Current password</FormLabel>
-                          <FormControl>
-                            <div className='relative'>
-                              <Input
-                                type={showPassword ? 'text' : 'password'}
-                                {...field}
-                              />
-                              <Button
-                                type='button'
-                                variant='ghost'
-                                size='icon'
-                                className='absolute right-2 top-1/2 -translate-y-1/2'
-                                onClick={() => setShowPassword(!showPassword)}
-                              >
-                                {showPassword ? (
-                                  <EyeOff className='h-4 w-4' />
-                                ) : (
-                                  <Eye className='h-4 w-4' />
-                                )}
-                              </Button>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label='Current password'
+                      placeholder='Enter your current password'
+                      type='password'
                     />
-
                     <FormField
                       control={form.control}
                       name='newPassword'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>New password</FormLabel>
-                          <FormControl>
-                            <div className='relative'>
-                              <Input
-                                type={showNewPassword ? 'text' : 'password'}
-                                {...field}
-                              />
-                              <Button
-                                type='button'
-                                variant='ghost'
-                                size='icon'
-                                className='absolute right-2 top-1/2 -translate-y-1/2'
-                                onClick={() =>
-                                  setShowNewPassword(!showNewPassword)
-                                }
-                              >
-                                {showNewPassword ? (
-                                  <EyeOff className='h-4 w-4' />
-                                ) : (
-                                  <Eye className='h-4 w-4' />
-                                )}
-                              </Button>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label='New password'
+                      placeholder='Enter your new password'
+                      type='password'
                     />
-
                     <FormField
                       control={form.control}
                       name='confirmPassword'
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Confirm password</FormLabel>
-                          <FormControl>
-                            <div className='relative'>
-                              <Input
-                                type={showConfirmPassword ? 'text' : 'password'}
-                                {...field}
-                              />
-                              <Button
-                                type='button'
-                                variant='ghost'
-                                size='icon'
-                                className='absolute right-2 top-1/2 -translate-y-1/2'
-                                onClick={() =>
-                                  setShowConfirmPassword(!showConfirmPassword)
-                                }
-                              >
-                                {showConfirmPassword ? (
-                                  <EyeOff className='h-4 w-4' />
-                                ) : (
-                                  <Eye className='h-4 w-4' />
-                                )}
-                              </Button>
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                      label='Confirm password'
+                      placeholder='Confirm your new password'
+                      type='password'
                     />
                   </>
                 )}
