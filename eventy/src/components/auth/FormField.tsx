@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import PasswordInput from '@/components/originUI/PasswordInput';
+import PhoneNumberInput from '@/components/originUI/PhoneNumberInput';
 
 interface FormFieldProps {
   control: any;
@@ -37,6 +38,12 @@ export function FormField({
           <FormControl>
             {type === 'password' ? (
               <PasswordInput placeholder={placeholder} {...field} />
+            ) : type === 'tel' ? (
+              <PhoneNumberInput
+                control={control}
+                name={name}
+                placeholder={placeholder}
+              />
             ) : (
               <Input type={type} placeholder={placeholder} {...field} />
             )}

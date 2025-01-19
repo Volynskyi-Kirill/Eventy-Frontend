@@ -12,3 +12,5 @@ export const ERROR_MESSAGES = {
   UNIQUE_CONSTRAINT_FAILED: 'Unique constraint failed on the fields',
   INTERNAL_SERVER_ERROR: 'Internal server error',
 };
+
+export const DEFAULT_COUNTRY_PHONE_CODE = 'UA';

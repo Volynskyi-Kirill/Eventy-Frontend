@@ -28,6 +28,7 @@ export default function RegisterPage() {
     }
   }, [isLoggedIn, router]);
 
+  //TODO вынести схему как в accountSettings
   const registerSchema = z
     .object({
       name: z.string().min(2, t('validation.nameMin')),

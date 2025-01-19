@@ -44,6 +44,7 @@ export function AvatarUpload() {
           {user.userSurname?.[0]}
         </AvatarFallback>
       </Avatar>
+      {/* TODO убрать вообще кнопку на мвп */}
       <Button variant='outline' className='relative' asChild>
         <label>
           Load photo

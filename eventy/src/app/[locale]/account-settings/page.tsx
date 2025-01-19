@@ -156,6 +156,7 @@ export default function AccountSettingsPage() {
                   name='phoneNumber'
                   label='Phone number'
                   placeholder='Enter your phone number'
+                  type='tel'
                 />
 
                 <FormField
