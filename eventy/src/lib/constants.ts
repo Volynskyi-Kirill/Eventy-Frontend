@@ -1,3 +1,5 @@
+export const LOCALES = ['en', 'uk'];
+
 export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'token',
 };

@@ -21,7 +21,9 @@ export function EventHero({ events }: EventHeroProps) {
 
   return (
     // <section className='relative h-[100dvh] w-full overflow-hidden'>
-    <section className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'>
+    <section
+      className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'
+    >
       {/* Background Image */}
       <Image
         src={currentEvent.backgroundImage || '/placeholder.svg'}

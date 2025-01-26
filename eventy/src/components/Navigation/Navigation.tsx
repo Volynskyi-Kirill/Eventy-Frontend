@@ -11,7 +11,11 @@ import { usePathname } from 'next/navigation';
 import LocaleSwitcher from '../LocaleSwitcher';
 import { NavigationLinks } from './NavigationLinks';
 import { URLS } from './urls';
-import { shouldHideNavigation } from './utils';
+import {
+  shouldHideNavigation,
+  shouldUseDarkNav,
+  shouldUseFixedNav,
+} from './utils';
 import { UserMenu } from './UserMenu';
 import { useAuthStore } from '@/store/authStore';
 
@@ -28,9 +32,12 @@ export default function Navigation() {
     );
   }
 
+  const isFixed = shouldUseFixedNav(pathname);
+  const isDarkBackground = shouldUseDarkNav(pathname);
+
   return (
     <div className='border-b border-white/10 mb-16'>
-      <div className='fixed top-0 left-0 right-0 z-50'>
+      <div className={cn(isFixed ? 'fixed top-0 left-0 right-0 z-50' : '')}>
         <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center gap-4'>
             <Link href={URLS.HOME} className='flex items-center'>
@@ -63,9 +70,7 @@ export default function Navigation() {
                 href={URLS.LOGIN}
                 className={cn(
                   'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
-                  pathname === URLS.LOGIN
-                    ? 'bg-emerald-500 text-white'
-                    : 'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10'
+                  'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10'
                 )}
               >
                 {t('login')}
