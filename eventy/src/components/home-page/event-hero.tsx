@@ -17,13 +17,10 @@ interface EventHeroProps {
 }
 
 export function EventHero({ events }: EventHeroProps) {
-  const currentEvent = events[0]; // For now we'll just show the first event
+  const currentEvent = events[0];
 
   return (
-    // <section className='relative h-[100dvh] w-full overflow-hidden'>
-    <section
-      className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'
-    >
+    <section className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'>
       {/* Background Image */}
       <Image
         src={currentEvent.backgroundImage || '/placeholder.svg'}
@@ -35,7 +32,7 @@ export function EventHero({ events }: EventHeroProps) {
 
       {/* Content */}
       <div className='relative h-full'>
-        <div className='container mx-auto flex h-full flex-col justify-center px-4 py-20'>
+        <div className='mx-auto h-full flex flex-col justify-center max-w-7xl px-4 sm:px-6 lg:px-8'>
           {/* Navigation Arrows */}
           <button className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/40'>
             <ChevronLeft className='h-8 w-8' />
@@ -50,9 +47,6 @@ export function EventHero({ events }: EventHeroProps) {
               <h1 className='text-4xl font-bold text-white sm:text-5xl md:text-6xl'>
                 EVENTS TITLES
               </h1>
-              {/* <p className='text-2xl font-semibold text-white/80 sm:text-3xl md:text-4xl'>
-                {'{IF BIG TITLES}'}
-              </p> */}
             </div>
 
             <p className='text-lg text-white/90 sm:text-xl'>
@@ -109,7 +103,7 @@ export function EventHero({ events }: EventHeroProps) {
           </div>
 
           {/* Location */}
-          <div className='absolute bottom-12 right-4 text-right'>
+          <div className='absolute bottom-12 right-4 sm:right-8 md:right-16 lg:right-20 xl:right-32 text-right'>
             <p className='text-xl font-semibold text-white md:text-2xl'>
               {currentEvent.country} | {currentEvent.city}
             </p>
