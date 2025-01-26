@@ -5,6 +5,7 @@ import { URLS } from './urls';
 
 type NavigationLinksProps = {
   pathname: string;
+  isDarkBackground?: boolean;
 };
 
 const NAV_LINKS = [
@@ -16,7 +17,10 @@ const NAV_LINKS = [
 
 const LOCALE_REGEX = /^\/[a-z]{2}(\/?)*$/;
 
-export function NavigationLinks({ pathname }: NavigationLinksProps) {
+export function NavigationLinks({
+  pathname,
+  isDarkBackground,
+}: NavigationLinksProps) {
   const t = useTranslations('Navigation');
 
   return (
@@ -36,7 +40,9 @@ export function NavigationLinks({ pathname }: NavigationLinksProps) {
               'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
               isActive
                 ? 'bg-emerald-500 text-white shadow-md ring-2 ring-emerald-500'
-                : 'text-muted-foreground hover:text-emerald-500 hover:bg-muted/10',
+                : isDarkBackground
+                ? 'text-white hover:text-emerald-500 hover:bg-white/10'
+                : 'text-black hover:text-emerald-500 hover:bg-black/10',
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500'
             )}
           >
