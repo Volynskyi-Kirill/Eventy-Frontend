@@ -24,11 +24,13 @@ import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
+  const t = useTranslations('AccountSettingsPage');
 
   const form = useForm<AccountSettingsFormData>({
     resolver: zodResolver(accountSettingsSchema),
@@ -75,12 +77,12 @@ export default function AccountSettingsPage() {
       await usersService.updateUser(data);
       await fetchUser();
       setIsDirty(false);
-      toast.success('Profile updated successfully');
+      toast.success(t('updateSuccess'));
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const status = error.response?.status;
         const serverMessage =
-          error.response?.data?.message || 'An error occurred.';
+          error.response?.data?.message || t('unexpectedError');
 
         switch (status) {
           case 409: {
@@ -106,7 +108,7 @@ export default function AccountSettingsPage() {
             toast.error(serverMessage);
         }
       } else {
-        toast.error('Unexpected error occurred.');
+        toast.error(t('unexpectedError'));
       }
     } finally {
       setIsSubmitting(false);
@@ -116,7 +118,7 @@ export default function AccountSettingsPage() {
   if (!user) {
     return (
       <div className='flex flex-col items-center justify-center h-screen space-y-4'>
-        <p className='text-lg'>You are not logged in</p>
+        <p className='text-lg'>{t('notLoggedIn')}</p>
       </div>
     );
   }
@@ -126,7 +128,7 @@ export default function AccountSettingsPage() {
       <div className='container max-w-2xl py-10'>
         <Card>
           <CardHeader>
-            <CardTitle>Main settings</CardTitle>
+            <CardTitle>{t('mainSettings')}</CardTitle>
           </CardHeader>
           <Form {...form}>
             <form
@@ -140,30 +142,30 @@ export default function AccountSettingsPage() {
                   <FormField
                     control={form.control}
                     name='userName'
-                    label='Name'
-                    placeholder='Enter your name'
+                    label={t('name')}
+                    placeholder={t('namePlaceholder')}
                   />
                   <FormField
                     control={form.control}
                     name='userSurname'
-                    label='Surname'
-                    placeholder='Enter your surname'
+                    label={t('surname')}
+                    placeholder={t('surnamePlaceholder')}
                   />
                 </div>
 
                 <FormField
                   control={form.control}
                   name='phoneNumber'
-                  label='Phone number'
-                  placeholder='Enter your phone number'
+                  label={t('phoneNumber')}
+                  placeholder={t('phoneNumberPlaceholder')}
                   type='tel'
                 />
 
                 <FormField
                   control={form.control}
                   name='email'
-                  label='Email'
-                  placeholder='Enter your email'
+                  label={t('email')}
+                  placeholder={t('emailPlaceholder')}
                   type='email'
                 />
 
@@ -172,22 +174,22 @@ export default function AccountSettingsPage() {
                     <FormField
                       control={form.control}
                       name='password'
-                      label='Current password'
-                      placeholder='Enter your current password'
+                      label={t('currentPassword')}
+                      placeholder={t('currentPasswordPlaceholder')}
                       type='password'
                     />
                     <FormField
                       control={form.control}
                       name='newPassword'
-                      label='New password'
-                      placeholder='Enter your new password'
+                      label={t('newPassword')}
+                      placeholder={t('newPasswordPlaceholder')}
                       type='password'
                     />
                     <FormField
                       control={form.control}
                       name='confirmPassword'
-                      label='Confirm password'
-                      placeholder='Confirm your new password'
+                      label={t('confirmPassword')}
+                      placeholder={t('confirmPasswordPlaceholder')}
                       type='password'
                     />
                   </>
@@ -202,7 +204,7 @@ export default function AccountSettingsPage() {
                   {isSubmitting && (
                     <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                   )}
-                  Save
+                  {t('save')}
                 </Button>
                 <Button
                   type='button'
@@ -214,7 +216,7 @@ export default function AccountSettingsPage() {
                   }}
                   disabled={!isDirty}
                 >
-                  Cancel
+                  {t('cancel')}
                 </Button>
               </CardFooter>
             </form>

@@ -63,5 +63,34 @@
     },
     "registerError": "Registration error. Please try later.",
     "registerSuccess": "Registration successful! Welcome!"
+  },
+  "AvatarUpload": {
+    "uploadLater": "will be available later",
+    "uploadSuccess": "Avatar updated successfully",
+    "uploadError": "Failed to upload avatar",
+    "notLoggedIn": "You are not logged in",
+    "loadPhoto": "Load photo"
+  },
+  "AccountSettingsPage": {
+    "updateSuccess": "Profile updated successfully",
+    "unexpectedError": "Unexpected error occurred.",
+    "notLoggedIn": "You are not logged in",
+    "mainSettings": "Main settings",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "surname": "Surname",
+    "surnamePlaceholder": "Enter your surname",
+    "phoneNumber": "Phone number",
+    "phoneNumberPlaceholder": "Enter your phone number",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "currentPassword": "Current password",
+    "currentPasswordPlaceholder": "Enter your current password",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter your new password",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Confirm your new password",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

@@ -63,5 +63,34 @@
     },
     "registerError": "Помилка реєстрації. Будь ласка, спробуйте пізніше",
     "registerSuccess": "Реєстрація пройшла успішно! Ласкаво просимо!"
+  },
+  "AvatarUpload": {
+    "uploadLater": "Буде доступно пізніше",
+    "uploadSuccess": "Аватар успішно оновлено",
+    "uploadError": "Не вдалося завантажити аватар",
+    "notLoggedIn": "Ви не увійшли в систему",
+    "loadPhoto": "Завантажити фото"
+  },
+  "AccountSettingsPage": {
+    "updateSuccess": "Профіль успішно оновлено",
+    "unexpectedError": "Виникла неочікувана помилка.",
+    "notLoggedIn": "Ви не увійшли в систему",
+    "mainSettings": "Основні налаштування",
+    "name": "Ім'я",
+    "namePlaceholder": "Введіть ваше ім'я",
+    "surname": "Прізвище",
+    "surnamePlaceholder": "Введіть ваше прізвище",
+    "phoneNumber": "Номер телефону",
+    "phoneNumberPlaceholder": "Введіть ваш номер телефону",
+    "email": "Електронна пошта",
+    "emailPlaceholder": "Введіть вашу електронну пошту",
+    "currentPassword": "Поточний пароль",
+    "currentPasswordPlaceholder": "Введіть ваш поточний пароль",
+    "newPassword": "Новий пароль",
+    "newPasswordPlaceholder": "Введіть ваш новий пароль",
+    "confirmPassword": "Підтвердьте пароль",
+    "confirmPasswordPlaceholder": "Підтвердьте ваш новий пароль",
+    "save": "Зберегти",
+    "cancel": "Скасувати"
   }
 }

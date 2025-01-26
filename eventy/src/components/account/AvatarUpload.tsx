@@ -2,9 +2,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'react-hot-toast';
+import { useTranslations } from 'next-intl';
 
 export function AvatarUpload() {
   const { user, fetchUser } = useAuthStore();
+  const t = useTranslations('AvatarUpload');
 
   const handleAvatarUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -14,13 +16,13 @@ export function AvatarUpload() {
 
     try {
       // const response = await usersService.uploadAvatar(file);
-      toast.success('will be available later');
+      toast.success(t('uploadLater'));
       return;
 
       await fetchUser();
-      toast.success('Avatar updated successfully');
+      toast.success(t('uploadSuccess'));
     } catch (error) {
-      toast.error('Failed to upload avatar');
+      toast.error(t('uploadError'));
       console.error('Avatar upload error:', error);
     }
   };
@@ -30,7 +32,7 @@ export function AvatarUpload() {
   if (!user) {
     return (
       <div className='flex flex-col items-center justify-center h-screen space-y-4'>
-        <p className='text-lg'>You are not logged in</p>
+        <p className='text-lg'>{t('notLoggedIn')}</p>
       </div>
     );
   }
@@ -47,7 +49,7 @@ export function AvatarUpload() {
       {/* TODO убрать вообще кнопку на мвп */}
       <Button variant='outline' className='relative' asChild>
         <label>
-          Load photo
+          {t('loadPhoto')}
           <input
             type='file'
             className='absolute inset-0 w-full opacity-0 cursor-pointer'
