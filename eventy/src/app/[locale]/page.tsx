@@ -1,4 +1,6 @@
-type Event = {
+import { EventHero } from '@/components/home-page/event-hero';
+
+export type Event = {
   title: string;
   description: string;
   tags: string[];
@@ -31,9 +33,8 @@ const EVENTS: Event[] = [
 
 export default function HomePage() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to the home page!</p>
-    </div>
+    <main>
+      <EventHero events={EVENTS} />
+    </main>
   );
 }
