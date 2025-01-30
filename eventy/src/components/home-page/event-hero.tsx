@@ -56,8 +56,8 @@ export function EventHero({ events }: EventHeroProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/40' />
-        <CarouselNext className='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/40' />
+        <CarouselPrevious className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-3 text-white shadow-lg transition-all hover:bg-white hover:text-black hover:shadow-xl' />
+        <CarouselNext className='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/30 p-3 text-white shadow-lg transition-all hover:bg-white hover:text-black hover:shadow-xl' />
       </Carousel>
       <div className='absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2'>
         {Array.from({ length: count }).map((_, index) => (
