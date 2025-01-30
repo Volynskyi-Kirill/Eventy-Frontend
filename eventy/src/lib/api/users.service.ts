@@ -4,6 +4,7 @@ import { API_ENDPOINTS } from './endpoints';
 
 export const usersService = {
   updateUser: async (data: AccountSettingsFormData) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...restData } = data;
     const response = await axiosInstance.patch(
       API_ENDPOINTS.USERS.BASE,

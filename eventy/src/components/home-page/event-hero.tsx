@@ -21,7 +21,6 @@ export function EventHero({ events }: EventHeroProps) {
 
   return (
     <section className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'>
-      {/* Background Image */}
       <Image
         src={currentEvent.backgroundImage || '/placeholder.svg'}
         alt=''
@@ -30,18 +29,14 @@ export function EventHero({ events }: EventHeroProps) {
         priority
       />
 
-      {/* Content */}
       <div className='relative h-full'>
         <div className='mx-auto h-full flex flex-col justify-center max-w-7xl px-4 sm:px-6 lg:px-8'>
-          {/* Navigation Arrows */}
           <button className='absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/40'>
             <ChevronLeft className='h-8 w-8' />
           </button>
           <button className='absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/20 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/40'>
             <ChevronRight className='h-8 w-8' />
           </button>
-
-          {/* Main Content */}
           <div className='max-w-4xl space-y-6'>
             <div className='space-y-2'>
               <h1 className='text-4xl font-bold text-white sm:text-5xl md:text-6xl'>
@@ -102,14 +97,12 @@ export function EventHero({ events }: EventHeroProps) {
             </div>
           </div>
 
-          {/* Location */}
           <div className='absolute bottom-12 right-4 sm:right-8 md:right-16 lg:right-20 xl:right-32 text-right'>
             <p className='text-xl font-semibold text-white md:text-2xl'>
               {currentEvent.country} | {currentEvent.city}
             </p>
           </div>
 
-          {/* Navigation Dots */}
           <div className='absolute bottom-8 left-1/2 flex -translate-x-1/2 gap-2'>
             {[0, 1, 2, 3, 4].map((index) => (
               <button
