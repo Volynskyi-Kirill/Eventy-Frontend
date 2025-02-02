@@ -25,7 +25,11 @@
     "openSpace": "Open Space",
     "login": "Log in",
     "accountSettings": "Account Settings",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "roleSwitcher": {
+      "client": "Client",
+      "organizer": "Organizer"
+    }
   },
   "NotFoundPage": {
     "description": "Please double-check the browser address bar or use the navigation to go to a known page.",

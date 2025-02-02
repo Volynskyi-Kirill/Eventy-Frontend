@@ -15,6 +15,7 @@ import {
   shouldUseDarkNav,
   shouldUseFixedNav,
 } from './utils';
+import { RoleSwitcher } from './RoleSwitcher';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
@@ -43,6 +44,7 @@ export default function Navigation() {
         <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center gap-4'>
             <NavigationLogo isDarkBackground={isDarkBackground} />
+            <RoleSwitcher isDarkBackground={isDarkBackground} />
           </div>
           <NavigationLinks
             pathname={pathname}
