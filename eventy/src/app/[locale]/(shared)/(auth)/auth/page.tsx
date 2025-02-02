@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
+import { URLS } from '@/components/Navigation/urls';
 
 const GoogleAuthHandler = () => {
   const router = useRouter();
@@ -15,16 +16,16 @@ const GoogleAuthHandler = () => {
 
         if (!token) {
           console.error('Google authentication failed: Token not found');
-          router.replace('/');
+          router.replace(URLS.CLIENT.HOME);
           return;
         }
 
         await loginWithGoogle(token);
 
-        router.replace('/');
+        router.replace(URLS.CLIENT.HOME);
       } catch (error) {
         console.error('Error during Google authentication:', error);
-        router.replace('/');
+        router.replace(URLS.CLIENT.HOME);
       }
     };
 

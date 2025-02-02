@@ -41,13 +41,13 @@ export function UserMenu() {
         <DropdownMenuItem
           onClick={() => router.push(URLS.SHARED.ACCOUNT_SETTINGS)}
         >
-          {t('accountSettings')}
+          {t('userMenu.accountSettings')}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleLogout}
           className='text-red-500 hover:text-red-700'
         >
-          {t('logout')}
+          {t('userMenu.logout')}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

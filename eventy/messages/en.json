@@ -19,17 +19,28 @@
     "loginSuccess": "Login successful! Welcome!"
   },
   "Navigation": {
-    "home": "Home",
-    "events": "Events",
-    "subscribers": "Subscribers",
-    "openSpace": "Open Space",
-    "login": "Log in",
-    "accountSettings": "Account Settings",
-    "logout": "Log Out",
+    "clint": {
+      "home": "Home",
+      "events": "Events",
+      "subscribers": "Subscribers",
+      "openSpace": "Open Space"
+    },
+    "organizer": {
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "tickets": "Tickets",
+      "target": "Target",
+      "people": "People"
+    },
+    "userMenu": {
+      "accountSettings": "Account Settings",
+      "logout": "Log Out"
+    },
     "roleSwitcher": {
       "client": "Client",
       "organizer": "Organizer"
-    }
+    },
+    "login": "Log in"
   },
   "NotFoundPage": {
     "description": "Please double-check the browser address bar or use the navigation to go to a known page.",

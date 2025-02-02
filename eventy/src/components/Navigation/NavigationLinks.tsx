@@ -8,11 +8,19 @@ type NavigationLinksProps = {
   isDarkBackground?: boolean;
 };
 
-const NAV_LINKS = [
+const CLIENT_NAV_LINKS = [
   { href: URLS.CLIENT.HOME, labelKey: 'home' },
   { href: URLS.CLIENT.EVENTS, labelKey: 'events' },
   { href: URLS.CLIENT.SUBSCRIBERS, labelKey: 'subscribers' },
   { href: URLS.CLIENT.OPEN_SPACE, labelKey: 'openSpace' },
+];
+
+const ORGANIZER_NAV_LINKS = [
+  { href: URLS.ORGANIZER.DASHBOARD, labelKey: 'dashboard' },
+  { href: URLS.ORGANIZER.EVENTS, labelKey: 'events' },
+  { href: URLS.ORGANIZER.TICKETS, labelKey: 'tickets' },
+  { href: URLS.ORGANIZER.TARGET, labelKey: 'target' },
+  { href: URLS.ORGANIZER.PEOPLE, labelKey: 'people' },
 ];
 
 export function NavigationLinks({
@@ -23,7 +31,7 @@ export function NavigationLinks({
 
   return (
     <div className='flex items-center gap-1'>
-      {NAV_LINKS.map(({ href, labelKey }) => {
+      {CLIENT_NAV_LINKS.map(({ href, labelKey }) => {
         const isActive = pathname.includes(href);
 
         return (
@@ -40,7 +48,7 @@ export function NavigationLinks({
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500'
             )}
           >
-            {t(labelKey)}
+            {t(`clint.${labelKey}`)}
           </Link>
         );
       })}

@@ -10,5 +10,11 @@ export const URLS = {
     OPEN_SPACE: '/client/open-space',
     SUBSCRIBERS: '/client/subscribers',
   },
-  ORGANIZER: {},
+  ORGANIZER: {
+    DASHBOARD: '/organizer/dashboard',
+    EVENTS: '/organizer/events',
+    TICKETS: '/organizer/tickets',
+    TARGET: '/organizer/target',
+    PEOPLE: '/organizer/people',
+  },
 };

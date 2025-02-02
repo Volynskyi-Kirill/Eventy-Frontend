@@ -19,17 +19,28 @@
     "loginSuccess": "Вхід успішний! Ласкаво просимо!"
   },
   "Navigation": {
-    "home": "Головна",
-    "events": "Події",
-    "subscribers": "Підписки",
-    "openSpace": "Відкритий простір",
-    "login": "Увійти",
-    "accountSettings": "Налаштування",
-    "logout": "Вийти",
+    "clint": {
+      "home": "Головна",
+      "events": "Події",
+      "subscribers": "Підписки",
+      "openSpace": "Відкритий простір"
+    },
+    "organizer": {
+      "dashboard": "Панель",
+      "events": "Події",
+      "tickets": "Квитки",
+      "target": "Цільова аудиторія",
+      "people": "Люди"
+    },
+    "userMenu": {
+      "logout": "Вийти",
+      "accountSettings": "Налаштування"
+    },
     "roleSwitcher": {
       "client": "Клієнт",
       "organizer": "Організатор"
-    }
+    },
+    "login": "Увійти"
   },
   "NotFoundPage": {
     "description": "Будь ласка, перевірте адресу в рядку браузера або скористайтеся навігацією, щоб перейти на відому сторінку.",
