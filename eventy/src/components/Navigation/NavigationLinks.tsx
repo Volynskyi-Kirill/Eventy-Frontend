@@ -2,6 +2,7 @@ import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 import { URLS } from './urls';
+import { USER_ROLES, useRoleStore } from '@/store/roleStore';
 
 type NavigationLinksProps = {
   pathname: string;
@@ -28,10 +29,15 @@ export function NavigationLinks({
   isDarkBackground,
 }: NavigationLinksProps) {
   const t = useTranslations('Navigation');
+  const { role } = useRoleStore();
+
+  const isClientMode = role === USER_ROLES.CLIENT;
+  const links = isClientMode ? CLIENT_NAV_LINKS : ORGANIZER_NAV_LINKS;
+  const localizationKey = isClientMode ? 'clint' : 'organizer';
 
   return (
     <div className='flex items-center gap-1'>
-      {CLIENT_NAV_LINKS.map(({ href, labelKey }) => {
+      {links.map(({ href, labelKey }) => {
         const isActive = pathname.includes(href);
 
         return (
@@ -48,7 +54,7 @@ export function NavigationLinks({
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500'
             )}
           >
-            {t(`clint.${labelKey}`)}
+            {t(`${localizationKey}.${labelKey}`)}
           </Link>
         );
       })}
