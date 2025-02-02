@@ -1,55 +1,61 @@
 'use client';
 
-import { USER_ROLES, useRoleStore } from '@/store/roleStore';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
+import { USER_ROLES, useRoleStore } from '@/store/roleStore';
 
 interface RoleSwitcherProps {
   isDarkBackground?: boolean;
 }
 
+const containerBaseClass =
+  'flex items-center gap-1 rounded-full border px-1 py-1';
+const buttonBaseClass =
+  'rounded-full px-3 py-1 text-sm font-medium focus:outline-none transition-colors';
+
+const activeDarkClass = 'bg-white text-black';
+const inactiveDarkClass = 'text-white hover:bg-white/10';
+const activeLightClass = 'bg-black text-white';
+const inactiveLightClass = 'text-black hover:bg-black/10';
+
 export function RoleSwitcher({ isDarkBackground = false }: RoleSwitcherProps) {
   const { role, setRole } = useRoleStore();
+  const t = useTranslations('Navigation');
 
-  const clientLabel = 'Клиент';
-  const organizerLabel = 'Организатор';
+  const getButtonClasses = (buttonRole: USER_ROLES) => {
+    const isActive = role === buttonRole;
+
+    if (isActive && isDarkBackground)
+      return cn(buttonBaseClass, activeDarkClass);
+
+    if (isActive && !isDarkBackground)
+      return cn(buttonBaseClass, activeLightClass);
+
+    if (!isActive && isDarkBackground)
+      return cn(buttonBaseClass, inactiveDarkClass);
+
+    return cn(buttonBaseClass, inactiveLightClass);
+  };
 
   return (
     <div
       className={cn(
-        'flex items-center gap-1 rounded-full border px-1 py-1',
+        containerBaseClass,
         isDarkBackground ? 'border-white/20' : 'border-black/20'
       )}
     >
       <button
         onClick={() => setRole(USER_ROLES.CLIENT)}
-        className={cn(
-          'rounded-full px-3 py-1 text-sm font-medium focus:outline-none transition-colors',
-          role === USER_ROLES.CLIENT
-            ? isDarkBackground
-              ? 'bg-white text-black'
-              : 'bg-black text-white'
-            : isDarkBackground
-            ? 'text-white hover:bg-white/10'
-            : 'text-black hover:bg-black/10'
-        )}
+        className={getButtonClasses(USER_ROLES.CLIENT)}
       >
-        {clientLabel}
+        {t('roleSwitcher.client')}
       </button>
 
       <button
         onClick={() => setRole(USER_ROLES.ORGANIZER)}
-        className={cn(
-          'rounded-full px-3 py-1 text-sm font-medium focus:outline-none transition-colors',
-          role === USER_ROLES.ORGANIZER
-            ? isDarkBackground
-              ? 'bg-white text-black'
-              : 'bg-black text-white'
-            : isDarkBackground
-            ? 'text-white hover:bg-white/10'
-            : 'text-black hover:bg-black/10'
-        )}
+        className={getButtonClasses(USER_ROLES.ORGANIZER)}
       >
-        {organizerLabel}
+        {t('roleSwitcher.organizer')}
       </button>
     </div>
   );
