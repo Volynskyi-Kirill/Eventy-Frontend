@@ -1,10 +1,8 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
-import { Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -53,24 +51,6 @@ export default function Navigation() {
                 height={26}
               />
             </Link>
-            <div className='relative'>
-              <Search
-                className={cn(
-                  'absolute left-2 top-1/2 h-4 w-4 -translate-y-1/2',
-                  isDarkBackground ? 'text-white' : 'text-black'
-                )}
-              />
-              <Input
-                type='search'
-                placeholder='Search ...'
-                className={cn(
-                  'h-9 w-[200px] pl-8 text-sm placeholder:text-muted-foreground',
-                  isDarkBackground
-                    ? 'bg-white/10 text-white placeholder:text-white/50'
-                    : 'bg-black/10 text-black placeholder:text-black/50'
-                )}
-              />
-            </div>
           </div>
           <NavigationLinks
             pathname={pathname}
