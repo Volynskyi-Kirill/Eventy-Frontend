@@ -1,9 +1,9 @@
 import { LOCALES } from '@/lib/constants';
 import { URLS } from './urls';
 
-const HIDDEN_NAVIGATION_PATHS = [URLS.LOGIN, URLS.REGISTER];
-const FIXED_NAVIGATION_PATHS = [URLS.HOME];
-const DARK_NAVIGATION_PATHS = [URLS.HOME];
+const HIDDEN_NAVIGATION_PATHS = [URLS.SHARED.LOGIN, URLS.SHARED.REGISTER];
+const FIXED_NAVIGATION_PATHS = [URLS.CLIENT.HOME];
+const DARK_NAVIGATION_PATHS = [URLS.CLIENT.HOME];
 
 function removeLocaleSegment(pathname: string): string {
   const path = pathname.startsWith('/') ? pathname.slice(1) : pathname;

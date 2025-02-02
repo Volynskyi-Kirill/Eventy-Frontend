@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Users, Calendar, Clock } from 'lucide-react';
 import Image from 'next/image';
-import type { Event } from '@/app/[locale]/page';
+import type { Event } from '@/app/[locale]/client/home/page';
 
 interface EventCardProps {
   event: Event;

@@ -45,7 +45,7 @@ export default function Navigation() {
       <div className={cn(isFixed ? 'fixed top-0 left-0 right-0 z-50' : '')}>
         <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center gap-4'>
-            <Link href={URLS.HOME} className='flex items-center'>
+            <Link href={URLS.CLIENT.HOME} className='flex items-center'>
               <Image
                 src='/subscribers/logo-nav.svg'
                 alt='Company Logo'
@@ -81,7 +81,7 @@ export default function Navigation() {
               <UserMenu />
             ) : (
               <Link
-                href={URLS.LOGIN}
+                href={URLS.SHARED.LOGIN}
                 className={cn(
                   'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
                   isDarkBackground

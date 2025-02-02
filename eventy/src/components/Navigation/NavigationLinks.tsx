@@ -9,10 +9,10 @@ type NavigationLinksProps = {
 };
 
 const NAV_LINKS = [
-  { href: URLS.HOME, labelKey: 'home' },
-  { href: URLS.EVENTS, labelKey: 'events' },
-  { href: URLS.SUBSCRIBERS, labelKey: 'subscribers' },
-  { href: URLS.OPEN_SPACE, labelKey: 'openSpace' },
+  { href: URLS.CLIENT.HOME, labelKey: 'home' },
+  { href: URLS.CLIENT.EVENTS, labelKey: 'events' },
+  { href: URLS.CLIENT.SUBSCRIBERS, labelKey: 'subscribers' },
+  { href: URLS.CLIENT.OPEN_SPACE, labelKey: 'openSpace' },
 ];
 
 const LOCALE_REGEX = /^\/[a-z]{2}(\/?)*$/;

@@ -22,10 +22,10 @@ export default function LoginPage() {
   const router = useRouter();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  //TODO в свой кастомный хук?
+  //TODO в свой кастомный хук или даже мидлвар?
   useEffect(() => {
     if (isLoggedIn) {
-      router.push(URLS.HOME);
+      router.push(URLS.CLIENT.HOME);
     }
   }, [isLoggedIn, router]);
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
     try {
       await useAuthStore.getState().login(data.email, data.password);
       toast.success(t('loginSuccess'));
-      router.push(URLS.HOME);
+      router.push(URLS.CLIENT.HOME);
     } catch (error: any) {
       //TODO handle error 401 invalid credentials
       if (error.response?.data) {
@@ -168,7 +168,7 @@ export default function LoginPage() {
             <p className='text-center text-sm text-muted-foreground text-white'>
               {t('noAccount')}{' '}
               <Link
-                href={URLS.REGISTER}
+                href={URLS.SHARED.REGISTER}
                 className='text-emerald-500 hover:text-emerald-400'
               >
                 {t('signUp')}

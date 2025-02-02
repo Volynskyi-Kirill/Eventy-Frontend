@@ -24,7 +24,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.push(URLS.HOME);
+      router.push(URLS.CLIENT.HOME);
     }
   }, [isLoggedIn, router]);
 
@@ -71,7 +71,7 @@ export default function RegisterPage() {
       });
 
       toast.success(t('registerSuccess'));
-      router.push(URLS.HOME);
+      router.push(URLS.CLIENT.HOME);
     } catch (error: any) {
       //TODO handle error user already exist
       if (error.response?.data) {
@@ -206,7 +206,7 @@ export default function RegisterPage() {
                 <p className='text-center text-white'>
                   {t('haveAccount')}{' '}
                   <Link
-                    href={URLS.LOGIN}
+                    href={URLS.SHARED.LOGIN}
                     className='text-emerald-500 hover:text-emerald-400'
                   >
                     {t('login')}

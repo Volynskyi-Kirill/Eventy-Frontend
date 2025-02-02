@@ -1,6 +1,6 @@
 'use client';
 
-import type { Event } from '@/app/[locale]/page';
+import type { Event } from '@/app/[locale]/client/home/page';
 import {
   Carousel,
   CarouselContent,

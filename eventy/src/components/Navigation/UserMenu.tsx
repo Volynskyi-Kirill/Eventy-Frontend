@@ -21,7 +21,7 @@ export function UserMenu() {
 
   const handleLogout = () => {
     logout();
-    router.push(URLS.HOME);
+    router.push(URLS.CLIENT.HOME);
   };
 
   return (
@@ -38,7 +38,9 @@ export function UserMenu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56' align='end' forceMount>
-        <DropdownMenuItem onClick={() => router.push(URLS.ACCOUNT_SETTINGS)}>
+        <DropdownMenuItem
+          onClick={() => router.push(URLS.SHARED.ACCOUNT_SETTINGS)}
+        >
           {t('accountSettings')}
         </DropdownMenuItem>
         <DropdownMenuItem

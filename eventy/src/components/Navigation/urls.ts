@@ -1,9 +1,14 @@
 export const URLS = {
-  HOME: '/',
-  EVENTS: '/events',
-  SUBSCRIBERS: '/subscribers',
-  OPEN_SPACE: '/open-space',
-  ACCOUNT_SETTINGS: '/account-settings',
-  LOGIN: '/login',
-  REGISTER: '/register',
+  SHARED: {
+    ACCOUNT_SETTINGS: '/account-settings',
+    LOGIN: '/login',
+    REGISTER: '/register',
+  },
+  CLIENT: {
+    HOME: '/client/home',
+    EVENTS: '/client/events',
+    OPEN_SPACE: '/client/open-space',
+    SUBSCRIBERS: '/client/subscribers',
+  },
+  ORGANIZER: {},
 };
