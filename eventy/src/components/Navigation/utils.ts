@@ -5,7 +5,7 @@ const HIDDEN_NAVIGATION_PATHS = [URLS.SHARED.LOGIN, URLS.SHARED.REGISTER];
 const FIXED_NAVIGATION_PATHS = [URLS.CLIENT.HOME];
 const DARK_NAVIGATION_PATHS = [URLS.CLIENT.HOME];
 
-function removeLocaleSegment(pathname: string): string {
+export function removeLocaleSegment(pathname: string): string {
   const path = pathname.startsWith('/') ? pathname.slice(1) : pathname;
   const segments = path.split('/').filter(Boolean);
   if (segments.length > 0 && LOCALES.includes(segments[0])) {

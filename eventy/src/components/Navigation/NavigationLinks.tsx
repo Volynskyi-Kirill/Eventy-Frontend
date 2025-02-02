@@ -15,8 +15,6 @@ const NAV_LINKS = [
   { href: URLS.CLIENT.OPEN_SPACE, labelKey: 'openSpace' },
 ];
 
-const LOCALE_REGEX = /^\/[a-z]{2}(\/?)*$/;
-
 export function NavigationLinks({
   pathname,
   isDarkBackground,
@@ -26,11 +24,7 @@ export function NavigationLinks({
   return (
     <div className='flex items-center gap-1'>
       {NAV_LINKS.map(({ href, labelKey }) => {
-        const isHomeActive =
-          labelKey === 'home' &&
-          (pathname === '/' || LOCALE_REGEX.test(pathname));
-        const isOtherActive = labelKey !== 'home' && pathname.includes(href);
-        const isActive = isHomeActive || isOtherActive;
+        const isActive = pathname.includes(href);
 
         return (
           <Link

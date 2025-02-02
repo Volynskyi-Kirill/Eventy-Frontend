@@ -4,10 +4,10 @@ import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/authStore';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LocaleSwitcher from '../LocaleSwitcher';
 import { NavigationLinks } from './NavigationLinks';
+import NavigationLogo from './NavigationLogo';
 import { URLS } from './urls';
 import { UserMenu } from './UserMenu';
 import {
@@ -31,7 +31,6 @@ export default function Navigation() {
 
   const isFixed = shouldUseFixedNav(pathname);
   const isDarkBackground = shouldUseDarkNav(pathname);
-  console.log('isDarkBackground: ', isDarkBackground);
 
   return (
     <div
@@ -43,14 +42,7 @@ export default function Navigation() {
       <div className={cn(isFixed ? 'fixed top-0 left-0 right-0 z-50' : '')}>
         <nav className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center gap-4'>
-            <Link href={URLS.CLIENT.HOME} className='flex items-center'>
-              <Image
-                src='/subscribers/logo-nav.svg'
-                alt='Company Logo'
-                width={30}
-                height={26}
-              />
-            </Link>
+            <NavigationLogo isDarkBackground={isDarkBackground} />
           </div>
           <NavigationLinks
             pathname={pathname}
