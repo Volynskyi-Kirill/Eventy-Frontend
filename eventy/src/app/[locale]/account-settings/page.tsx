@@ -39,6 +39,8 @@ export default function AccountSettingsPage() {
       userSurname: '',
       phoneNumber: '',
       email: '',
+      country: '',
+      city: '',
       password: '',
       newPassword: '',
       confirmPassword: '',
@@ -52,6 +54,8 @@ export default function AccountSettingsPage() {
         userSurname: user.userSurname || '',
         phoneNumber: user.phoneNumber || '',
         email: user.email,
+        country: user.country || '',
+        city: user.city || '',
         password: '',
         newPassword: '',
         confirmPassword: '',
@@ -124,8 +128,8 @@ export default function AccountSettingsPage() {
   }
 
   return (
-    <div className='flex items-center justify-center h-screen'>
-      <div className='container max-w-2xl py-10'>
+    <div className='flex items-start justify-center min-h-screen py-5'>
+      <div className='container max-w-2xl'>
         <Card>
           <CardHeader>
             <CardTitle>{t('mainSettings')}</CardTitle>
@@ -142,13 +146,13 @@ export default function AccountSettingsPage() {
                   <FormField
                     control={form.control}
                     name='userName'
-                    label={t('name')}
+                    label={t('nameLabel')}
                     placeholder={t('namePlaceholder')}
                   />
                   <FormField
                     control={form.control}
                     name='userSurname'
-                    label={t('surname')}
+                    label={t('surnameLabel')}
                     placeholder={t('surnamePlaceholder')}
                   />
                 </div>
@@ -168,6 +172,21 @@ export default function AccountSettingsPage() {
                   placeholder={t('emailPlaceholder')}
                   type='email'
                 />
+
+                <div className='grid grid-cols-2 gap-4'>
+                  <FormField
+                    control={form.control}
+                    name='country'
+                    label={t('countryLabel')}
+                    placeholder={t('countryPlaceholder')}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='city'
+                    label={t('cityLabel')}
+                    placeholder={t('cityPlaceholder')}
+                  />
+                </div>
 
                 {user.isHavePassword && (
                   <>

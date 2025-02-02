@@ -10,6 +10,8 @@ export const accountSettingsSchema = z
     userName: z.string().min(1, 'Name is required'),
     userSurname: z.string().min(1, 'Surname is required'),
     phoneNumber: z.string().optional(),
+    country: z.string().optional(),
+    city: z.string().optional(),
     email: z.string().email('Invalid email address'),
     password: z.string().optional(),
     newPassword: z.string().optional(),

@@ -76,9 +76,9 @@
     "unexpectedError": "Виникла неочікувана помилка.",
     "notLoggedIn": "Ви не увійшли в систему",
     "mainSettings": "Основні налаштування",
-    "name": "Ім'я",
+    "nameLabel": "Ім'я",
     "namePlaceholder": "Введіть ваше ім'я",
-    "surname": "Прізвище",
+    "surnameLabel": "Прізвище",
     "surnamePlaceholder": "Введіть ваше прізвище",
     "phoneNumber": "Номер телефону",
     "phoneNumberPlaceholder": "Введіть ваш номер телефону",
@@ -90,6 +90,10 @@
     "newPasswordPlaceholder": "Введіть ваш новий пароль",
     "confirmPassword": "Підтвердьте пароль",
     "confirmPasswordPlaceholder": "Підтвердьте ваш новий пароль",
+    "cityLabel": "Місто",
+    "cityPlaceholder": "Введіть ваше місто",
+    "countryLabel": "Країна",
+    "countryPlaceholder": "Введіть вашу країну",
     "save": "Зберегти",
     "cancel": "Скасувати"
   }

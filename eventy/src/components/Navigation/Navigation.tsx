@@ -1,23 +1,22 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
-import { MapPin, Search } from 'lucide-react';
+import { useAuthStore } from '@/store/authStore';
+import { Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import LocaleSwitcher from '../LocaleSwitcher';
 import { NavigationLinks } from './NavigationLinks';
 import { URLS } from './urls';
+import { UserMenu } from './UserMenu';
 import {
   shouldHideNavigation,
   shouldUseDarkNav,
   shouldUseFixedNav,
 } from './utils';
-import { UserMenu } from './UserMenu';
-import { useAuthStore } from '@/store/authStore';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
@@ -78,17 +77,6 @@ export default function Navigation() {
             isDarkBackground={isDarkBackground}
           />
           <div className='flex items-center gap-4'>
-            <Button
-              variant='ghost'
-              size='sm'
-              className={cn(
-                'flex items-center gap-2',
-                isDarkBackground ? 'text-white' : 'text-black'
-              )}
-            >
-              <MapPin className='mr-2 h-4 w-4' />
-              Location (City)
-            </Button>
             {isLoggedIn ? (
               <UserMenu />
             ) : (
