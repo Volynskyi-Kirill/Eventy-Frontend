@@ -33,10 +33,10 @@ export function NavigationLinks({
 
   const isClientMode = role === USER_ROLES.CLIENT;
   const links = isClientMode ? CLIENT_NAV_LINKS : ORGANIZER_NAV_LINKS;
-  const localizationKey = isClientMode ? 'clint' : 'organizer';
+  const localizationKey = isClientMode ? 'client' : 'organizer';
 
   return (
-    <div className='flex items-center gap-1'>
+    <div className='flex items-center gap-3'>
       {links.map(({ href, labelKey }) => {
         const isActive = pathname.includes(href);
 
@@ -45,13 +45,12 @@ export function NavigationLinks({
             key={href}
             href={href}
             className={cn(
-              'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
-              'uppercase',
+              'inline-flex h-9 items-center justify-center px-4 text-sm font-semibold uppercase transition-colors',
               isActive
-                ? 'bg-emerald-500 text-white shadow-md ring-2 ring-emerald-500'
+                ? 'text-emerald-500 underline'
                 : isDarkBackground
-                ? 'text-white hover:text-emerald-500 hover:bg-white/10'
-                : 'text-black hover:text-emerald-500 hover:bg-black/10',
+                ? 'text-white hover:text-emerald-500 hover:underline'
+                : 'text-black hover:text-emerald-500 hover:underline',
               'focus-visible:outline focus-visible:outline-2 focus-visible:outline-emerald-500'
             )}
           >

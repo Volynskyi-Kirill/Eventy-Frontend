@@ -19,7 +19,7 @@
     "loginSuccess": "Login successful! Welcome!"
   },
   "Navigation": {
-    "clint": {
+    "client": {
       "home": "Home",
       "events": "Events",
       "subscribers": "Subscribers",

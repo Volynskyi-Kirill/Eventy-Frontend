@@ -19,7 +19,7 @@
     "loginSuccess": "Вхід успішний! Ласкаво просимо!"
   },
   "Navigation": {
-    "clint": {
+    "client": {
       "home": "Головна",
       "events": "Події",
       "subscribers": "Підписки",
