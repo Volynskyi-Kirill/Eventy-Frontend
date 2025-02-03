@@ -46,6 +46,7 @@ export function NavigationLinks({
             href={href}
             className={cn(
               'inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors',
+              'uppercase',
               isActive
                 ? 'bg-emerald-500 text-white shadow-md ring-2 ring-emerald-500'
                 : isDarkBackground
