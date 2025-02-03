@@ -30,7 +30,8 @@
       "events": "Events",
       "tickets": "Tickets",
       "target": "Target",
-      "people": "People"
+      "people": "People",
+      "createEvent": "+ Create event"
     },
     "userMenu": {
       "accountSettings": "Account Settings",

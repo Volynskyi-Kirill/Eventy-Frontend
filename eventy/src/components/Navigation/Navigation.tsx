@@ -16,11 +16,14 @@ import {
   shouldUseFixedNav,
 } from './utils';
 import { RoleSwitcher } from './RoleSwitcher';
+import { USER_ROLES, useRoleStore } from '@/store/roleStore';
+import { CreateEventButton } from './CreateEventButton';
 
 export default function Navigation() {
   const t = useTranslations('Navigation');
   const pathname = usePathname() || '';
   const { isLoggedIn } = useAuthStore();
+  const { role } = useRoleStore();
 
   if (shouldHideNavigation(pathname)) {
     return (
@@ -32,6 +35,7 @@ export default function Navigation() {
 
   const isFixed = shouldUseFixedNav(pathname);
   const isDarkBackground = shouldUseDarkNav(pathname);
+  const isClientMode = role === USER_ROLES.CLIENT;
 
   return (
     <div
@@ -52,7 +56,10 @@ export default function Navigation() {
           />
           <div className='flex items-center gap-4'>
             {isLoggedIn ? (
-              <UserMenu />
+              <>
+                {!isClientMode && <CreateEventButton />}
+                <UserMenu />
+              </>
             ) : (
               <Link
                 href={URLS.SHARED.LOGIN}

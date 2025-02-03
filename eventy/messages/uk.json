@@ -30,7 +30,8 @@
       "events": "Події",
       "tickets": "Квитки",
       "target": "Цільова аудиторія",
-      "people": "Люди"
+      "people": "Люди",
+      "createEvent": "+ Створити подію"
     },
     "userMenu": {
       "logout": "Вийти",

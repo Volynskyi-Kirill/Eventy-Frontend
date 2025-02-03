@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { URLS } from './Navigation/urls';
 
 export default function NotFoundPage() {
   const t = useTranslations('NotFoundPage');
@@ -9,7 +10,7 @@ export default function NotFoundPage() {
       <h1 className='text-4xl font-bold text-gray-800 mb-4'>{t('title')}</h1>
       <p className='text-lg text-gray-600 mb-6'>{t('description')}</p>
       <Link
-        href='/'
+        href={URLS.CLIENT.HOME}
         className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition'
       >
         {t('goHome')}
