@@ -6,10 +6,17 @@ export const usersService = {
   updateUser: async (data: AccountSettingsFormData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...restData } = data;
+
+    const countryName = restData.country.name;
+    const stateName = restData.state.name;
+    const cityName = restData.city.name;
+
     const response = await axiosInstance.patch(
       API_ENDPOINTS.USERS.BASE,
-      restData
+
+      { ...restData, country: countryName, state: stateName, city: cityName }
     );
+
     return response.data;
   },
 

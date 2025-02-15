@@ -10,6 +10,7 @@ interface User {
   userSurname: string;
   phoneNumber: string | null;
   country: string | null;
+  state: string | null;
   city: string | null;
   isHavePassword: boolean;
   avatarUrl: string | null;

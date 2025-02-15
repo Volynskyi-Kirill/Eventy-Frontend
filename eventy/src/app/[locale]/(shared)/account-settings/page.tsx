@@ -26,6 +26,13 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 
+// Импортируем наши новые компоненты
+import {
+  CountrySelectInput,
+  StateSelectInput,
+  CitySelectInput,
+} from '@/components/account/LocationSelects';
+
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,8 +46,9 @@ export default function AccountSettingsPage() {
       userSurname: '',
       phoneNumber: '',
       email: '',
-      country: '',
-      city: '',
+      country: null as any,
+      state: null as any,
+      city: null as any,
       password: '',
       newPassword: '',
       confirmPassword: '',
@@ -54,8 +62,10 @@ export default function AccountSettingsPage() {
         userSurname: user.userSurname || '',
         phoneNumber: user.phoneNumber || '',
         email: user.email,
-        country: user.country || '',
-        city: user.city || '',
+        //TODO правильно типизировать получаемые обьекты, изучить доку. Понять что храним в базе и тут. Что передаем для обновления
+        country: (user.country as any) || null,
+        state: (user.state as any) || null,
+        city: (user.city as any) || null,
         password: '',
         newPassword: '',
         confirmPassword: '',
@@ -173,18 +183,28 @@ export default function AccountSettingsPage() {
                   type='email'
                 />
 
-                <div className='grid grid-cols-2 gap-4'>
-                  <FormField
+                {/* Новой блок для выбора локаций (страна, область, город) */}
+                <div className='grid grid-cols-1 gap-4'>
+                  <CountrySelectInput
                     control={form.control}
                     name='country'
                     label={t('countryLabel')}
                     placeholder={t('countryPlaceholder')}
                   />
-                  <FormField
+                  <StateSelectInput
+                    control={form.control}
+                    name='state'
+                    label={t('stateLabel')}
+                    placeholder={t('statePlaceholder')}
+                    countryValue={form.watch('country')}
+                  />
+                  <CitySelectInput
                     control={form.control}
                     name='city'
                     label={t('cityLabel')}
                     placeholder={t('cityPlaceholder')}
+                    countryValue={form.watch('country')}
+                    stateValue={form.watch('state')}
                   />
                 </div>
 

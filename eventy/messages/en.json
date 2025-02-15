@@ -108,6 +108,8 @@
     "confirmPasswordPlaceholder": "Confirm your new password",
     "cityLabel": "City",
     "cityPlaceholder": "Enter your city",
+    "stateLabel": "State",
+    "statePlaceholder": "Enter your State",
     "countryLabel": "Country",
     "countryPlaceholder": "Enter your country",
     "save": "Save",

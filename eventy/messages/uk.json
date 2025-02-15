@@ -108,6 +108,8 @@
     "confirmPasswordPlaceholder": "Підтвердьте ваш новий пароль",
     "cityLabel": "Місто",
     "cityPlaceholder": "Введіть ваше місто",
+    "stateLabel": "Область",
+    "statePlaceholder": "Введіть вашу область",
     "countryLabel": "Країна",
     "countryPlaceholder": "Введіть вашу країну",
     "save": "Зберегти",
