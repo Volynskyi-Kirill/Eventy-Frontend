@@ -1,6 +1,17 @@
 'use client';
 
-import { AvatarUpload } from '@/components/account/AvatarUpload';
+import { AvatarUpload } from '@/components/accountSettings/AvatarUpload';
+import {
+  CitySelectInput,
+  CountrySelectInput,
+  StateSelectInput,
+} from '@/components/accountSettings/LocationSelects';
+import {
+  convertLocation,
+  getCityByName,
+  getCountryByName,
+  getStateByName,
+} from '@/components/accountSettings/utils';
 import { FormField } from '@/components/auth/FormField';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,53 +32,14 @@ import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { useTranslations } from 'next-intl';
-
-// Импортируем наши новые компоненты выбора локации
-import {
-  CountrySelectInput,
-  StateSelectInput,
-  CitySelectInput,
-  CountryType,
-  StateType,
-  CityType,
-} from '@/components/account/LocationSelects';
-
-// Импорт локальных JSON-данных
-import countriesData from '@/lib/countryData/countriesminified.json';
-import statesData from '@/lib/countryData/statesminified.json';
-import citiesData from '@/lib/countryData/citiesminified.json';
-
-// Функции для поиска объекта по имени
-function getCountryByName(name: string): CountryType | null {
-  // Предполагаем, что countriesData имеет тип CountryType[]
-  const countries = countriesData as CountryType[];
-  return countries.find((c) => c.name === name) || null;
-}
-
-function getStateByName(name: string): StateType | null {
-  // Предполагаем, что statesData имеет структуру: Array<{ states: StateType[] }>
-  const arr = statesData as { states: StateType[] }[];
-  const allStates = arr.flatMap((item) => item.states);
-  return allStates.find((s) => s.name === name) || null;
-}
-
-function getCityByName(name: string): CityType | null {
-  // Предполагаем, что citiesData имеет структуру: Array<{ states: { cities: CityType[] }[] }>
-  const arr = citiesData as { states: { cities: CityType[] }[] }[];
-  const allCities = arr.flatMap((item) =>
-    item.states.flatMap((state) => state.cities)
-  );
-  return allCities.find((c) => c.name === name) || null;
-}
 
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDirty, setIsDirty] = useState(false);
   const t = useTranslations('AccountSettingsPage');
 
   const form = useForm<AccountSettingsFormData>({
@@ -88,17 +60,9 @@ export default function AccountSettingsPage() {
 
   useEffect(() => {
     if (user) {
-      // Если данные из БД хранятся как строки, преобразуем их в объекты через локальные JSON
-      const countryObj =
-        typeof user.country === 'string'
-          ? getCountryByName(user.country)
-          : user.country;
-      const stateObj =
-        typeof user.state === 'string'
-          ? getStateByName(user.state)
-          : user.state;
-      const cityObj =
-        typeof user.city === 'string' ? getCityByName(user.city) : user.city;
+      const countryObj = convertLocation(user.country, getCountryByName);
+      const stateObj = convertLocation(user.state, getStateByName);
+      const cityObj = convertLocation(user.city, getCityByName);
 
       form.reset({
         userName: user.userName || '',
@@ -117,7 +81,7 @@ export default function AccountSettingsPage() {
 
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (isDirty) {
+      if (form.formState.isDirty) {
         e.preventDefault();
         e.returnValue = '';
       }
@@ -125,14 +89,13 @@ export default function AccountSettingsPage() {
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [isDirty]);
+  }, [form.formState.isDirty]);
 
   const onSubmit = async (data: AccountSettingsFormData) => {
     setIsSubmitting(true);
     try {
       await usersService.updateUser(data);
       await fetchUser();
-      setIsDirty(false);
       toast.success(t('updateSuccess'));
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -187,10 +150,7 @@ export default function AccountSettingsPage() {
             <CardTitle>{t('mainSettings')}</CardTitle>
           </CardHeader>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              onChange={() => setIsDirty(true)}
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <CardContent className='space-y-6'>
                 <AvatarUpload />
 
@@ -280,7 +240,7 @@ export default function AccountSettingsPage() {
                 <Button
                   type='submit'
                   className='flex-1'
-                  disabled={isSubmitting || !isDirty}
+                  disabled={isSubmitting || !form.formState.isDirty}
                 >
                   {isSubmitting && (
                     <Loader2 className='mr-2 h-4 w-4 animate-spin' />
@@ -293,9 +253,8 @@ export default function AccountSettingsPage() {
                   className='flex-1'
                   onClick={() => {
                     form.reset();
-                    setIsDirty(false);
                   }}
-                  disabled={!isDirty}
+                  disabled={!form.formState.isDirty}
                 >
                   {t('cancel')}
                 </Button>

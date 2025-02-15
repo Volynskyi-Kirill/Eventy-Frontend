@@ -15,7 +15,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-// Типы для объектов локации
 export interface CountryType {
   id: number;
   name: string;
@@ -30,7 +29,6 @@ export interface CityType {
   name: string;
 }
 
-// Универсальный компонент-обёртка для выбора локации
 interface LocationSelectFieldProps<T> {
   control: any;
   name: string;
@@ -39,6 +37,11 @@ interface LocationSelectFieldProps<T> {
   Component: React.ElementType;
   componentProps: T;
 }
+
+//TODO после смена страны сбрасывать область и город. после смены области сбрасываьть город
+//TODO поиск на укр?
+
+const COUNTRY_DATA = '/countryData';
 
 function LocationSelectField<T>({
   control,
@@ -70,7 +73,6 @@ function LocationSelectField<T>({
   );
 }
 
-// Пропсы для выбора страны
 interface CountrySelectInputProps {
   control: any;
   name: string;
@@ -92,15 +94,13 @@ export function CountrySelectInput({
       placeholder={placeholder}
       Component={CountrySelect}
       componentProps={{
-        src: '/countryData',
+        src: COUNTRY_DATA,
         onTextChange: (txt: string) => console.log('Country search:', txt),
         showFlag: true,
       }}
     />
   );
 }
-
-// Пропсы для выбора области (штата)
 interface StateSelectInputProps {
   control: any;
   name: string;
@@ -125,14 +125,13 @@ export function StateSelectInput({
       Component={StateSelect}
       componentProps={{
         countryid: countryValue?.id,
-        src: '/countryData',
+        src: COUNTRY_DATA,
         onTextChange: (txt: string) => console.log('State search:', txt),
       }}
     />
   );
 }
 
-// Пропсы для выбора города
 interface CitySelectInputProps {
   control: any;
   name: string;
@@ -160,7 +159,7 @@ export function CitySelectInput({
       componentProps={{
         countryid: countryValue?.id,
         stateid: stateValue?.id,
-        src: '/countryData',
+        src: COUNTRY_DATA,
         onTextChange: (txt: string) => console.log('City search:', txt),
       }}
     />

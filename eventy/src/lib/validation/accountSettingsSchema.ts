@@ -32,9 +32,6 @@ export const accountSettingsSchema = z
       })
       .nullable()
       .refine((val) => val !== null, { message: 'Select city' }),
-    // country: z.string().optional(),
-    // state: z.string().optional(),
-    // city: z.string().optional(),
     email: z.string().email('Invalid email address'),
     password: z.string().optional(),
     newPassword: z.string().optional(),
