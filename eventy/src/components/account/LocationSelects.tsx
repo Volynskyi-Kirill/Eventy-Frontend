@@ -1,4 +1,3 @@
-// components/account/LocationSelects.tsx
 'use client';
 
 import React from 'react';
@@ -16,23 +15,39 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-interface LocationSelectProps {
+// Типы для объектов локации
+export interface CountryType {
+  id: number;
+  name: string;
+  iso2?: string;
+}
+export interface StateType {
+  id: number;
+  name: string;
+}
+export interface CityType {
+  id: number;
+  name: string;
+}
+
+// Универсальный компонент-обёртка для выбора локации
+interface LocationSelectFieldProps<T> {
   control: any;
   name: string;
   label: string;
   placeholder: string;
-  // Для StateSelect и CitySelect понадобится передавать выбранное значение страны/области
-  countryValue?: any;
-  stateValue?: any;
+  Component: React.ElementType;
+  componentProps: T;
 }
 
-/** Компонент выбора страны */
-export function CountrySelectInput({
+function LocationSelectField<T>({
   control,
   name,
   label,
   placeholder,
-}: LocationSelectProps) {
+  Component,
+  componentProps,
+}: LocationSelectFieldProps<T>) {
   return (
     <Controller
       control={control}
@@ -41,16 +56,11 @@ export function CountrySelectInput({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <CountrySelect
+            <Component
               placeHolder={placeholder}
               defaultValue={value}
-              onChange={(country) => onChange(country)}
-              onTextChange={(txt) => {
-                // Если нужно реализовать поиск на украинском, можно использовать этот callback
-                console.log('Country search:', txt);
-              }}
-              // Если необходимо, можно передать src с данными, где, например, названия на украинском
-              // src="/path/to/your/custom-countries.json"
+              onChange={(selected: any) => onChange(selected)}
+              {...componentProps}
             />
           </FormControl>
           <FormMessage>{error ? error.message : ''}</FormMessage>
@@ -60,42 +70,78 @@ export function CountrySelectInput({
   );
 }
 
-/** Компонент выбора области (штата) */
+// Пропсы для выбора страны
+interface CountrySelectInputProps {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+}
+
+export function CountrySelectInput({
+  control,
+  name,
+  label,
+  placeholder,
+}: CountrySelectInputProps) {
+  return (
+    <LocationSelectField
+      control={control}
+      name={name}
+      label={label}
+      placeholder={placeholder}
+      Component={CountrySelect}
+      componentProps={{
+        src: '/countryData',
+        onTextChange: (txt: string) => console.log('Country search:', txt),
+        showFlag: true,
+      }}
+    />
+  );
+}
+
+// Пропсы для выбора области (штата)
+interface StateSelectInputProps {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+  countryValue?: CountryType | null;
+}
+
 export function StateSelectInput({
   control,
   name,
   label,
   placeholder,
   countryValue,
-}: LocationSelectProps) {
+}: StateSelectInputProps) {
   return (
-    <Controller
+    <LocationSelectField
       control={control}
       name={name}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <StateSelect
-              countryid={countryValue?.id}
-              placeHolder={placeholder}
-              defaultValue={value}
-              onChange={(state) => onChange(state)}
-              onTextChange={(txt) => {
-                console.log('State search:', txt);
-              }}
-              // При необходимости, можно передать src с данными
-              // src="/path/to/your/custom-states.json"
-            />
-          </FormControl>
-          <FormMessage>{error ? error.message : ''}</FormMessage>
-        </FormItem>
-      )}
+      label={label}
+      placeholder={placeholder}
+      Component={StateSelect}
+      componentProps={{
+        countryid: countryValue?.id,
+        src: '/countryData',
+        onTextChange: (txt: string) => console.log('State search:', txt),
+      }}
     />
   );
 }
 
-/** Компонент выбора города */
+// Пропсы для выбора города
+interface CitySelectInputProps {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+  countryValue?: CountryType | null;
+  stateValue?: StateType | null;
+}
+
 export function CitySelectInput({
   control,
   name,
@@ -103,31 +149,20 @@ export function CitySelectInput({
   placeholder,
   countryValue,
   stateValue,
-}: LocationSelectProps) {
+}: CitySelectInputProps) {
   return (
-    <Controller
+    <LocationSelectField
       control={control}
       name={name}
-      render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <CitySelect
-              countryid={countryValue?.id}
-              stateid={stateValue?.id}
-              placeHolder={placeholder}
-              defaultValue={value}
-              onChange={(city) => onChange(city)}
-              onTextChange={(txt) => {
-                console.log('City search:', txt);
-              }}
-              // При необходимости, можно передать src с данными
-              // src="/path/to/your/custom-cities.json"
-            />
-          </FormControl>
-          <FormMessage>{error ? error.message : ''}</FormMessage>
-        </FormItem>
-      )}
+      label={label}
+      placeholder={placeholder}
+      Component={CitySelect}
+      componentProps={{
+        countryid: countryValue?.id,
+        stateid: stateValue?.id,
+        src: '/countryData',
+        onTextChange: (txt: string) => console.log('City search:', txt),
+      }}
     />
   );
 }

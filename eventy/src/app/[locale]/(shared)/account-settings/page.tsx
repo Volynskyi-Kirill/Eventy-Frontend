@@ -26,12 +26,43 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 
-// Импортируем наши новые компоненты
+// Импортируем наши новые компоненты выбора локации
 import {
   CountrySelectInput,
   StateSelectInput,
   CitySelectInput,
+  CountryType,
+  StateType,
+  CityType,
 } from '@/components/account/LocationSelects';
+
+// Импорт локальных JSON-данных
+import countriesData from '@/lib/countryData/countriesminified.json';
+import statesData from '@/lib/countryData/statesminified.json';
+import citiesData from '@/lib/countryData/citiesminified.json';
+
+// Функции для поиска объекта по имени
+function getCountryByName(name: string): CountryType | null {
+  // Предполагаем, что countriesData имеет тип CountryType[]
+  const countries = countriesData as CountryType[];
+  return countries.find((c) => c.name === name) || null;
+}
+
+function getStateByName(name: string): StateType | null {
+  // Предполагаем, что statesData имеет структуру: Array<{ states: StateType[] }>
+  const arr = statesData as { states: StateType[] }[];
+  const allStates = arr.flatMap((item) => item.states);
+  return allStates.find((s) => s.name === name) || null;
+}
+
+function getCityByName(name: string): CityType | null {
+  // Предполагаем, что citiesData имеет структуру: Array<{ states: { cities: CityType[] }[] }>
+  const arr = citiesData as { states: { cities: CityType[] }[] }[];
+  const allCities = arr.flatMap((item) =>
+    item.states.flatMap((state) => state.cities)
+  );
+  return allCities.find((c) => c.name === name) || null;
+}
 
 export default function AccountSettingsPage() {
   const { user, fetchUser } = useAuthStore();
@@ -57,15 +88,26 @@ export default function AccountSettingsPage() {
 
   useEffect(() => {
     if (user) {
+      // Если данные из БД хранятся как строки, преобразуем их в объекты через локальные JSON
+      const countryObj =
+        typeof user.country === 'string'
+          ? getCountryByName(user.country)
+          : user.country;
+      const stateObj =
+        typeof user.state === 'string'
+          ? getStateByName(user.state)
+          : user.state;
+      const cityObj =
+        typeof user.city === 'string' ? getCityByName(user.city) : user.city;
+
       form.reset({
         userName: user.userName || '',
         userSurname: user.userSurname || '',
         phoneNumber: user.phoneNumber || '',
         email: user.email,
-        //TODO правильно типизировать получаемые обьекты, изучить доку. Понять что храним в базе и тут. Что передаем для обновления
-        country: (user.country as any) || null,
-        state: (user.state as any) || null,
-        city: (user.city as any) || null,
+        country: countryObj as any,
+        state: stateObj as any,
+        city: cityObj as any,
         password: '',
         newPassword: '',
         confirmPassword: '',
@@ -183,7 +225,7 @@ export default function AccountSettingsPage() {
                   type='email'
                 />
 
-                {/* Новой блок для выбора локаций (страна, область, город) */}
+                {/* Блок для выбора локаций */}
                 <div className='grid grid-cols-1 gap-4'>
                   <CountrySelectInput
                     control={form.control}
@@ -228,7 +270,7 @@ export default function AccountSettingsPage() {
                       control={form.control}
                       name='confirmPassword'
                       label={t('confirmPassword')}
-                      placeholder={t('confirmPasswordPlaceholder')}
+                      placeholder={t('confirmPassword')}
                       type='password'
                     />
                   </>
