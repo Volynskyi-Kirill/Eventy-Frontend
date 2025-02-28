@@ -18,6 +18,8 @@ const inactiveDarkClass = 'text-white hover:bg-white/10';
 const activeLightClass = 'bg-black text-white';
 const inactiveLightClass = 'text-black hover:bg-black/10';
 
+//TODO только для зареганых юзеров
+
 export function RoleSwitcher({ isDarkBackground = false }: RoleSwitcherProps) {
   const { role, setRole } = useRoleStore();
   const t = useTranslations('Navigation');
