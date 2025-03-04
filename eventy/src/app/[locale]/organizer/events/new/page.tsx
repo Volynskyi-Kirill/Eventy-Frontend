@@ -7,7 +7,7 @@ import { EventPreview } from '@/components/create-event/EventPreview';
 import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice';
 import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
 import { Button } from '@/components/ui/button';
-import { eventsService } from '@/lib/api/events.service';
+// import { eventsService } from '@/lib/api/events.service';
 import {
   createEventSchema,
   type CreateEventFormData,
@@ -65,7 +65,8 @@ export default function CreateEventPage() {
         ownerId: user.id,
       };
 
-      await eventsService.createEvent(eventData);
+      console.log('eventData: ', eventData);
+      // await eventsService.createEvent(eventData);
       toast.success('Event created successfully');
       router.push(URLS.ORGANIZER.EVENTS);
     } catch (error) {
