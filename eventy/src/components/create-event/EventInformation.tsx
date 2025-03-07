@@ -124,31 +124,32 @@ export function EventInformation() {
         </div>
 
         <div className='space-y-4'>
-          {dateFields.map((field, index) => (
-            <div key={field.id} className='flex items-end gap-2'>
-              <div className='flex-1'>
+          <Label>Select date and time</Label>
+          <div className='grid grid-cols-3 gap-4'>
+            {dateFields.map((field, index) => (
+              <div key={field.id} className='flex items-end gap-2'>
                 <FormField
                   control={control}
                   name={`dates.${index}.date`}
-                  label='Select date and time'
+                  label=''
                   placeholder='YYYY-MM-DDThh:mm'
                   type='datetime-local'
-                  min={minDateTime} 
+                  min={minDateTime}
                 />
-              </div>
 
-              {index > 0 && (
-                <Button
-                  type='button'
-                  variant='destructive'
-                  size='icon'
-                  onClick={() => removeDate(index)}
-                >
-                  <X className='h-4 w-4' />
-                </Button>
-              )}
-            </div>
-          ))}
+                {index > 0 && (
+                  <Button
+                    type='button'
+                    variant='destructive'
+                    size='icon'
+                    onClick={() => removeDate(index)}
+                  >
+                    <X className='h-4 w-4' />
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
           <Button
             type='button'
             variant='outline'
