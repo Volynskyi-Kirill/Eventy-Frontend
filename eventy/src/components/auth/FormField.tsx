@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import PasswordInput from '@/components/originUI/PasswordInput';
 import PhoneNumberInput from '@/components/originUI/PhoneNumberInput';
+import { Textarea } from '@/components/ui/textarea';
 
 interface FormFieldProps {
   control: any;
@@ -18,6 +19,7 @@ interface FormFieldProps {
   placeholder: string;
   type?: string;
   description?: string;
+  min?: string;
 }
 
 export function FormField({
@@ -27,31 +29,54 @@ export function FormField({
   placeholder,
   type = 'text',
   description,
+  ...rest
 }: FormFieldProps) {
   return (
     <ShadcnFormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            {type === 'password' ? (
-              <PasswordInput placeholder={placeholder} {...field} />
-            ) : type === 'tel' ? (
+      render={({ field }) => {
+        let component;
+        switch (type) {
+          case 'password':
+            component = (
+              <PasswordInput placeholder={placeholder} {...field} {...rest} />
+            );
+            break;
+          case 'tel':
+            component = (
               <PhoneNumberInput
                 control={control}
-                name={name}
                 placeholder={placeholder}
+                {...field}
+                {...rest}
               />
-            ) : (
-              <Input type={type} placeholder={placeholder} {...field} />
-            )}
-          </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
-        </FormItem>
-      )}
+            );
+            break;
+          case 'textarea':
+            component = (
+              <Textarea placeholder={placeholder} {...field} {...rest} />
+            );
+            break;
+          default:
+            component = (
+              <Input
+                type={type}
+                placeholder={placeholder}
+                {...field}
+                {...rest}
+              />
+            );
+        }
+        return (
+          <FormItem>
+            <FormLabel>{label}</FormLabel>
+            <FormControl>{component}</FormControl>
+            {description && <FormDescription>{description}</FormDescription>}
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
 }

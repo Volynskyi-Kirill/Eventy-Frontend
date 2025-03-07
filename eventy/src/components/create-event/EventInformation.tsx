@@ -12,12 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { X } from 'lucide-react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-// Mock categories for demonstration
 const CATEGORIES = [
   { id: 1, name: 'Fun' },
   { id: 2, name: 'Education' },
@@ -27,6 +25,8 @@ const CATEGORIES = [
 ];
 
 export function EventInformation() {
+  const minDateTime = new Date().toISOString().slice(0, 16);
+
   const { control, register, setValue, watch } =
     useFormContext<CreateEventFormData>();
 
@@ -72,9 +72,7 @@ export function EventInformation() {
         <CardTitle>Event information</CardTitle>
       </CardHeader>
       <CardContent className='space-y-6'>
-        {/* Event Title */}
         <div className='space-y-2'>
-          {/* Updated to use FormField */}
           <FormField
             control={control}
             name='title'
@@ -83,7 +81,6 @@ export function EventInformation() {
           />
         </div>
 
-        {/* Event Categories */}
         <div className='space-y-2'>
           <Label>Event categories</Label>
           <div className='flex flex-wrap gap-2 mb-2'>
@@ -126,44 +123,30 @@ export function EventInformation() {
           </Select>
         </div>
 
-        {/* Date and Time */}
         <div className='space-y-4'>
-          <Label>Select date and time</Label>
           {dateFields.map((field, index) => (
-            <div key={field.id} className='grid grid-cols-2 gap-4'>
-              <div>
-                {/* Replaced Input with FormField for date */}
+            <div key={field.id} className='flex items-end gap-2'>
+              <div className='flex-1'>
                 <FormField
                   control={control}
                   name={`dates.${index}.date`}
-                  label='Select date'
-                  placeholder='12 September 2025'
-                  type='date'
+                  label='Select date and time'
+                  placeholder='YYYY-MM-DDThh:mm'
+                  type='datetime-local'
+                  min={minDateTime} 
                 />
               </div>
-              <div className='flex items-end gap-2'>
-                <div className='flex-1'>
-                  {/* Replaced Input with FormField for time */}
-                  <FormField
-                    control={control}
-                    name={`dates.${index}.time`}
-                    label='Select time'
-                    placeholder='12:30'
-                    type='time'
-                  />
-                </div>
-                {index > 0 && (
-                  <Button
-                    type='button'
-                    variant='destructive'
-                    size='icon'
-                    className='mb-0.5'
-                    onClick={() => removeDate(index)}
-                  >
-                    <X className='h-4 w-4' />
-                  </Button>
-                )}
-              </div>
+
+              {index > 0 && (
+                <Button
+                  type='button'
+                  variant='destructive'
+                  size='icon'
+                  onClick={() => removeDate(index)}
+                >
+                  <X className='h-4 w-4' />
+                </Button>
+              )}
             </div>
           ))}
           <Button
@@ -176,11 +159,9 @@ export function EventInformation() {
           </Button>
         </div>
 
-        {/* Place */}
         <div className='space-y-2'>
           <Label>Place</Label>
           <div className='grid grid-cols-2 gap-4'>
-            {/* Replaced Inputs with FormField for country and city */}
             <FormField
               control={control}
               name='country'
@@ -195,7 +176,6 @@ export function EventInformation() {
             />
           </div>
           <div className='grid grid-cols-2 gap-4 mt-2'>
-            {/* Replaced Inputs with FormField for street and buildingNumber */}
             <FormField
               control={control}
               name='street'
@@ -218,7 +198,6 @@ export function EventInformation() {
           </Button>
         </div>
 
-        {/* Speakers */}
         <div className='space-y-2'>
           <Label>Speakers</Label>
           <div className='flex items-center gap-2'>
@@ -244,25 +223,23 @@ export function EventInformation() {
           </Button>
         </div>
 
-        {/* Short Description */}
         <div className='space-y-2'>
-          <Label htmlFor='shortDescription'>Event Short description</Label>
-          <Textarea
-            id='shortDescription'
-            {...register('shortDescription')}
+          <FormField
+            control={control}
+            name='shortDescription'
+            label='Event Short description'
             placeholder='Short description'
-            className='min-h-[100px]'
+            type='textarea'
           />
         </div>
 
-        {/* Full Description */}
         <div className='space-y-2'>
-          <Label htmlFor='fullDescription'>Event full description</Label>
-          <Textarea
-            id='fullDescription'
-            {...register('fullDescription')}
+          <FormField
+            control={control}
+            name='fullDescription'
+            label='Event full description'
             placeholder='Full description'
-            className='min-h-[200px]'
+            type='textarea'
           />
         </div>
       </CardContent>

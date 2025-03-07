@@ -6,8 +6,6 @@ import { EventInformation } from '@/components/create-event/EventInformation';
 import { EventPreview } from '@/components/create-event/EventPreview';
 import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice';
 import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
-import { Button } from '@/components/ui/button';
-// import { eventsService } from '@/lib/api/events.service';
 import {
   createEventSchema,
   type CreateEventFormData,
@@ -81,32 +79,17 @@ export default function CreateEventPage() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
             <div className='lg:col-span-1'>
-              <EventPreview formValues={formValues} />
+              <EventPreview
+                formValues={formValues}
+                isSubmitting={isSubmitting}
+              />
             </div>
-
             <div className='lg:col-span-2'>
               <div className='space-y-6'>
                 <EventImages />
                 <EventInformation />
                 <EventSeatsAndPrice />
                 <EventSocialMedia />
-
-                <div className='flex justify-end space-x-4 mt-8'>
-                  <Button
-                    type='button'
-                    variant='outline'
-                    onClick={() => router.push(URLS.ORGANIZER.EVENTS)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type='submit'
-                    disabled={isSubmitting}
-                    className='bg-emerald-500 hover:bg-emerald-600'
-                  >
-                    {isSubmitting ? 'Creating...' : 'Create Event'}
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
