@@ -1,5 +1,10 @@
 'use client';
 
+import {
+  CitySelectInput,
+  CountrySelectInput,
+  StateSelectInput,
+} from '@/components/accountSettings/LocationSelects';
 import { FormField } from '@/components/auth/FormField';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,7 +22,9 @@ import { DateSelector } from './DateSelector';
 import { EventCategories } from './EventCategories';
 
 export function EventInformation() {
-  const { control } = useFormContext<CreateEventFormData>();
+  const { control, watch } = useFormContext<CreateEventFormData>();
+  const countryValue = watch('country');
+  const stateValue = watch('state');
 
   const {
     fields: speakerFields,
@@ -49,18 +56,27 @@ export function EventInformation() {
 
         <div className='space-y-2'>
           <Label>Place</Label>
-          <div className='grid grid-cols-2 gap-4'>
-            <FormField
+          <div className='grid grid-cols-1 gap-4'>
+            <CountrySelectInput
               control={control}
               name='country'
               label='Country'
               placeholder='Country'
             />
-            <FormField
+            <StateSelectInput
               control={control}
               name='state'
+              label='State'
+              placeholder='State'
+              countryValue={countryValue}
+            />
+            <CitySelectInput
+              control={control}
+              name='city'
               label='City'
               placeholder='City'
+              countryValue={countryValue}
+              stateValue={stateValue}
             />
           </div>
           <div className='grid grid-cols-2 gap-4 mt-2'>
@@ -77,13 +93,6 @@ export function EventInformation() {
               placeholder='Building number'
             />
           </div>
-          <Button
-            type='button'
-            variant='outline'
-            className='w-full bg-emerald-500 text-white hover:bg-emerald-600 mt-2'
-          >
-            Select location
-          </Button>
         </div>
 
         <div className='space-y-2'>

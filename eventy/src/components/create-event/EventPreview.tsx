@@ -15,9 +15,26 @@ interface EventPreviewProps {
 }
 
 export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
-  const { title, dates, country, state, eventZones, mainImg } = formValues;
+  const {
+    title,
+    dates,
+    mainImg,
+    country,
+    state,
+    city,
+    street,
+    buildingNumber,
+    eventZones,
+  } = formValues;
 
-  const location = [country, state].filter(Boolean).join(', ');
+  const countryName =
+    country && typeof country === 'object' ? country.name : country;
+  const stateName = state && typeof state === 'object' ? state.name : state;
+  const cityName = city && typeof city === 'object' ? city.name : city;
+  const location = [countryName, stateName, cityName, street, buildingNumber]
+    .filter(Boolean)
+    .join(', ');
+
   const hasPrice = eventZones && eventZones.length > 0;
   const lowestPrice = hasPrice
     ? Math.min(...eventZones.map((zone) => zone.price))
@@ -56,26 +73,22 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
         </div>
         <CardContent className='p-4'>
           <h2 className='text-xl font-bold mb-2'>{title || 'TITLE'}</h2>
-
           {location && (
             <div className='flex items-center text-sm text-gray-500 mb-2'>
               <MapPin className='h-4 w-4 mr-1' />
               <span>{location}</span>
             </div>
           )}
-
           {dates && dates.length > 0 && dates[0].date && (
             <div className='flex items-center text-sm text-gray-500 mb-2'>
               <Calendar className='h-4 w-4 mr-1' />
               <span>{formatDate(dates[0].date)}</span>
             </div>
           )}
-
           <div className='mt-4'>
             <div className='text-lg font-semibold'>PRICE</div>
             <div className='text-md'>{priceDisplay}</div>
           </div>
-
           <div className='mt-4 space-y-2'>
             <Button
               type='submit'

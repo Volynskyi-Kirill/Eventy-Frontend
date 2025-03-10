@@ -95,7 +95,6 @@ export function CountrySelectInput({
       Component={CountrySelect}
       componentProps={{
         src: COUNTRY_DATA,
-        onTextChange: (txt: string) => console.log('Country search:', txt),
         showFlag: true,
       }}
     />
