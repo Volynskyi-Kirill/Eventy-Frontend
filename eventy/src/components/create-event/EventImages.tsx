@@ -1,95 +1,171 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { useFormContext } from "react-hook-form"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import type { CreateEventFormData } from "@/lib/validation/createEventSchema"
+import { useState, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 
 export function EventImages() {
-  const { setValue, watch } = useFormContext<CreateEventFormData>()
+  const { setValue, watch } = useFormContext<CreateEventFormData>();
   const [uploading, setUploading] = useState({
     cover: false,
     logo: false,
     main: false,
-  })
+  });
 
-  const coverImg = watch("coverImg")
-  const logoImg = watch("logoImg")
-  const mainImg = watch("mainImg")
+  const coverImg = watch('coverImg');
+  const logoImg = watch('logoImg');
+  const mainImg = watch('mainImg');
 
-  const handleImageUpload = async (type: "coverImg" | "logoImg" | "mainImg") => {
-    // In a real implementation, you would use an input file and handle the upload
-    // For this example, we'll simulate an upload with a placeholder
+  const coverInputRef = useRef<HTMLInputElement>(null);
+  const mainInputRef = useRef<HTMLInputElement>(null);
+  const logoInputRef = useRef<HTMLInputElement>(null);
 
-    setUploading({ ...uploading, [type.replace("Img", "")]: true })
+
+  const handleImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: 'coverImg' | 'logoImg' | 'mainImg'
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading((prev) => ({
+      ...prev,
+      [type.replace('Img', '')]: true,
+    }));
 
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // const formData = new FormData();
+      // formData.append("file", file);
+      // const response = await fetch("/api/upload", {
+      //   method: "POST",
+      //   body: formData,
+      // });
+      // const data = await response.json();
+      // const imageUrl = data.url;
 
-      // Set a placeholder image URL
-      const imageUrl = `/placeholder.svg?height=400&width=600&text=${type}`
-      setValue(type, imageUrl, { shouldValidate: true })
+      const imageUrl = URL.createObjectURL(file);
+
+      setValue(type, imageUrl, { shouldValidate: true });
     } catch (error) {
-      console.error(`Error uploading ${type}:`, error)
+      console.error('Error uploading image:', error);
     } finally {
-      setUploading({ ...uploading, [type.replace("Img", "")]: false })
+      setUploading((prev) => ({
+        ...prev,
+        [type.replace('Img', '')]: false,
+      }));
     }
-  }
+  };
 
   return (
-    <div className="relative w-full h-[200px] bg-gray-200 mb-6">
-      {/* Cover image */}
-      <div className="absolute top-0 right-0 p-4">
-        <div className="text-sm font-medium mb-1">Cover</div>
-        <Button
-          size="sm"
-          variant="secondary"
-          className="bg-black/70 text-white hover:bg-black/80"
-          onClick={() => handleImageUpload("coverImg")}
-          disabled={uploading.cover}
-        >
-          {uploading.cover ? "Uploading..." : coverImg ? "Change cover" : "Add cover"}
-        </Button>
+    <div>
+      {/* Область для Cover */}
+      <div className='relative w-full h-[200px] bg-gray-200 rounded-md overflow-hidden'>
+        {coverImg ? (
+          <Image src={coverImg} alt='Cover' fill className='object-cover' />
+        ) : (
+          <div className='flex items-center justify-center w-full h-full text-gray-500'>
+            Cover
+          </div>
+        )}
+        <div className='absolute top-2 right-2'>
+          <Button
+            size='sm'
+            variant='secondary'
+            className='bg-black/70 text-white hover:bg-black/80'
+            onClick={() => coverInputRef.current?.click()}
+            disabled={uploading.cover}
+          >
+            {uploading.cover
+              ? 'Uploading...'
+              : coverImg
+              ? 'Change cover'
+              : 'Add cover'}
+          </Button>
+          <input
+            type='file'
+            accept='image/*'
+            ref={coverInputRef}
+            className='hidden'
+            onChange={(e) => handleImageChange(e, 'coverImg')}
+          />
+        </div>
       </div>
 
-      {/* Main photo */}
-      <div className="absolute left-8 top-8 w-[200px] h-[150px] bg-gray-300 flex items-center justify-center">
-        {mainImg ? (
-          <Image src={mainImg || "/placeholder.svg"} alt="Main photo" fill className="object-cover" />
-        ) : (
-          <div className="text-sm text-gray-500">Main photo</div>
-        )}
-        <Button
-          size="sm"
-          variant="secondary"
-          className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/70 text-white hover:bg-black/80"
-          onClick={() => handleImageUpload("mainImg")}
-          disabled={uploading.main}
-        >
-          {uploading.main ? "Uploading..." : mainImg ? "Change main photo" : "Add main photo"}
-        </Button>
-      </div>
+      {/* Блок для Main photo и Logo */}
+      <div className='mt-4 flex flex-wrap gap-4'>
+        {/* Main photo */}
+        <div className='relative w-[200px] h-[150px] bg-gray-200 rounded-md overflow-hidden'>
+          {mainImg ? (
+            <Image
+              src={mainImg}
+              alt='Main photo'
+              fill
+              className='object-cover'
+            />
+          ) : (
+            <div className='flex items-center justify-center w-full h-full text-gray-500'>
+              Main photo
+            </div>
+          )}
+          <div className='absolute top-2 right-2'>
+            <Button
+              size='sm'
+              variant='secondary'
+              className='bg-black/70 text-white hover:bg-black/80'
+              onClick={() => mainInputRef.current?.click()}
+              disabled={uploading.main}
+            >
+              {uploading.main
+                ? 'Uploading...'
+                : mainImg
+                ? 'Change main photo'
+                : 'Add main photo'}
+            </Button>
+            <input
+              type='file'
+              accept='image/*'
+              ref={mainInputRef}
+              className='hidden'
+              onChange={(e) => handleImageChange(e, 'mainImg')}
+            />
+          </div>
+        </div>
 
-      {/* Logo */}
-      <div className="absolute left-[250px] top-8 w-[100px] h-[100px] bg-gray-300 flex items-center justify-center">
-        {logoImg ? (
-          <Image src={logoImg || "/placeholder.svg"} alt="Logo" fill className="object-cover" />
-        ) : (
-          <div className="text-sm text-gray-500">Logo</div>
-        )}
-        <Button
-          size="sm"
-          variant="secondary"
-          className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black/70 text-white hover:bg-black/80"
-          onClick={() => handleImageUpload("logoImg")}
-          disabled={uploading.logo}
-        >
-          {uploading.logo ? "Uploading..." : logoImg ? "Change logo" : "Add logo"}
-        </Button>
+        {/* Logo */}
+        <div className='relative w-[100px] h-[100px] bg-gray-200 rounded-md overflow-hidden'>
+          {logoImg ? (
+            <Image src={logoImg} alt='Logo' fill className='object-cover' />
+          ) : (
+            <div className='flex items-center justify-center w-full h-full text-gray-500'>
+              Logo
+            </div>
+          )}
+          <div className='absolute top-2 right-2'>
+            <Button
+              size='sm'
+              variant='secondary'
+              className='bg-black/70 text-white hover:bg-black/80'
+              onClick={() => logoInputRef.current?.click()}
+              disabled={uploading.logo}
+            >
+              {uploading.logo
+                ? 'Uploading...'
+                : logoImg
+                ? 'Change logo'
+                : 'Add logo'}
+            </Button>
+            <input
+              type='file'
+              accept='image/*'
+              ref={logoInputRef}
+              className='hidden'
+              onChange={(e) => handleImageChange(e, 'logoImg')}
+            />
+          </div>
+        </div>
       </div>
     </div>
-  )
+  );
 }
-
