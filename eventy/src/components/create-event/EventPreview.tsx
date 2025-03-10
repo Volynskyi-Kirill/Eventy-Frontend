@@ -8,6 +8,7 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { formatDate } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { URLS } from '@/components/Navigation/urls';
+import { CATEGORIES } from './EventCategories';
 
 interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
@@ -25,6 +26,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
     street,
     buildingNumber,
     eventZones,
+    categoryIds,
   } = formValues;
 
   const countryName =
@@ -73,16 +75,36 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
         </div>
         <CardContent className='p-4'>
           <h2 className='text-xl font-bold mb-2'>{title || 'TITLE'}</h2>
+          {categoryIds && categoryIds.length > 0 && (
+            <div className='mb-2 text-sm text-gray-500'>
+              Categories:{' '}
+              {categoryIds
+                .map((id: number) => {
+                  const category = CATEGORIES.find((c) => c.id === id);
+                  return category ? category.name : id;
+                })
+                .join(', ')}
+            </div>
+          )}
           {location && (
             <div className='flex items-center text-sm text-gray-500 mb-2'>
               <MapPin className='h-4 w-4 mr-1' />
               <span>{location}</span>
             </div>
           )}
-          {dates && dates.length > 0 && dates[0].date && (
-            <div className='flex items-center text-sm text-gray-500 mb-2'>
-              <Calendar className='h-4 w-4 mr-1' />
-              <span>{formatDate(dates[0].date)}</span>
+          {dates && dates.length > 0 && (
+            <div className='mb-2'>
+              {dates.map((dateObj, idx) =>
+                dateObj.date ? (
+                  <div
+                    key={idx}
+                    className='flex items-center text-sm text-gray-500 mb-1'
+                  >
+                    <Calendar className='h-4 w-4 mr-1' />
+                    <span>{formatDate(dateObj.date)}</span>
+                  </div>
+                ) : null
+              )}
             </div>
           )}
           <div className='mt-4'>

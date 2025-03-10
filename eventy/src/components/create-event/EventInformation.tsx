@@ -36,9 +36,9 @@ export function EventInformation() {
   });
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Event information</CardTitle>
+    <Card className='max-w-[45em] mx-auto'>
+      <CardHeader className='text-center'>
+        <CardTitle className='text-2xl font-bold'>Event information</CardTitle>
       </CardHeader>
       <CardContent className='space-y-6'>
         <div className='space-y-2'>
@@ -127,6 +127,7 @@ export function EventInformation() {
             label='Event Short description'
             placeholder='Short description'
             type='textarea'
+            className='min-h-[8em]'
           />
         </div>
 
@@ -137,6 +138,7 @@ export function EventInformation() {
             label='Event full description'
             placeholder='Full description'
             type='textarea'
+            className='min-h-[16em]'
           />
         </div>
       </CardContent>

@@ -22,7 +22,7 @@ export function DateSelector({ control }: DateSelectorProps) {
   return (
     <div className='space-y-4'>
       <Label>Select date and time</Label>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid grid-cols-2 gap-4'>
         {fields.map((field, index) => (
           <div key={field.id} className='flex items-end gap-2'>
             <FormField

@@ -42,7 +42,7 @@ export function EventSeatsAndPrice() {
   }
 
   return (
-    <Card>
+    <Card className='max-w-[45em] mx-auto'>
       <CardHeader>
         <CardTitle>Seats and price</CardTitle>
       </CardHeader>

@@ -20,6 +20,7 @@ interface FormFieldProps {
   type?: string;
   description?: string;
   min?: string;
+  className?: string;
 }
 
 export function FormField({

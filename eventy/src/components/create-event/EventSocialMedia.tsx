@@ -1,59 +1,73 @@
-"use client"
+'use client';
 
-import { useFormContext, useFieldArray } from "react-hook-form"
-import { X } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import type { CreateEventFormData } from "@/lib/validation/createEventSchema"
+import { useFormContext, useFieldArray } from 'react-hook-form';
+import { X } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 
-const SOCIAL_PLATFORMS = ["Instagram", "Facebook", "Twitter", "LinkedIn", "YouTube", "TikTok", "Telegram"]
+const SOCIAL_PLATFORMS = [
+  'Instagram',
+  'Facebook',
+  'Twitter',
+  'LinkedIn',
+  'YouTube',
+  'TikTok',
+  'Telegram',
+];
 
 export function EventSocialMedia() {
-  const { control, register } = useFormContext<CreateEventFormData>()
+  const { control, register } = useFormContext<CreateEventFormData>();
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "socialMedia",
-  })
+    name: 'socialMedia',
+  });
 
   const addSocialMedia = () => {
-    append({ platform: "Instagram", link: "" })
-  }
+    append({ platform: 'Instagram', link: '' });
+  };
 
   return (
-    <Card>
+    <Card className='max-w-[45em] mx-auto'>
       <CardHeader>
         <CardTitle>Social media</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className='space-y-6'>
         {fields.map((field, index) => (
-          <div key={field.id} className="space-y-2">
-            <div className="flex justify-between items-center">
+          <div key={field.id} className='space-y-2'>
+            <div className='flex justify-between items-center'>
               <Label>{field.platform}</Label>
               <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                className="text-red-500 hover:text-red-700"
+                type='button'
+                variant='ghost'
+                size='sm'
+                className='text-red-500 hover:text-red-700'
                 onClick={() => remove(index)}
               >
-                <X className="h-4 w-4" />
+                <X className='h-4 w-4' />
               </Button>
             </div>
-            <div className="flex gap-2">
+            <div className='flex gap-2'>
               <Select
                 defaultValue={field.platform}
                 onValueChange={(value) => {
-                  const updatedField = { ...field, platform: value }
-                  const updatedFields = [...fields]
-                  updatedFields[index] = updatedField
+                  const updatedField = { ...field, platform: value };
+                  const updatedFields = [...fields];
+                  updatedFields[index] = updatedField;
                 }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select platform" />
+                  <SelectValue placeholder='Select platform' />
                 </SelectTrigger>
                 <SelectContent>
                   {SOCIAL_PLATFORMS.map((platform) => (
@@ -63,21 +77,24 @@ export function EventSocialMedia() {
                   ))}
                 </SelectContent>
               </Select>
-              <Input {...register(`socialMedia.${index}.link`)} placeholder="@ Username" className="flex-1" />
+              <Input
+                {...register(`socialMedia.${index}.link`)}
+                placeholder='@ Username'
+                className='flex-1'
+              />
             </div>
           </div>
         ))}
 
         <Button
-          type="button"
-          variant="outline"
-          className="w-full bg-emerald-500 text-white hover:bg-emerald-600"
+          type='button'
+          variant='outline'
+          className='w-full bg-emerald-500 text-white hover:bg-emerald-600'
           onClick={addSocialMedia}
         >
           Add social media link
         </Button>
       </CardContent>
     </Card>
-  )
+  );
 }
-

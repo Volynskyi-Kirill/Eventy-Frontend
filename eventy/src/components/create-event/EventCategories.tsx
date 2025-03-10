@@ -13,7 +13,7 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { X } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
-const CATEGORIES = [
+export const CATEGORIES = [
   { id: 1, name: 'Fun' },
   { id: 2, name: 'Education' },
   { id: 3, name: 'Business' },
