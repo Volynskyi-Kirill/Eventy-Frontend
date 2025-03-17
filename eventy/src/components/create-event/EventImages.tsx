@@ -22,7 +22,6 @@ export function EventImages() {
   const mainInputRef = useRef<HTMLInputElement>(null);
   const logoInputRef = useRef<HTMLInputElement>(null);
 
-
   const handleImageChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
     type: 'coverImg' | 'logoImg' | 'mainImg'
@@ -60,7 +59,6 @@ export function EventImages() {
 
   return (
     <div>
-      {/* Область для Cover */}
       <div className='relative w-full h-[200px] bg-gray-200 rounded-md overflow-hidden'>
         {coverImg ? (
           <Image src={coverImg} alt='Cover' fill className='object-cover' />
@@ -93,9 +91,7 @@ export function EventImages() {
         </div>
       </div>
 
-      {/* Блок для Main photo и Logo */}
       <div className='mt-4 flex flex-wrap gap-4'>
-        {/* Main photo */}
         <div className='relative w-[200px] h-[150px] bg-gray-200 rounded-md overflow-hidden'>
           {mainImg ? (
             <Image
@@ -133,7 +129,6 @@ export function EventImages() {
           </div>
         </div>
 
-        {/* Logo */}
         <div className='relative w-[100px] h-[100px] bg-gray-200 rounded-md overflow-hidden'>
           {logoImg ? (
             <Image src={logoImg} alt='Logo' fill className='object-cover' />

@@ -36,8 +36,9 @@ export function DateSelector({ control }: DateSelectorProps) {
             {index > 0 && (
               <Button
                 type='button'
-                variant='destructive'
-                size='icon'
+                variant='ghost'
+                size='sm'
+                className='text-red-500 hover:text-red-700'
                 onClick={() => remove(index)}
               >
                 <X className='h-4 w-4' />

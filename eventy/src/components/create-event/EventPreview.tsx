@@ -27,6 +27,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
     buildingNumber,
     eventZones,
     categoryIds,
+    socialMedia,
   } = formValues;
 
   const countryName =
@@ -58,7 +59,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
 
   return (
     <div className='sticky top-6'>
-      <Card className='overflow-hidden'>
+      <Card className='max-w-[18.875em] mx-auto overflow-hidden'>
         <div className='relative h-64 w-full bg-gray-200'>
           {mainImg ? (
             <Image
@@ -111,6 +112,21 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
             <div className='text-lg font-semibold'>PRICE</div>
             <div className='text-md'>{priceDisplay}</div>
           </div>
+
+          {socialMedia && socialMedia.length > 0 && (
+            <div className='mt-4'>
+              <div className='text-lg font-semibold'>Social Media</div>
+              <ul className='list-disc pl-4'>
+                {socialMedia.map((sm, idx) =>
+                  sm.link ? (
+                    <li key={idx} className='text-md'>
+                      {sm.platform}: {sm.link}
+                    </li>
+                  ) : null
+                )}
+              </ul>
+            </div>
+          )}
           <div className='mt-4 space-y-2'>
             <Button
               type='submit'

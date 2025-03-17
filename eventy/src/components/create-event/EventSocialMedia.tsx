@@ -28,7 +28,7 @@ const SOCIAL_PLATFORMS = [
 export function EventSocialMedia() {
   const { control, register } = useFormContext<CreateEventFormData>();
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: 'socialMedia',
   });
@@ -57,13 +57,11 @@ export function EventSocialMedia() {
                 <X className='h-4 w-4' />
               </Button>
             </div>
-            <div className='flex gap-2'>
+            <div className='flex flex-col gap-2'>
               <Select
                 defaultValue={field.platform}
                 onValueChange={(value) => {
-                  const updatedField = { ...field, platform: value };
-                  const updatedFields = [...fields];
-                  updatedFields[index] = updatedField;
+                  update(index, { ...field, platform: value });
                 }}
               >
                 <SelectTrigger>
@@ -80,7 +78,7 @@ export function EventSocialMedia() {
               <Input
                 {...register(`socialMedia.${index}.link`)}
                 placeholder='@ Username'
-                className='flex-1'
+                className='w-full'
               />
             </div>
           </div>
