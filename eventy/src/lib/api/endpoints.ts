@@ -14,6 +14,7 @@ export const API_ENDPOINTS = {
     BASE: BASE_PATHS.USERS,
     ME: `${BASE_PATHS.USERS}/me`,
     UPLOAD_AVATAR: `${BASE_PATHS.USERS}/avatar`,
+    BY_EMAIL: `${BASE_PATHS.USERS}/by-email`,
   },
   EVENTS: {
     CREATE: BASE_PATHS.EVENTS,

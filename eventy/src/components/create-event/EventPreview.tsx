@@ -9,6 +9,7 @@ import { formatDate } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { URLS } from '@/components/Navigation/urls';
 import { CATEGORIES } from './EventCategories';
+import { speakers } from '@/data/speakers';
 
 interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
@@ -28,6 +29,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
     eventZones,
     categoryIds,
     socialMedia,
+    speakerIds,
   } = formValues;
 
   const countryName =
@@ -83,6 +85,19 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
                 .map((id: number) => {
                   const category = CATEGORIES.find((c) => c.id === id);
                   return category ? category.name : id;
+                })
+                .join(', ')}
+            </div>
+          )}
+          {speakerIds && speakerIds.length > 0 && (
+            <div className='mb-2 text-sm text-gray-500'>
+              Speakers:{' '}
+              {speakerIds
+                .map((id: number) => {
+                  const speaker = speakers.find((s) => s.id === id);
+                  return speaker
+                    ? `${speaker.userName} ${speaker.userSurname}`
+                    : id;
                 })
                 .join(', ')}
             </div>

@@ -6,34 +6,18 @@ import {
   StateSelectInput,
 } from '@/components/accountSettings/LocationSelects';
 import { FormField } from '@/components/auth/FormField';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { DateSelector } from './DateSelector';
 import { EventCategories } from './EventCategories';
+import { EventSpeakers } from './EventSpeakers';
 
 export function EventInformation() {
   const { control, watch } = useFormContext<CreateEventFormData>();
   const countryValue = watch('country');
   const stateValue = watch('state');
-
-  const {
-    fields: speakerFields,
-    append: appendSpeaker,
-    remove: removeSpeaker,
-  } = useFieldArray({
-    control,
-    name: 'speakerIds',
-  });
 
   return (
     <Card className='max-w-[45em] mx-auto'>
@@ -95,30 +79,7 @@ export function EventInformation() {
           </div>
         </div>
 
-        <div className='space-y-2'>
-          <Label>Speakers</Label>
-          <div className='flex items-center gap-2'>
-            <div className='flex-1'>
-              <Select>
-                <SelectTrigger className='w-full'>
-                  <SelectValue placeholder='@ Username' />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='1'>John Doe</SelectItem>
-                  <SelectItem value='2'>Jane Smith</SelectItem>
-                  <SelectItem value='3'>Alex Johnson</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <Button
-            type='button'
-            variant='outline'
-            className='w-full bg-emerald-500 text-white hover:bg-emerald-600 mt-2'
-          >
-            Add speaker
-          </Button>
-        </div>
+        <EventSpeakers />
 
         <div className='space-y-2'>
           <FormField
