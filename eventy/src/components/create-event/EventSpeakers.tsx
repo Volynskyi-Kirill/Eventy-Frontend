@@ -23,6 +23,12 @@ export function EventSpeakers() {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
     setIsLoading(true);
     try {
       const user = await usersService.getUserByEmail(email);
