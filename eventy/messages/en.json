@@ -205,7 +205,7 @@
     "title": "Social media",
     "addSocialMedia": "Add social media link",
     "selectPlaceholder": "Select platform",
-    "linkPlaceholder": "@ Username",
+    "linkPlaceholder": "Link",
     "validation": {
       "platformRequired": "Platform is required",
       "platformMaxLength": "Platform name cannot exceed 50 characters",

@@ -141,7 +141,14 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
                 {socialMedia.map((sm, idx) =>
                   sm.link ? (
                     <li key={idx} className='text-md'>
-                      {sm.platform}: {sm.link}
+                      <a
+                        href={sm.link}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-500 hover:underline'
+                      >
+                        {sm.platform}
+                      </a>
                     </li>
                   ) : null
                 )}

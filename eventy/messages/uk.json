@@ -205,7 +205,7 @@
     "title": "Соціальні мережі",
     "addSocialMedia": "Додати посилання на соціальну мережу",
     "selectPlaceholder": "Виберіть платформу",
-    "linkPlaceholder": "@ Ім'я користувача",
+    "linkPlaceholder": "Посилання",
     "validation": {
       "platformRequired": "Назва платформи обов'язкова",
       "platformMaxLength": "Назва платформи не може перевищувати 50 символів",
