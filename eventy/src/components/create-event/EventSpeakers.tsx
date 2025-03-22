@@ -11,6 +11,7 @@ import { usersService } from '@/lib/api/users.service';
 import { toast } from 'react-hot-toast';
 import { X } from 'lucide-react';
 import { speakers } from '@/data/speakers';
+import { InfoTooltip } from '@/components/ui/info-tooltip';
 
 export function EventSpeakers() {
   const { watch, setValue } = useFormContext<CreateEventFormData>();
@@ -69,7 +70,10 @@ export function EventSpeakers() {
 
   return (
     <div className='space-y-2'>
-      <Label>Speakers</Label>
+      <div className='flex items-center gap-1'>
+        <Label>Speakers</Label>
+        <InfoTooltip text='Enter the email of a speaker registered in the system' />
+      </div>
       <div className='flex flex-wrap gap-2 mb-2'>
         {speakerIds.map((speakerId) => {
           const speaker = speakers.find((speaker) => speaker.id === speakerId);
