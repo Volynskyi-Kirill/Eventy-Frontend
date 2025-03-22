@@ -145,11 +145,26 @@
     "shortDescriptionLabel": "Короткий опис події",
     "shortDescriptionPlaceholder": "Короткий опис",
     "fullDescriptionLabel": "Повний опис події",
-    "fullDescriptionPlaceholder": "Повний опис"
+    "fullDescriptionPlaceholder": "Повний опис",
+    "validation": {
+      "titleRequired": "Назва події обов'язкова",
+      "titleMaxLength": "Назва події не може перевищувати 100 символів",
+      "streetMaxLength": "Назва вулиці не може перевищувати 200 символів",
+      "buildingNumberMaxLength": "Номер будинку не може перевищувати 20 символів",
+      "shortDescriptionRequired": "Короткий опис обов'язковий",
+      "shortDescriptionMaxLength": "Короткий опис не може перевищувати 250 символів",
+      "fullDescriptionRequired": "Повний опис обов'язковий",
+      "fullDescriptionMaxLength": "Повний опис не може перевищувати 5000 символів"
+    }
   },
   "DateSelector": {
     "label": "Виберіть дату та час",
-    "addMoreDate": "Додати ще дату"
+    "addMoreDate": "Додати ще дату",
+    "validation": {
+      "dateRequired": "Дата та час обов'язкові",
+      "invalidDateFormat": "Недійсний формат дати та часу",
+      "minDatesRequired": "Потрібна щонайменше одна дата"
+    }
   },
   "EventCategories": {
     "label": "Категорії події",
@@ -175,13 +190,28 @@
     "zoneNameLabel": "Назва зони",
     "priceFieldLabel": "Ціна",
     "seatsLabel": "Кількість місць",
-    "addZone": "Додати зону"
+    "addZone": "Додати зону",
+    "validation": {
+      "zoneNameRequired": "Назва зони обов'язкова",
+      "zoneNameMaxLength": "Назва зони не може перевищувати 100 символів",
+      "positivePrice": "Ціна повинна бути додатнім числом",
+      "currencyRequired": "Валюта обов'язкова",
+      "currencyMaxLength": "Валюта не може перевищувати 20 символів",
+      "minSeatCount": "Кількість місць повинна бути щонайменше 1",
+      "minZonesRequired": "Потрібна щонайменше одна зона"
+    }
   },
   "EventSocialMedia": {
     "title": "Соціальні мережі",
     "addSocialMedia": "Додати посилання на соціальну мережу",
     "selectPlaceholder": "Виберіть платформу",
-    "linkPlaceholder": "@ Ім'я користувача"
+    "linkPlaceholder": "@ Ім'я користувача",
+    "validation": {
+      "platformRequired": "Назва платформи обов'язкова",
+      "platformMaxLength": "Назва платформи не може перевищувати 50 символів",
+      "linkRequired": "Посилання обов'язкове",
+      "linkMaxLength": "Посилання не може перевищувати 500 символів"
+    }
   },
   "EventPreview": {
     "titlePlaceholder": "НАЗВА",

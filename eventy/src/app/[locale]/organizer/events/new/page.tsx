@@ -1,6 +1,5 @@
 'use client';
 
-import { URLS } from '@/components/Navigation/urls';
 import { EventImages } from '@/components/create-event/EventImages';
 import { EventInformation } from '@/components/create-event/EventInformation';
 import { EventPreview } from '@/components/create-event/EventPreview';
@@ -13,17 +12,36 @@ import {
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 export default function CreateEventPage() {
   const { user } = useAuthStore();
-  const router = useRouter();
   const t = useTranslations('CreateEventPage');
+  const tEventInfo = useTranslations('EventInformation');
+  const tDateSelector = useTranslations('DateSelector');
+  const tEventSeatsPrice = useTranslations('EventSeatsAndPrice');
+  const tEventSocialMedia = useTranslations('EventSocialMedia');
 
   const methods = useForm<CreateEventFormData>({
-    resolver: zodResolver(createEventSchema),
+    resolver: zodResolver(
+      createEventSchema((key: string) => {
+        const [namespace, ...rest] = key.split('.');
+        if (namespace === 'EventInformation') {
+          return tEventInfo(rest.join('.'));
+        }
+        if (namespace === 'DateSelector') {
+          return tDateSelector(rest.join('.'));
+        }
+        if (namespace === 'EventSeatsAndPrice') {
+          return tEventSeatsPrice(rest.join('.'));
+        }
+        if (namespace === 'EventSocialMedia') {
+          return tEventSocialMedia(rest.join('.'));
+        }
+        return key;
+      })
+    ),
     defaultValues: {
       title: '',
       categoryIds: [],
@@ -69,7 +87,7 @@ export default function CreateEventPage() {
       console.log('eventData: ', eventData);
       // await eventsService.createEvent(eventData);
       toast.success(t('success'));
-      router.push(URLS.ORGANIZER.EVENTS);
+      // router.push(URLS.ORGANIZER.EVENTS);
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error(t('error'));

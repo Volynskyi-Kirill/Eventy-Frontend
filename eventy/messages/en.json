@@ -145,11 +145,26 @@
     "shortDescriptionLabel": "Event Short description",
     "shortDescriptionPlaceholder": "Short description",
     "fullDescriptionLabel": "Event full description",
-    "fullDescriptionPlaceholder": "Full description"
+    "fullDescriptionPlaceholder": "Full description",
+    "validation": {
+      "titleRequired": "Title is required",
+      "titleMaxLength": "Title cannot exceed 100 characters",
+      "streetMaxLength": "Street cannot exceed 200 characters",
+      "buildingNumberMaxLength": "Building number cannot exceed 20 characters",
+      "shortDescriptionRequired": "Short description is required",
+      "shortDescriptionMaxLength": "Short description cannot exceed 250 characters",
+      "fullDescriptionRequired": "Full description is required",
+      "fullDescriptionMaxLength": "Full description cannot exceed 5000 characters"
+    }
   },
   "DateSelector": {
     "label": "Select date and time",
-    "addMoreDate": "Add more date"
+    "addMoreDate": "Add more date",
+    "validation": {
+      "dateRequired": "Date and time is required",
+      "invalidDateFormat": "Invalid date-time format",
+      "minDatesRequired": "At least one date is required"
+    }
   },
   "EventCategories": {
     "label": "Event categories",
@@ -175,13 +190,28 @@
     "zoneNameLabel": "Zone name",
     "priceFieldLabel": "Price",
     "seatsLabel": "Number of seats",
-    "addZone": "Add zone"
+    "addZone": "Add zone",
+    "validation": {
+      "zoneNameRequired": "Zone name is required",
+      "zoneNameMaxLength": "Zone name cannot exceed 100 characters",
+      "positivePrice": "Price must be a positive number",
+      "currencyRequired": "Currency is required",
+      "currencyMaxLength": "Currency cannot exceed 20 characters",
+      "minSeatCount": "Seat count must be at least 1",
+      "minZonesRequired": "At least one zone is required"
+    }
   },
   "EventSocialMedia": {
     "title": "Social media",
     "addSocialMedia": "Add social media link",
     "selectPlaceholder": "Select platform",
-    "linkPlaceholder": "@ Username"
+    "linkPlaceholder": "@ Username",
+    "validation": {
+      "platformRequired": "Platform is required",
+      "platformMaxLength": "Platform name cannot exceed 50 characters",
+      "linkRequired": "Link is required",
+      "linkMaxLength": "Link cannot exceed 500 characters"
+    }
   },
   "EventPreview": {
     "titlePlaceholder": "TITLE",
