@@ -12,6 +12,7 @@ import {
 } from '@/lib/validation/createEventSchema';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -19,6 +20,7 @@ import { toast } from 'react-hot-toast';
 export default function CreateEventPage() {
   const { user } = useAuthStore();
   const router = useRouter();
+  const t = useTranslations('CreateEventPage');
 
   const methods = useForm<CreateEventFormData>({
     resolver: zodResolver(createEventSchema),
@@ -66,11 +68,11 @@ export default function CreateEventPage() {
 
       console.log('eventData: ', eventData);
       // await eventsService.createEvent(eventData);
-      toast.success('Event created successfully');
+      toast.success(t('success'));
       router.push(URLS.ORGANIZER.EVENTS);
     } catch (error) {
       console.error('Error creating event:', error);
-      toast.error('Failed to create event. Please try again.');
+      toast.error(t('error'));
     }
   };
 

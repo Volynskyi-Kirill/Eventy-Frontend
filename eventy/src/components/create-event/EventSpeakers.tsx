@@ -12,21 +12,23 @@ import { toast } from 'react-hot-toast';
 import { X } from 'lucide-react';
 import { speakers } from '@/data/speakers';
 import { InfoTooltip } from '@/components/ui/info-tooltip';
+import { useTranslations } from 'next-intl';
 
 export function EventSpeakers() {
   const { watch, setValue } = useFormContext<CreateEventFormData>();
+  const t = useTranslations('EventSpeakers');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleAddSpeaker = async () => {
     if (!email) {
-      toast.error('Please enter an email');
+      toast.error(t('noEmail'));
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      toast.error('Please enter a valid email address');
+      toast.error(t('invalidEmail'));
       return;
     }
 
@@ -37,7 +39,7 @@ export function EventSpeakers() {
 
       const isSpeakerAlreadyAdded = currentSpeakers.includes(user.id);
       if (isSpeakerAlreadyAdded) {
-        toast.error('This speaker is already added');
+        toast.error(t('alreadyAdded'));
         return;
       }
 
@@ -52,9 +54,9 @@ export function EventSpeakers() {
         shouldValidate: true,
       });
       setEmail('');
-      toast.success('Speaker added successfully');
+      toast.success(t('success'));
     } catch {
-      toast.error('User not found');
+      toast.error(t('notFound'));
     } finally {
       setIsLoading(false);
     }
@@ -71,8 +73,8 @@ export function EventSpeakers() {
   return (
     <div className='space-y-2'>
       <div className='flex items-center gap-1'>
-        <Label>Speakers</Label>
-        <InfoTooltip text='Enter the email of a speaker registered in the system' />
+        <Label>{t('label')}</Label>
+        <InfoTooltip text={t('infoTooltip')} />
       </div>
       <div className='flex flex-wrap gap-2 mb-2'>
         {speakerIds.map((speakerId) => {
@@ -97,7 +99,7 @@ export function EventSpeakers() {
       <div className='flex items-center gap-2'>
         <Input
           type='email'
-          placeholder='Enter speaker email'
+          placeholder={t('emailPlaceholder')}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className='flex-1'
@@ -108,7 +110,7 @@ export function EventSpeakers() {
           disabled={isLoading}
           className='bg-emerald-500 text-white hover:bg-emerald-600'
         >
-          {isLoading ? 'Adding...' : 'Add speaker'}
+          {isLoading ? t('adding') : t('addSpeaker')}
         </Button>
       </div>
     </div>

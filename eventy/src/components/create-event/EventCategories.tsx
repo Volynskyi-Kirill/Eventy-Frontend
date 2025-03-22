@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
 
 export const CATEGORIES = [
@@ -23,6 +24,7 @@ export const CATEGORIES = [
 
 export function EventCategories() {
   const { setValue, watch } = useFormContext<CreateEventFormData>();
+  const t = useTranslations('EventCategories');
   const selectedCategories = watch('categoryIds') || [];
 
   const handleCategorySelect = (categoryId: number) => {
@@ -43,7 +45,7 @@ export function EventCategories() {
 
   return (
     <div className='space-y-2'>
-      <Label>Event categories</Label>
+      <Label>{t('label')}</Label>
       <div className='flex flex-wrap gap-2 mb-2'>
         {selectedCategories.map((categoryId: number) => {
           const category = CATEGORIES.find((c) => c.id === categoryId);
@@ -66,7 +68,7 @@ export function EventCategories() {
       </div>
       <Select onValueChange={(value) => handleCategorySelect(Number(value))}>
         <SelectTrigger>
-          <SelectValue placeholder='Categories' />
+          <SelectValue placeholder={t('selectPlaceholder')} />
         </SelectTrigger>
         <SelectContent>
           {CATEGORIES.map((category) => (

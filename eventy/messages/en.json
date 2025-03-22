@@ -114,5 +114,86 @@
     "countryPlaceholder": "Enter your country",
     "save": "Save",
     "cancel": "Cancel"
+  },
+  "CreateEventPage": {
+    "title": "Create Event",
+    "submitting": "Creating...",
+    "success": "Event created successfully",
+    "error": "Failed to create event. Please try again."
+  },
+  "EventImages": {
+    "coverLabel": "Cover",
+    "uploading": "Uploading...",
+    "addCover": "Add cover",
+    "changeCover": "Change cover",
+    "mainPhotoLabel": "Main photo",
+    "addMainPhoto": "Add main photo",
+    "changeMainPhoto": "Change main photo",
+    "logoLabel": "Logo",
+    "addLogo": "Add logo",
+    "changeLogo": "Change logo"
+  },
+  "EventInformation": {
+    "title": "Event information",
+    "eventTitle": "Event title",
+    "placeLabel": "Place",
+    "countryLabel": "Country",
+    "stateLabel": "State",
+    "cityLabel": "City",
+    "streetLabel": "Street",
+    "buildingNumberLabel": "Building number",
+    "shortDescriptionLabel": "Event Short description",
+    "shortDescriptionPlaceholder": "Short description",
+    "fullDescriptionLabel": "Event full description",
+    "fullDescriptionPlaceholder": "Full description"
+  },
+  "DateSelector": {
+    "label": "Select date and time",
+    "addMoreDate": "Add more date"
+  },
+  "EventCategories": {
+    "label": "Event categories",
+    "selectPlaceholder": "Categories"
+  },
+  "EventSpeakers": {
+    "label": "Speakers",
+    "infoTooltip": "Enter the email of a speaker registered in the system",
+    "emailPlaceholder": "Enter speaker email",
+    "addSpeaker": "Add speaker",
+    "adding": "Adding...",
+    "noEmail": "Please enter an email",
+    "invalidEmail": "Please enter a valid email address",
+    "alreadyAdded": "This speaker is already added",
+    "success": "Speaker added successfully",
+    "notFound": "User not found"
+  },
+  "EventSeatsAndPrice": {
+    "title": "Seats and price",
+    "priceLabel": "Price",
+    "freeLabel": "Free",
+    "paidLabel": "For a fee",
+    "zoneNameLabel": "Zone name",
+    "priceFieldLabel": "Price",
+    "seatsLabel": "Number of seats",
+    "addZone": "Add zone"
+  },
+  "EventSocialMedia": {
+    "title": "Social media",
+    "addSocialMedia": "Add social media link",
+    "selectPlaceholder": "Select platform",
+    "linkPlaceholder": "@ Username"
+  },
+  "EventPreview": {
+    "titlePlaceholder": "TITLE",
+    "categoriesLabel": "Categories",
+    "speakersLabel": "Speakers",
+    "priceLabel": "PRICE",
+    "freeLabel": "Free",
+    "socialMediaLabel": "Social Media",
+    "saveButton": "Save and preview",
+    "seatsAndPriceButton": "Seats and price",
+    "cancelButton": "Cancel",
+    "creating": "Creating...",
+    "mainPhotoLabel": "Main photo"
   }
 }

@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
+import { useTranslations } from 'next-intl';
 
 const SOCIAL_PLATFORMS = [
   'Instagram',
@@ -27,6 +28,7 @@ const SOCIAL_PLATFORMS = [
 
 export function EventSocialMedia() {
   const { control, register } = useFormContext<CreateEventFormData>();
+  const t = useTranslations('EventSocialMedia');
 
   const { fields, append, remove, update } = useFieldArray({
     control,
@@ -40,7 +42,7 @@ export function EventSocialMedia() {
   return (
     <Card className='max-w-[45em] mx-auto'>
       <CardHeader>
-        <CardTitle>Social media</CardTitle>
+        <CardTitle>{t('title')}</CardTitle>
       </CardHeader>
       <CardContent className='space-y-6'>
         {fields.map((field, index) => (
@@ -65,7 +67,7 @@ export function EventSocialMedia() {
                 }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder='Select platform' />
+                  <SelectValue placeholder={t('selectPlaceholder')} />
                 </SelectTrigger>
                 <SelectContent>
                   {SOCIAL_PLATFORMS.map((platform) => (
@@ -77,7 +79,7 @@ export function EventSocialMedia() {
               </Select>
               <Input
                 {...register(`socialMedia.${index}.link`)}
-                placeholder='@ Username'
+                placeholder={t('linkPlaceholder')}
                 className='w-full'
               />
             </div>
@@ -90,7 +92,7 @@ export function EventSocialMedia() {
           className='w-full bg-emerald-500 text-white hover:bg-emerald-600'
           onClick={addSocialMedia}
         >
-          Add social media link
+          {t('addSocialMedia')}
         </Button>
       </CardContent>
     </Card>

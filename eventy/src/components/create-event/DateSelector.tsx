@@ -6,12 +6,14 @@ import { Label } from '@/components/ui/label';
 import { X } from 'lucide-react';
 import { useFieldArray } from 'react-hook-form';
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 interface DateSelectorProps {
   control: any;
 }
 
 export function DateSelector({ control }: DateSelectorProps) {
+  const t = useTranslations('DateSelector');
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'dates',
@@ -21,7 +23,7 @@ export function DateSelector({ control }: DateSelectorProps) {
 
   return (
     <div className='space-y-4'>
-      <Label>Select date and time</Label>
+      <Label>{t('label')}</Label>
       <div className='grid grid-cols-2 gap-4'>
         {fields.map((field, index) => (
           <div key={field.id} className='flex items-end gap-2'>
@@ -53,7 +55,7 @@ export function DateSelector({ control }: DateSelectorProps) {
         className='w-full bg-emerald-500 text-white hover:bg-emerald-600'
         onClick={() => append({ date: '' })}
       >
-        Add more date
+        {t('addMoreDate')}
       </Button>
     </div>
   );

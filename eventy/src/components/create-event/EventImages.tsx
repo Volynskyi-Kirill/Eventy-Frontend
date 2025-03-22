@@ -5,9 +5,11 @@ import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
+import { useTranslations } from 'next-intl';
 
 export function EventImages() {
   const { setValue, watch } = useFormContext<CreateEventFormData>();
+  const t = useTranslations('EventImages');
   const [uploading, setUploading] = useState({
     cover: false,
     logo: false,
@@ -64,7 +66,7 @@ export function EventImages() {
           <Image src={coverImg} alt='Cover' fill className='object-cover' />
         ) : (
           <div className='flex items-center justify-center w-full h-full text-gray-500'>
-            Cover
+            {t('coverLabel')}
           </div>
         )}
         <div className='absolute top-2 right-2'>
@@ -76,10 +78,10 @@ export function EventImages() {
             disabled={uploading.cover}
           >
             {uploading.cover
-              ? 'Uploading...'
+              ? t('uploading')
               : coverImg
-              ? 'Change cover'
-              : 'Add cover'}
+              ? t('changeCover')
+              : t('addCover')}
           </Button>
           <input
             type='file'
@@ -102,7 +104,7 @@ export function EventImages() {
             />
           ) : (
             <div className='flex items-center justify-center w-full h-full text-gray-500'>
-              Main photo
+              {t('mainPhotoLabel')}
             </div>
           )}
           <div className='absolute top-2 right-2'>
@@ -114,10 +116,10 @@ export function EventImages() {
               disabled={uploading.main}
             >
               {uploading.main
-                ? 'Uploading...'
+                ? t('uploading')
                 : mainImg
-                ? 'Change main photo'
-                : 'Add main photo'}
+                ? t('changeMainPhoto')
+                : t('addMainPhoto')}
             </Button>
             <input
               type='file'
@@ -134,7 +136,7 @@ export function EventImages() {
             <Image src={logoImg} alt='Logo' fill className='object-cover' />
           ) : (
             <div className='flex items-center justify-center w-full h-full text-gray-500'>
-              Logo
+              {t('logoLabel')}
             </div>
           )}
           <div className='absolute top-2 right-2'>
@@ -146,10 +148,10 @@ export function EventImages() {
               disabled={uploading.logo}
             >
               {uploading.logo
-                ? 'Uploading...'
+                ? t('uploading')
                 : logoImg
-                ? 'Change logo'
-                : 'Add logo'}
+                ? t('changeLogo')
+                : t('addLogo')}
             </Button>
             <input
               type='file'

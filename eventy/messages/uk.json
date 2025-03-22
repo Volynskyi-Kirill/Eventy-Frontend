@@ -114,5 +114,86 @@
     "countryPlaceholder": "Введіть вашу країну",
     "save": "Зберегти",
     "cancel": "Скасувати"
+  },
+  "CreateEventPage": {
+    "title": "Створити подію",
+    "submitting": "Створення...",
+    "success": "Подію успішно створено",
+    "error": "Не вдалося створити подію. Будь ласка, спробуйте ще раз."
+  },
+  "EventImages": {
+    "coverLabel": "Обкладинка",
+    "uploading": "Завантаження...",
+    "addCover": "Додати обкладинку",
+    "changeCover": "Змінити обкладинку",
+    "mainPhotoLabel": "Головне фото",
+    "addMainPhoto": "Додати головне фото",
+    "changeMainPhoto": "Змінити головне фото",
+    "logoLabel": "Логотип",
+    "addLogo": "Додати логотип",
+    "changeLogo": "Змінити логотип"
+  },
+  "EventInformation": {
+    "title": "Інформація про подію",
+    "eventTitle": "Назва події",
+    "placeLabel": "Місце",
+    "countryLabel": "Країна",
+    "stateLabel": "Область",
+    "cityLabel": "Місто",
+    "streetLabel": "Вулиця",
+    "buildingNumberLabel": "Номер будинку",
+    "shortDescriptionLabel": "Короткий опис події",
+    "shortDescriptionPlaceholder": "Короткий опис",
+    "fullDescriptionLabel": "Повний опис події",
+    "fullDescriptionPlaceholder": "Повний опис"
+  },
+  "DateSelector": {
+    "label": "Виберіть дату та час",
+    "addMoreDate": "Додати ще дату"
+  },
+  "EventCategories": {
+    "label": "Категорії події",
+    "selectPlaceholder": "Категорії"
+  },
+  "EventSpeakers": {
+    "label": "Спікери",
+    "infoTooltip": "Введіть електронну пошту спікера, зареєстрованого в системі",
+    "emailPlaceholder": "Введіть електронну пошту спікера",
+    "addSpeaker": "Додати спікера",
+    "adding": "Додавання...",
+    "noEmail": "Будь ласка, введіть електронну пошту",
+    "invalidEmail": "Будь ласка, введіть дійсну електронну адресу",
+    "alreadyAdded": "Цей спікер вже доданий",
+    "success": "Спікера успішно додано",
+    "notFound": "Користувача не знайдено"
+  },
+  "EventSeatsAndPrice": {
+    "title": "Місця та ціна",
+    "priceLabel": "Ціна",
+    "freeLabel": "Безкоштовно",
+    "paidLabel": "За плату",
+    "zoneNameLabel": "Назва зони",
+    "priceFieldLabel": "Ціна",
+    "seatsLabel": "Кількість місць",
+    "addZone": "Додати зону"
+  },
+  "EventSocialMedia": {
+    "title": "Соціальні мережі",
+    "addSocialMedia": "Додати посилання на соціальну мережу",
+    "selectPlaceholder": "Виберіть платформу",
+    "linkPlaceholder": "@ Ім'я користувача"
+  },
+  "EventPreview": {
+    "titlePlaceholder": "НАЗВА",
+    "categoriesLabel": "Категорії",
+    "speakersLabel": "Спікери",
+    "priceLabel": "ЦІНА",
+    "freeLabel": "Безкоштовно",
+    "socialMediaLabel": "Соціальні мережі",
+    "saveButton": "Зберегти та переглянути",
+    "seatsAndPriceButton": "Місця та ціна",
+    "cancelButton": "Скасувати",
+    "creating": "Створення...",
+    "mainPhotoLabel": "Головне фото"
   }
 }

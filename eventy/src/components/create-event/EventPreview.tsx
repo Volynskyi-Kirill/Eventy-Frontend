@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { URLS } from '@/components/Navigation/urls';
 import { CATEGORIES } from './EventCategories';
 import { speakers } from '@/data/speakers';
+import { useTranslations } from 'next-intl';
 
 interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
@@ -17,6 +18,7 @@ interface EventPreviewProps {
 }
 
 export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
+  const t = useTranslations('EventPreview');
   const {
     title,
     dates,
@@ -52,7 +54,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
 
   const priceDisplay =
     lowestPrice === 0
-      ? 'Free'
+      ? t('freeLabel')
       : lowestPrice === highestPrice
       ? `${lowestPrice} ${currency}`
       : `${lowestPrice} - ${highestPrice} ${currency}`;
@@ -72,15 +74,17 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
             />
           ) : (
             <div className='flex items-center justify-center h-full text-gray-500'>
-              Main photo
+              {t('mainPhotoLabel')}
             </div>
           )}
         </div>
         <CardContent className='p-4'>
-          <h2 className='text-xl font-bold mb-2'>{title || 'TITLE'}</h2>
+          <h2 className='text-xl font-bold mb-2'>
+            {title || t('titlePlaceholder')}
+          </h2>
           {categoryIds && categoryIds.length > 0 && (
             <div className='mb-2 text-sm text-gray-500'>
-              Categories:{' '}
+              {t('categoriesLabel')}:{' '}
               {categoryIds
                 .map((id: number) => {
                   const category = CATEGORIES.find((c) => c.id === id);
@@ -91,7 +95,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
           )}
           {speakerIds && speakerIds.length > 0 && (
             <div className='mb-2 text-sm text-gray-500'>
-              Speakers:{' '}
+              {t('speakersLabel')}:{' '}
               {speakerIds
                 .map((id: number) => {
                   const speaker = speakers.find((s) => s.id === id);
@@ -124,13 +128,15 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
             </div>
           )}
           <div className='mt-4'>
-            <div className='text-lg font-semibold'>PRICE</div>
+            <div className='text-lg font-semibold'>{t('priceLabel')}</div>
             <div className='text-md'>{priceDisplay}</div>
           </div>
 
           {socialMedia && socialMedia.length > 0 && (
             <div className='mt-4'>
-              <div className='text-lg font-semibold'>Social Media</div>
+              <div className='text-lg font-semibold'>
+                {t('socialMediaLabel')}
+              </div>
               <ul className='list-disc pl-4'>
                 {socialMedia.map((sm, idx) =>
                   sm.link ? (
@@ -148,10 +154,10 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
               className='w-full bg-emerald-500 hover:bg-emerald-600'
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Creating...' : 'Save and preview'}
+              {isSubmitting ? t('creating') : t('saveButton')}
             </Button>
             <Button variant='outline' className='w-full'>
-              Seats and price
+              {t('seatsAndPriceButton')}
             </Button>
             <Button
               type='button'
@@ -159,7 +165,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
               className='w-full'
               onClick={() => router.push(URLS.ORGANIZER.EVENTS)}
             >
-              Cancel
+              {t('cancelButton')}
             </Button>
           </div>
         </CardContent>
