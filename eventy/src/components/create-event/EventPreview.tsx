@@ -42,23 +42,6 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
     .filter(Boolean)
     .join(', ');
 
-  const hasPrice = eventZones && eventZones.length > 0;
-  const lowestPrice = hasPrice
-    ? Math.min(...eventZones.map((zone) => zone.price))
-    : 0;
-  const highestPrice = hasPrice
-    ? Math.max(...eventZones.map((zone) => zone.price))
-    : 0;
-  const currency =
-    hasPrice && eventZones[0]?.currency ? eventZones[0].currency : '';
-
-  const priceDisplay =
-    lowestPrice === 0
-      ? t('freeLabel')
-      : lowestPrice === highestPrice
-      ? `${lowestPrice} ${currency}`
-      : `${lowestPrice} - ${highestPrice} ${currency}`;
-
   const router = useRouter();
 
   return (
@@ -129,7 +112,21 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
           )}
           <div className='mt-4'>
             <div className='text-lg font-semibold'>{t('priceLabel')}</div>
-            <div className='text-md'>{priceDisplay}</div>
+            {eventZones && eventZones.length > 0 ? (
+              <ul className='list-disc pl-4'>
+                {eventZones.map((zone, idx) => (
+                  <li key={idx} className='text-md'>
+                    {zone.name}:{' '}
+                    {zone.price === 0
+                      ? t('freeLabel')
+                      : `${zone.price} ${zone.currency}`}
+                    ({zone.seatCount} {t('seatsLabel')})
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className='text-md'>{t('freeLabel')}</div>
+            )}
           </div>
 
           {socialMedia && socialMedia.length > 0 && (

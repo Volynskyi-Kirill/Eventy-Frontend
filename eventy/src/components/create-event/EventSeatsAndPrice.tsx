@@ -4,9 +4,7 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import { X } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
@@ -16,12 +14,12 @@ import {
 } from '@/components/ui/select';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
+import { FormField } from '@/components/auth/FormField';
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD'];
 
 export function EventSeatsAndPrice() {
-  const { control, register, watch, setValue } =
-    useFormContext<CreateEventFormData>();
+  const { control, setValue } = useFormContext<CreateEventFormData>();
   const t = useTranslations('EventSeatsAndPrice');
 
   const { fields, append, remove } = useFieldArray({
@@ -29,22 +27,10 @@ export function EventSeatsAndPrice() {
     name: 'eventZones',
   });
 
-  const isPaid = watch('eventZones')?.[0]?.price > 0;
-
-  const handlePriceTypeChange = (value: string) => {
-    const isFree = value === 'free';
-    const updatedZones = fields.map((field) => ({
-      ...field,
-      price: isFree ? 0 : field.price || 10,
-    }));
-
-    setValue('eventZones', updatedZones, { shouldValidate: true });
-  };
-
   const addZone = () => {
     append({
       name: `Zone - ${fields.length + 1}`,
-      price: isPaid ? 10 : 0,
+      price: 0,
       currency: 'USD',
       seatCount: 100,
     });
@@ -56,26 +42,6 @@ export function EventSeatsAndPrice() {
         <CardTitle>{t('title')}</CardTitle>
       </CardHeader>
       <CardContent className='space-y-6'>
-        {/* Price Type */}
-        <div className='space-y-2'>
-          <Label>{t('priceLabel')}</Label>
-          <RadioGroup
-            defaultValue={isPaid ? 'paid' : 'free'}
-            className='flex items-center gap-4'
-            onValueChange={handlePriceTypeChange}
-          >
-            <div className='flex items-center space-x-2'>
-              <RadioGroupItem value='free' id='free' />
-              <Label htmlFor='free'>{t('freeLabel')}</Label>
-            </div>
-            <div className='flex items-center space-x-2'>
-              <RadioGroupItem value='paid' id='paid' />
-              <Label htmlFor='paid'>{t('paidLabel')}</Label>
-            </div>
-          </RadioGroup>
-        </div>
-
-        {/* Zones */}
         {fields.map((field, index) => (
           <div key={field.id} className='space-y-2'>
             <div className='flex justify-between items-center'>
@@ -92,22 +58,24 @@ export function EventSeatsAndPrice() {
                 </Button>
               )}
             </div>
-            <Input
-              {...register(`eventZones.${index}.name`)}
+            <FormField
+              control={control}
+              name={`eventZones.${index}.name`}
+              label=''
               placeholder={t('zoneNameLabel')}
             />
 
             <div className='grid grid-cols-2 gap-4 mt-2'>
               <div>
                 <Label>{t('priceFieldLabel')}</Label>
-                <div className='flex gap-2'>
-                  <Input
-                    type='number'
-                    {...register(`eventZones.${index}.price`, {
-                      valueAsNumber: true,
-                    })}
+                <div className='flex gap-2 items-center'>
+                  <FormField
+                    control={control}
+                    name={`eventZones.${index}.price`}
+                    label=''
                     placeholder={t('priceFieldLabel')}
-                    disabled={!isPaid}
+                    type='number'
+                    className='flex-1'
                   />
                   <Select
                     defaultValue={field.currency}
@@ -115,7 +83,7 @@ export function EventSeatsAndPrice() {
                       setValue(`eventZones.${index}.currency`, value);
                     }}
                   >
-                    <SelectTrigger className='w-24'>
+                    <SelectTrigger className='w-24 h-10'>
                       <SelectValue placeholder='USD' />
                     </SelectTrigger>
                     <SelectContent>
@@ -130,12 +98,12 @@ export function EventSeatsAndPrice() {
               </div>
               <div>
                 <Label>{t('seatsLabel')}</Label>
-                <Input
-                  type='number'
-                  {...register(`eventZones.${index}.seatCount`, {
-                    valueAsNumber: true,
-                  })}
+                <FormField
+                  control={control}
+                  name={`eventZones.${index}.seatCount`}
+                  label=''
                   placeholder={t('seatsLabel')}
+                  type='number'
                 />
               </div>
             </div>

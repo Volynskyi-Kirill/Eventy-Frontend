@@ -122,6 +122,7 @@
     "error": "Не вдалося створити подію. Будь ласка, спробуйте ще раз."
   },
   "EventImages": {
+    "title": "Зображення події",
     "coverLabel": "Обкладинка",
     "uploading": "Завантаження...",
     "addCover": "Додати обкладинку",
@@ -224,6 +225,7 @@
     "seatsAndPriceButton": "Місця та ціна",
     "cancelButton": "Скасувати",
     "creating": "Створення...",
-    "mainPhotoLabel": "Головне фото"
+    "mainPhotoLabel": "Головне фото",
+    "seatsLabel": "місць"
   }
 }

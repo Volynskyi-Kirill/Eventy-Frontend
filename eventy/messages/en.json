@@ -122,6 +122,7 @@
     "error": "Failed to create event. Please try again."
   },
   "EventImages": {
+    "title": "Event images",
     "coverLabel": "Cover",
     "uploading": "Uploading...",
     "addCover": "Add cover",
@@ -224,6 +225,7 @@
     "seatsAndPriceButton": "Seats and price",
     "cancelButton": "Cancel",
     "creating": "Creating...",
-    "mainPhotoLabel": "Main photo"
+    "mainPhotoLabel": "Main photo",
+    "seatsLabel": "seats"
   }
 }

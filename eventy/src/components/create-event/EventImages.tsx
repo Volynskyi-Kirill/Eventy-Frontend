@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
 
@@ -60,51 +61,17 @@ export function EventImages() {
   };
 
   return (
-    <div>
-      <div className='relative w-full h-[200px] bg-gray-200 rounded-md overflow-hidden'>
-        {coverImg ? (
-          <Image src={coverImg} alt='Cover' fill className='object-cover' />
-        ) : (
-          <div className='flex items-center justify-center w-full h-full text-gray-500'>
-            {t('coverLabel')}
-          </div>
-        )}
-        <div className='absolute top-2 right-2'>
-          <Button
-            size='sm'
-            variant='secondary'
-            className='bg-black/70 text-white hover:bg-black/80'
-            onClick={() => coverInputRef.current?.click()}
-            disabled={uploading.cover}
-          >
-            {uploading.cover
-              ? t('uploading')
-              : coverImg
-              ? t('changeCover')
-              : t('addCover')}
-          </Button>
-          <input
-            type='file'
-            accept='image/*'
-            ref={coverInputRef}
-            className='hidden'
-            onChange={(e) => handleImageChange(e, 'coverImg')}
-          />
-        </div>
-      </div>
-
-      <div className='mt-4 flex flex-wrap gap-4'>
-        <div className='relative w-[200px] h-[150px] bg-gray-200 rounded-md overflow-hidden'>
-          {mainImg ? (
-            <Image
-              src={mainImg}
-              alt='Main photo'
-              fill
-              className='object-cover'
-            />
+    <Card className='max-w-[45em] mx-auto'>
+      <CardHeader className='text-center'>
+        <CardTitle className='text-2xl font-bold'>{t('title')}</CardTitle>
+      </CardHeader>
+      <CardContent className='space-y-6'>
+        <div className='relative w-full h-[200px] bg-gray-200 rounded-md overflow-hidden'>
+          {coverImg ? (
+            <Image src={coverImg} alt='Cover' fill className='object-cover' />
           ) : (
             <div className='flex items-center justify-center w-full h-full text-gray-500'>
-              {t('mainPhotoLabel')}
+              {t('coverLabel')}
             </div>
           )}
           <div className='absolute top-2 right-2'>
@@ -112,57 +79,96 @@ export function EventImages() {
               size='sm'
               variant='secondary'
               className='bg-black/70 text-white hover:bg-black/80'
-              onClick={() => mainInputRef.current?.click()}
-              disabled={uploading.main}
+              onClick={() => coverInputRef.current?.click()}
+              disabled={uploading.cover}
             >
-              {uploading.main
+              {uploading.cover
                 ? t('uploading')
-                : mainImg
-                ? t('changeMainPhoto')
-                : t('addMainPhoto')}
+                : coverImg
+                ? t('changeCover')
+                : t('addCover')}
             </Button>
             <input
               type='file'
               accept='image/*'
-              ref={mainInputRef}
+              ref={coverInputRef}
               className='hidden'
-              onChange={(e) => handleImageChange(e, 'mainImg')}
+              onChange={(e) => handleImageChange(e, 'coverImg')}
             />
           </div>
         </div>
 
-        <div className='relative w-[100px] h-[100px] bg-gray-200 rounded-md overflow-hidden'>
-          {logoImg ? (
-            <Image src={logoImg} alt='Logo' fill className='object-cover' />
-          ) : (
-            <div className='flex items-center justify-center w-full h-full text-gray-500'>
-              {t('logoLabel')}
+        <div className='mt-4 flex flex-wrap gap-4'>
+          <div className='relative w-[200px] h-[150px] bg-gray-200 rounded-md overflow-hidden'>
+            {mainImg ? (
+              <Image
+                src={mainImg}
+                alt='Main photo'
+                fill
+                className='object-cover'
+              />
+            ) : (
+              <div className='flex items-center justify-center w-full h-full text-gray-500'>
+                {t('mainPhotoLabel')}
+              </div>
+            )}
+            <div className='absolute top-2 right-2'>
+              <Button
+                size='sm'
+                variant='secondary'
+                className='bg-black/70 text-white hover:bg-black/80'
+                onClick={() => mainInputRef.current?.click()}
+                disabled={uploading.main}
+              >
+                {uploading.main
+                  ? t('uploading')
+                  : mainImg
+                  ? t('changeMainPhoto')
+                  : t('addMainPhoto')}
+              </Button>
+              <input
+                type='file'
+                accept='image/*'
+                ref={mainInputRef}
+                className='hidden'
+                onChange={(e) => handleImageChange(e, 'mainImg')}
+              />
             </div>
-          )}
-          <div className='absolute top-2 right-2'>
-            <Button
-              size='sm'
-              variant='secondary'
-              className='bg-black/70 text-white hover:bg-black/80'
-              onClick={() => logoInputRef.current?.click()}
-              disabled={uploading.logo}
-            >
-              {uploading.logo
-                ? t('uploading')
-                : logoImg
-                ? t('changeLogo')
-                : t('addLogo')}
-            </Button>
-            <input
-              type='file'
-              accept='image/*'
-              ref={logoInputRef}
-              className='hidden'
-              onChange={(e) => handleImageChange(e, 'logoImg')}
-            />
+          </div>
+
+          <div className='relative w-[100px] h-[100px] bg-gray-200 rounded-md overflow-hidden'>
+            {logoImg ? (
+              <Image src={logoImg} alt='Logo' fill className='object-cover' />
+            ) : (
+              <div className='flex items-center justify-center w-full h-full text-gray-500'>
+                {t('logoLabel')}
+              </div>
+            )}
+            <div className='absolute top-2 right-2'>
+              <Button
+                size='sm'
+                variant='secondary'
+                className='bg-black/70 text-white hover:bg-black/80'
+                onClick={() => logoInputRef.current?.click()}
+                disabled={uploading.logo}
+              >
+                {uploading.logo
+                  ? t('uploading')
+                  : logoImg
+                  ? t('changeLogo')
+                  : t('addLogo')}
+              </Button>
+              <input
+                type='file'
+                accept='image/*'
+                ref={logoInputRef}
+                className='hidden'
+                onChange={(e) => handleImageChange(e, 'logoImg')}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
