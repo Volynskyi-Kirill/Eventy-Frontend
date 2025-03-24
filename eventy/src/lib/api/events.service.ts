@@ -4,10 +4,16 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 
 export const eventsService = {
   async createEvent(data: CreateEventFormData) {
-    const response = await axiosInstance.post(
-      API_ENDPOINTS.EVENTS.CREATE,
-      data
-    );
+    const countryName = data.country?.name as string;
+    const stateName = data.state?.name as string;
+    const cityName = data.city?.name as string;
+
+    const response = await axiosInstance.post(API_ENDPOINTS.EVENTS.CREATE, {
+      ...data,
+      country: countryName,
+      state: stateName,
+      city: cityName,
+    });
     return response.data;
   },
 
@@ -35,6 +41,24 @@ export const eventsService = {
     const response = await axiosInstance.delete(
       API_ENDPOINTS.EVENTS.DELETE(id)
     );
+    return response.data;
+  },
+
+  async uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await axiosInstance.post(
+      API_ENDPOINTS.EVENTS.UPLOAD_IMAGE,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+    );
+
+    console.log('🚀 ~ uploadImage ~ response:', response);
     return response.data;
   },
 };

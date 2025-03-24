@@ -22,5 +22,6 @@ export const API_ENDPOINTS = {
     GET_BY_ID: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     UPDATE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     DELETE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
+    UPLOAD_IMAGE: `${BASE_PATHS.EVENTS}/upload-image`,
   },
 };

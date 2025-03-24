@@ -7,19 +7,25 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
+import { eventsService } from '@/lib/api/events.service';
 
-export function EventImages() {
-  const { setValue, watch } = useFormContext<CreateEventFormData>();
+interface EventImagesProps {
+  onMainImagePreviewChange?: (previewUrl: string) => void;
+}
+
+export function EventImages({ onMainImagePreviewChange }: EventImagesProps) {
+  const { setValue } = useFormContext<CreateEventFormData>();
   const t = useTranslations('EventImages');
   const [uploading, setUploading] = useState({
     cover: false,
     logo: false,
     main: false,
   });
-
-  const coverImg = watch('coverImg');
-  const logoImg = watch('logoImg');
-  const mainImg = watch('mainImg');
+  const [previewUrls, setPreviewUrls] = useState({
+    coverImg: '',
+    logoImg: '',
+    mainImg: '',
+  });
 
   const coverInputRef = useRef<HTMLInputElement>(null);
   const mainInputRef = useRef<HTMLInputElement>(null);
@@ -37,21 +43,27 @@ export function EventImages() {
       [type.replace('Img', '')]: true,
     }));
 
+    const localPreviewUrl = URL.createObjectURL(file);
+    setPreviewUrls((prev) => ({
+      ...prev,
+      [type]: localPreviewUrl,
+    }));
+
+    if (type === 'mainImg') {
+      onMainImagePreviewChange?.(localPreviewUrl);
+    }
+
     try {
-      // const formData = new FormData();
-      // formData.append("file", file);
-      // const response = await fetch("/api/upload", {
-      //   method: "POST",
-      //   body: formData,
-      // });
-      // const data = await response.json();
-      // const imageUrl = data.url;
+      const data = await eventsService.uploadImage(file);
+      const serverImagePath = data.filePath;
 
-      const imageUrl = URL.createObjectURL(file);
-
-      setValue(type, imageUrl, { shouldValidate: true });
+      setValue(type, serverImagePath, { shouldValidate: true });
     } catch (error) {
       console.error('Error uploading image:', error);
+      setPreviewUrls((prev) => ({
+        ...prev,
+        [type]: '',
+      }));
     } finally {
       setUploading((prev) => ({
         ...prev,
@@ -67,8 +79,13 @@ export function EventImages() {
       </CardHeader>
       <CardContent className='space-y-6'>
         <div className='relative w-full h-[200px] bg-gray-200 rounded-md overflow-hidden'>
-          {coverImg ? (
-            <Image src={coverImg} alt='Cover' fill className='object-cover' />
+          {previewUrls.coverImg ? (
+            <Image
+              src={previewUrls.coverImg}
+              alt='Cover'
+              fill
+              className='object-cover'
+            />
           ) : (
             <div className='flex items-center justify-center w-full h-full text-gray-500'>
               {t('coverLabel')}
@@ -84,7 +101,7 @@ export function EventImages() {
             >
               {uploading.cover
                 ? t('uploading')
-                : coverImg
+                : previewUrls.coverImg
                 ? t('changeCover')
                 : t('addCover')}
             </Button>
@@ -100,9 +117,9 @@ export function EventImages() {
 
         <div className='mt-4 flex flex-wrap gap-4'>
           <div className='relative w-[200px] h-[150px] bg-gray-200 rounded-md overflow-hidden'>
-            {mainImg ? (
+            {previewUrls.mainImg ? (
               <Image
-                src={mainImg}
+                src={previewUrls.mainImg}
                 alt='Main photo'
                 fill
                 className='object-cover'
@@ -122,7 +139,7 @@ export function EventImages() {
               >
                 {uploading.main
                   ? t('uploading')
-                  : mainImg
+                  : previewUrls.mainImg
                   ? t('changeMainPhoto')
                   : t('addMainPhoto')}
               </Button>
@@ -137,8 +154,13 @@ export function EventImages() {
           </div>
 
           <div className='relative w-[100px] h-[100px] bg-gray-200 rounded-md overflow-hidden'>
-            {logoImg ? (
-              <Image src={logoImg} alt='Logo' fill className='object-cover' />
+            {previewUrls.logoImg ? (
+              <Image
+                src={previewUrls.logoImg}
+                alt='Logo'
+                fill
+                className='object-cover'
+              />
             ) : (
               <div className='flex items-center justify-center w-full h-full text-gray-500'>
                 {t('logoLabel')}
@@ -154,7 +176,7 @@ export function EventImages() {
               >
                 {uploading.logo
                   ? t('uploading')
-                  : logoImg
+                  : previewUrls.logoImg
                   ? t('changeLogo')
                   : t('addLogo')}
               </Button>

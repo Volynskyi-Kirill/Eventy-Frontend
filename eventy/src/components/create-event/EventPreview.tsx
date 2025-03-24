@@ -15,14 +15,18 @@ import { useTranslations } from 'next-intl';
 interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
   isSubmitting: boolean;
+  mainImagePreview?: string;
 }
 
-export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
+export function EventPreview({
+  formValues,
+  isSubmitting,
+  mainImagePreview,
+}: EventPreviewProps) {
   const t = useTranslations('EventPreview');
   const {
     title,
     dates,
-    mainImg,
     country,
     state,
     city,
@@ -48,9 +52,9 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
     <div className='sticky top-6'>
       <Card className='max-w-[18.875em] mx-auto overflow-hidden'>
         <div className='relative h-64 w-full bg-gray-200'>
-          {mainImg ? (
+          {mainImagePreview ? (
             <Image
-              src={mainImg || '/placeholder.svg'}
+              src={mainImagePreview || '/placeholder.svg'}
               alt={title || 'Event'}
               fill
               className='object-cover'

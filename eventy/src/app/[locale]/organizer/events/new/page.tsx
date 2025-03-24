@@ -5,6 +5,7 @@ import { EventInformation } from '@/components/create-event/EventInformation';
 import { EventPreview } from '@/components/create-event/EventPreview';
 import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice';
 import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
+import { eventsService } from '@/lib/api/events.service';
 import {
   createEventSchema,
   type CreateEventFormData,
@@ -12,11 +13,13 @@ import {
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 export default function CreateEventPage() {
   const { user } = useAuthStore();
+  const [mainImagePreview, setMainImagePreview] = useState('');
   const t = useTranslations('CreateEventPage');
   const tEventInfo = useTranslations('EventInformation');
   const tDateSelector = useTranslations('DateSelector');
@@ -85,7 +88,7 @@ export default function CreateEventPage() {
       };
 
       console.log('eventData: ', eventData);
-      // await eventsService.createEvent(eventData);
+      await eventsService.createEvent(eventData);
       toast.success(t('success'));
       // router.push(URLS.ORGANIZER.EVENTS);
     } catch (error) {
@@ -103,11 +106,12 @@ export default function CreateEventPage() {
               <EventPreview
                 formValues={formValues}
                 isSubmitting={isSubmitting}
+                mainImagePreview={mainImagePreview}
               />
             </div>
             <div className='lg:col-span-2'>
               <div className='space-y-6'>
-                <EventImages />
+                <EventImages onMainImagePreviewChange={setMainImagePreview} />
                 <EventInformation />
                 <EventSeatsAndPrice />
                 <EventSocialMedia />
