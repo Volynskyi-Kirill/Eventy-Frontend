@@ -68,7 +68,7 @@ export function EventSeatsAndPrice() {
             <div className='grid grid-cols-2 gap-4 mt-2'>
               <div>
                 <Label>{t('priceFieldLabel')}</Label>
-                <div className='flex gap-2 items-center'>
+                <div className='flex gap-2 items-end'>
                   <FormField
                     control={control}
                     name={`eventZones.${index}.price`}
