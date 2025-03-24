@@ -1,6 +1,7 @@
 import { AccountSettingsFormData } from '../validation/accountSettingsSchema';
 import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
+import { extractLocationNames } from '../utils/location';
 
 export interface UserByEmail {
   id: number;
@@ -13,16 +14,13 @@ export const usersService = {
   updateUser: async (data: AccountSettingsFormData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...restData } = data;
-
-    const countryName = restData.country.name;
-    const stateName = restData.state.name;
-    const cityName = restData.city.name;
+    const { country, state, city } = extractLocationNames(restData);
 
     const response = await axiosInstance.patch(API_ENDPOINTS.USERS.BASE, {
       ...restData,
-      country: countryName,
-      state: stateName,
-      city: cityName,
+      country,
+      state,
+      city,
     });
 
     return response.data;

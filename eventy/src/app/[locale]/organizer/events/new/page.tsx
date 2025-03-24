@@ -10,6 +10,10 @@ import {
   createEventSchema,
   type CreateEventFormData,
 } from '@/lib/validation/createEventSchema';
+import {
+  // createEventDefaultValues,
+  createEventDevDefaultValues,
+} from '@/lib/validation/createEventDefaultValues';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -45,26 +49,8 @@ export default function CreateEventPage() {
         return key;
       })
     ),
-    defaultValues: {
-      title: '',
-      categoryIds: [],
-      dates: [{ date: '' }],
-      country: null as any,
-      state: null as any,
-      city: null as any,
-      street: '',
-      buildingNumber: '',
-      speakerIds: [],
-      shortDescription: '',
-      fullDescription: '',
-      eventZones: [
-        { name: 'Zone - 1', price: 0, currency: 'USD', seatCount: 100 },
-      ],
-      socialMedia: [],
-      coverImg: '',
-      logoImg: '',
-      mainImg: '',
-    },
+    defaultValues: createEventDevDefaultValues,
+    // defaultValues: createEventDefaultValues,
   });
 
   const {

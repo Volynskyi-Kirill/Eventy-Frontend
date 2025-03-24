@@ -1,18 +1,17 @@
 import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
+import { extractLocationNames } from '../utils/location';
 
 export const eventsService = {
   async createEvent(data: CreateEventFormData) {
-    const countryName = data.country?.name as string;
-    const stateName = data.state?.name as string;
-    const cityName = data.city?.name as string;
+    const { country, state, city } = extractLocationNames(data);
 
     const response = await axiosInstance.post(API_ENDPOINTS.EVENTS.CREATE, {
       ...data,
-      country: countryName,
-      state: stateName,
-      city: cityName,
+      country,
+      state,
+      city,
     });
     return response.data;
   },
