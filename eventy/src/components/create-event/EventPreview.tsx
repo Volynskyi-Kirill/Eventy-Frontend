@@ -8,9 +8,11 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { formatDate } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { URLS } from '@/components/Navigation/urls';
-import { CATEGORIES } from './EventCategories';
 import { speakers } from '@/data/speakers';
 import { useTranslations } from 'next-intl';
+import { eventsService, type Category } from '@/lib/api/events.service';
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants';
 
 interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
@@ -24,6 +26,13 @@ export function EventPreview({
   mainImagePreview,
 }: EventPreviewProps) {
   const t = useTranslations('EventPreview');
+  const router = useRouter();
+
+  const { data: categories = [] } = useQuery<Category[]>({
+    queryKey: [QUERY_KEYS.CATEGORIES],
+    queryFn: eventsService.getCategories,
+  });
+
   const {
     title,
     dates,
@@ -45,8 +54,6 @@ export function EventPreview({
   const location = [countryName, stateName, cityName, street, buildingNumber]
     .filter(Boolean)
     .join(', ');
-
-  const router = useRouter();
 
   return (
     <div className='sticky top-6'>
@@ -74,7 +81,9 @@ export function EventPreview({
               {t('categoriesLabel')}:{' '}
               {categoryIds
                 .map((id: number) => {
-                  const category = CATEGORIES.find((c) => c.id === id);
+                  const category = categories.find(
+                    (c: Category) => c.id === id
+                  );
                   return category ? category.name : id;
                 })
                 .join(', ')}

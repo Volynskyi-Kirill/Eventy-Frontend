@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import Navigation from './Navigation/Navigation';
 import { Toaster } from 'react-hot-toast';
 import { Inter } from 'next/font/google';
+import { Providers } from './Providers';
 
 type Props = {
   children: ReactNode;
@@ -23,9 +24,11 @@ export default async function BaseLayout({ children, locale }: Props) {
     <html className={`${inter.variable} h-full`} lang={locale}>
       <body className='font-inter'>
         <NextIntlClientProvider messages={messages}>
-          <Toaster />
-          <Navigation />
-          {children}
+          <Providers>
+            <Toaster />
+            <Navigation />
+            {children}
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -9,23 +9,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { eventsService, type Category } from '@/lib/api/events.service';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useFormContext } from 'react-hook-form';
-
-export const CATEGORIES = [
-  { id: 1, name: 'Fun' },
-  { id: 2, name: 'Education' },
-  { id: 3, name: 'Business' },
-  { id: 4, name: 'Technology' },
-  { id: 5, name: 'Art' },
-];
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/lib/constants';
 
 export function EventCategories() {
   const { setValue, watch } = useFormContext<CreateEventFormData>();
   const t = useTranslations('EventCategories');
   const selectedCategories = watch('categoryIds') || [];
+
+  const { data: categories = [] } = useQuery<Category[]>({
+    queryKey: [QUERY_KEYS.CATEGORIES],
+    queryFn: eventsService.getCategories,
+  });
 
   const handleCategorySelect = (categoryId: number) => {
     const currentCategories = [...selectedCategories];
@@ -48,7 +48,7 @@ export function EventCategories() {
       <Label>{t('label')}</Label>
       <div className='flex flex-wrap gap-2 mb-2'>
         {selectedCategories.map((categoryId: number) => {
-          const category = CATEGORIES.find((c) => c.id === categoryId);
+          const category = categories.find((c) => c.id === categoryId);
           return category ? (
             <Badge
               key={categoryId}
@@ -71,7 +71,7 @@ export function EventCategories() {
           <SelectValue placeholder={t('selectPlaceholder')} />
         </SelectTrigger>
         <SelectContent>
-          {CATEGORIES.map((category) => (
+          {categories.map((category) => (
             <SelectItem
               key={category.id}
               value={category.id.toString()}

@@ -2,6 +2,7 @@ const BASE_PATHS = {
   AUTH: '/auth',
   USERS: '/users',
   EVENTS: '/events',
+  CATEGORIES: '/categories',
 };
 
 export const API_ENDPOINTS = {
@@ -23,5 +24,8 @@ export const API_ENDPOINTS = {
     UPDATE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     DELETE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     UPLOAD_IMAGE: `${BASE_PATHS.EVENTS}/upload-image`,
+  },
+  CATEGORIES: {
+    GET_ALL: BASE_PATHS.CATEGORIES,
   },
 };

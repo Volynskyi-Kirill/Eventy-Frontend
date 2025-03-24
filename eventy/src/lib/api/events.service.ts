@@ -3,7 +3,19 @@ import { API_ENDPOINTS } from './endpoints';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { extractLocationNames } from '../utils/location';
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export const eventsService = {
+  async getCategories() {
+    const response = await axiosInstance.get<Category[]>(
+      API_ENDPOINTS.CATEGORIES.GET_ALL
+    );
+    return response.data;
+  },
+
   async createEvent(data: CreateEventFormData) {
     const { country, state, city } = extractLocationNames(data);
 
@@ -57,7 +69,6 @@ export const eventsService = {
       }
     );
 
-    console.log('🚀 ~ uploadImage ~ response:', response);
     return response.data;
   },
 };

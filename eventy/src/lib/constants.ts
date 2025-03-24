@@ -4,6 +4,10 @@ export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'token',
 };
 
+export const QUERY_KEYS = {
+  CATEGORIES: 'categories',
+};
+
 export const ERROR_MESSAGES = {
   USER_NOT_FOUND_OR_PASSWORD_NOT_SET: 'User not found or password not set',
   INVALID_OLD_PASSWORD: 'Invalid old password',
