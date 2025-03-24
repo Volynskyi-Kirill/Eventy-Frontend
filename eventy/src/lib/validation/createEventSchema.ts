@@ -28,14 +28,24 @@ export const createEventZoneSchema = (t: any) =>
       .string()
       .min(1, t('EventSeatsAndPrice.validation.zoneNameRequired'))
       .max(100, t('EventSeatsAndPrice.validation.zoneNameMaxLength')),
-    price: z.number().min(0, t('EventSeatsAndPrice.validation.positivePrice')),
+    price: z
+      .union([
+        z
+          .string()
+          .min(1, t('EventSeatsAndPrice.validation.priceRequired'))
+          .transform((val) => Number(val)),
+        z.number(),
+      ])
+      .pipe(
+        z.number().min(0, t('EventSeatsAndPrice.validation.positivePrice'))
+      ),
     currency: z
       .string()
       .min(1, t('EventSeatsAndPrice.validation.currencyRequired'))
       .max(20, t('EventSeatsAndPrice.validation.currencyMaxLength')),
     seatCount: z
-      .number()
-      .min(1, t('EventSeatsAndPrice.validation.minSeatCount')),
+      .union([z.string().transform((val) => Number(val)), z.number()])
+      .pipe(z.number().min(1, t('EventSeatsAndPrice.validation.minSeatCount'))),
   });
 
 export const createEventSchema = (t: any) =>

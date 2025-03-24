@@ -199,7 +199,8 @@
       "currencyRequired": "Валюта обов'язкова",
       "currencyMaxLength": "Валюта не може перевищувати 20 символів",
       "minSeatCount": "Кількість місць повинна бути щонайменше 1",
-      "minZonesRequired": "Потрібна щонайменше одна зона"
+      "minZonesRequired": "Потрібна щонайменше одна зона",
+      "priceRequired": "Ціна обов'язкова"
     }
   },
   "EventSocialMedia": {

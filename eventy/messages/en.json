@@ -199,7 +199,8 @@
       "currencyRequired": "Currency is required",
       "currencyMaxLength": "Currency cannot exceed 20 characters",
       "minSeatCount": "Seat count must be at least 1",
-      "minZonesRequired": "At least one zone is required"
+      "minZonesRequired": "At least one zone is required",
+      "priceRequired": "Price is required"
     }
   },
   "EventSocialMedia": {

@@ -119,7 +119,7 @@ export function EventPreview({ formValues, isSubmitting }: EventPreviewProps) {
                     {zone.name}:{' '}
                     {zone.price === 0
                       ? t('freeLabel')
-                      : `${zone.price} ${zone.currency}`}
+                      : `${zone.price} ${zone.currency}`}{' '}
                     ({zone.seatCount} {t('seatsLabel')})
                   </li>
                 ))}
