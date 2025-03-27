@@ -2,16 +2,16 @@
 
 import { EventImages } from '@/components/create-event/EventImages';
 import { EventInformation } from '@/components/create-event/EventInformation';
-import { EventPreview } from '@/components/create-event/EventPreview';
 import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice';
 import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
+import { EventPreview } from '@/components/create-event/event-preview/EventPreview';
 import { eventsService } from '@/lib/api/events.service';
 import {
   createEventSchema,
   type CreateEventFormData,
 } from '@/lib/validation/createEventSchema';
 import {
-  // createEventDefaultValues,
+  createEventDefaultValues,
   createEventDevDefaultValues,
 } from '@/lib/validation/createEventDefaultValues';
 import { useAuthStore } from '@/store/authStore';
@@ -49,8 +49,8 @@ export default function CreateEventPage() {
         return key;
       })
     ),
-    defaultValues: createEventDevDefaultValues,
-    // defaultValues: createEventDefaultValues,
+    // defaultValues: createEventDevDefaultValues,
+    defaultValues: createEventDefaultValues,
   });
 
   const {
