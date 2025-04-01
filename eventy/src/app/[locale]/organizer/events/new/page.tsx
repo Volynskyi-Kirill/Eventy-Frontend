@@ -18,8 +18,7 @@ import { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useSpeakersStore } from '@/store/speakersStore';
-
-const FORM_STORAGE_KEY = 'eventFormData';
+import { STORAGE_KEYS } from '@/lib/constants';
 
 export default function CreateEventPage() {
   const { user } = useAuthStore();
@@ -69,7 +68,7 @@ export default function CreateEventPage() {
   useEffect(() => {
     if (isClient) {
       try {
-        const savedData = localStorage.getItem(FORM_STORAGE_KEY);
+        const savedData = localStorage.getItem(STORAGE_KEYS.EVENT_FORM_DATA);
         if (savedData) {
           const parsedData = JSON.parse(savedData);
           reset(parsedData);
@@ -82,7 +81,10 @@ export default function CreateEventPage() {
 
   useEffect(() => {
     if (isClient) {
-      localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formValues));
+      localStorage.setItem(
+        STORAGE_KEYS.EVENT_FORM_DATA,
+        JSON.stringify(formValues)
+      );
     }
   }, [formValues, isClient]);
 
@@ -101,7 +103,7 @@ export default function CreateEventPage() {
       console.log('eventData: ', eventData);
       await eventsService.createEvent(eventData);
 
-      localStorage.removeItem(FORM_STORAGE_KEY);
+      localStorage.removeItem(STORAGE_KEYS.EVENT_FORM_DATA);
       clearSpeakers();
 
       reset(createEventDefaultValues);
