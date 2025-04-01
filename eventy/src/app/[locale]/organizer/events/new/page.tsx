@@ -17,6 +17,7 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { useSpeakersStore } from '@/store/speakersStore';
 
 const FORM_STORAGE_KEY = 'eventFormData';
 
@@ -29,6 +30,7 @@ export default function CreateEventPage() {
   const tEventSeatsPrice = useTranslations('EventSeatsAndPrice');
   const tEventSocialMedia = useTranslations('EventSocialMedia');
   const [isClient, setIsClient] = useState(false);
+  const { clearSpeakers } = useSpeakersStore();
 
   const methods = useForm<CreateEventFormData>({
     resolver: zodResolver(
@@ -100,6 +102,10 @@ export default function CreateEventPage() {
       await eventsService.createEvent(eventData);
 
       localStorage.removeItem(FORM_STORAGE_KEY);
+      clearSpeakers();
+
+      reset(createEventDefaultValues);
+      setMainImagePreview('');
 
       toast.success(t('success'));
     } catch (error) {
