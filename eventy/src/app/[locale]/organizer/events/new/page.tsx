@@ -6,20 +6,19 @@ import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice
 import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
 import { EventPreview } from '@/components/create-event/event-preview/EventPreview';
 import { eventsService } from '@/lib/api/events.service';
+import { createEventDefaultValues } from '@/lib/validation/createEventDefaultValues';
 import {
   createEventSchema,
   type CreateEventFormData,
 } from '@/lib/validation/createEventSchema';
-import {
-  createEventDefaultValues,
-  createEventDevDefaultValues,
-} from '@/lib/validation/createEventDefaultValues';
 import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+
+const FORM_STORAGE_KEY = 'eventFormData';
 
 export default function CreateEventPage() {
   const { user } = useAuthStore();
@@ -29,37 +28,61 @@ export default function CreateEventPage() {
   const tDateSelector = useTranslations('DateSelector');
   const tEventSeatsPrice = useTranslations('EventSeatsAndPrice');
   const tEventSocialMedia = useTranslations('EventSocialMedia');
+  const [isClient, setIsClient] = useState(false);
 
   const methods = useForm<CreateEventFormData>({
     resolver: zodResolver(
       createEventSchema((key: string) => {
         const [namespace, ...rest] = key.split('.');
-        if (namespace === 'EventInformation') {
-          return tEventInfo(rest.join('.'));
-        }
-        if (namespace === 'DateSelector') {
-          return tDateSelector(rest.join('.'));
-        }
-        if (namespace === 'EventSeatsAndPrice') {
-          return tEventSeatsPrice(rest.join('.'));
-        }
-        if (namespace === 'EventSocialMedia') {
-          return tEventSocialMedia(rest.join('.'));
-        }
-        return key;
+        const translationKey = rest.join('.');
+
+        const translationMap: Record<string, any> = {
+          EventInformation: tEventInfo,
+          DateSelector: tDateSelector,
+          EventSeatsAndPrice: tEventSeatsPrice,
+          EventSocialMedia: tEventSocialMedia,
+        };
+
+        const translationFunction = translationMap[namespace];
+        return translationFunction ? translationFunction(translationKey) : key;
       })
     ),
-    // defaultValues: createEventDevDefaultValues,
+
     defaultValues: createEventDefaultValues,
   });
 
   const {
     handleSubmit,
     watch,
+    reset,
     formState: { isSubmitting },
   } = methods;
 
   const formValues = watch();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      try {
+        const savedData = localStorage.getItem(FORM_STORAGE_KEY);
+        if (savedData) {
+          const parsedData = JSON.parse(savedData);
+          reset(parsedData);
+        }
+      } catch (error) {
+        console.error('Error loading saved form data:', error);
+      }
+    }
+  }, [isClient, reset]);
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem(FORM_STORAGE_KEY, JSON.stringify(formValues));
+    }
+  }, [formValues, isClient]);
 
   const onSubmit = async (data: CreateEventFormData) => {
     if (!user) {
@@ -75,8 +98,10 @@ export default function CreateEventPage() {
 
       console.log('eventData: ', eventData);
       await eventsService.createEvent(eventData);
+
+      localStorage.removeItem(FORM_STORAGE_KEY);
+
       toast.success(t('success'));
-      // router.push(URLS.ORGANIZER.EVENTS);
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error(t('error'));
