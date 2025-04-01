@@ -1,4 +1,4 @@
-import { speakers } from '@/data/speakers';
+import { useSpeakersStore } from '@/store/speakersStore';
 
 interface EventSpeakersProps {
   speakerIds?: number[];
@@ -6,6 +6,7 @@ interface EventSpeakersProps {
 }
 
 export function EventSpeakers({ speakerIds, t }: EventSpeakersProps) {
+  const { speakers } = useSpeakersStore();
   const hasSpeakers = speakerIds && speakerIds.length > 0;
 
   if (!hasSpeakers) {

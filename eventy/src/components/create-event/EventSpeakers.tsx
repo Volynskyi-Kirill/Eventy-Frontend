@@ -10,12 +10,13 @@ import { useState } from 'react';
 import { usersService } from '@/lib/api/users.service';
 import { toast } from 'react-hot-toast';
 import { X } from 'lucide-react';
-import { speakers } from '@/data/speakers';
 import { InfoTooltip } from '@/components/ui/info-tooltip';
 import { useTranslations } from 'next-intl';
+import { useSpeakersStore } from '@/store/speakersStore';
 
 export function EventSpeakers() {
   const { watch, setValue } = useFormContext<CreateEventFormData>();
+  const { speakers, addSpeaker } = useSpeakersStore();
   const t = useTranslations('EventSpeakers');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,12 +44,7 @@ export function EventSpeakers() {
         return;
       }
 
-      const isSpeakerAlreadyInLocalStorage = speakers.find(
-        (speaker) => speaker.id === user.id
-      );
-      if (!isSpeakerAlreadyInLocalStorage) {
-        speakers.push(user);
-      }
+      addSpeaker(user);
 
       setValue('speakerIds', [...currentSpeakers, user.id], {
         shouldValidate: true,

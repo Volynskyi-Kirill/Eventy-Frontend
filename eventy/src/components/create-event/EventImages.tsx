@@ -9,6 +9,8 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
 import { eventsService } from '@/lib/api/events.service';
 
+//TODO сохранение изображений в localStorage? (подгружать их из бэкенда)
+
 interface EventImagesProps {
   onMainImagePreviewChange?: (previewUrl: string) => void;
 }
