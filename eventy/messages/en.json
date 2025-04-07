@@ -119,7 +119,8 @@
     "title": "Create Event",
     "submitting": "Creating...",
     "success": "Event created successfully",
-    "error": "Failed to create event. Please try again."
+    "error": "Failed to create event. Please try again.",
+    "formCleared": "Form cleared successfully"
   },
   "EventImages": {
     "title": "Event images",
@@ -225,8 +226,13 @@
     "saveButton": "Save and preview",
     "seatsAndPriceButton": "Seats and price",
     "cancelButton": "Cancel",
+    "clearButton": "Clear form",
     "creating": "Creating...",
     "mainPhotoLabel": "Main photo",
-    "seatsLabel": "seats"
+    "seatsLabel": "seats",
+    "clearConfirmTitle": "Clear form",
+    "clearConfirmDescription": "Are you sure you want to clear the entire form? This action cannot be undone.",
+    "clearConfirmYes": "Yes, clear form",
+    "clearConfirmNo": "No, keep form"
   }
 }

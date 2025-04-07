@@ -21,12 +21,14 @@ interface EventPreviewProps {
   formValues: Partial<CreateEventFormData>;
   isSubmitting: boolean;
   mainImagePreview?: string;
+  onClearForm: () => void;
 }
 
 export function EventPreview({
   formValues,
   isSubmitting,
   mainImagePreview,
+  onClearForm,
 }: EventPreviewProps) {
   const t = useTranslations('EventPreview');
 
@@ -61,7 +63,11 @@ export function EventPreview({
           <EventDates dates={formValues.dates} t={t} />
           <EventPricing eventZones={formValues.eventZones} t={t} />
           <EventSocialMedia socialMedia={formValues.socialMedia} t={t} />
-          <EventActions isSubmitting={isSubmitting} t={t} />
+          <EventActions
+            isSubmitting={isSubmitting}
+            t={t}
+            onClearForm={onClearForm}
+          />
         </CardContent>
       </Card>
     </div>

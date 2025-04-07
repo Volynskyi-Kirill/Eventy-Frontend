@@ -88,6 +88,12 @@ export default function CreateEventPage() {
     }
   }, [formValues, isClient]);
 
+  const handleClearForm = () => {
+    reset(createEventDefaultValues);
+    setMainImagePreview('');
+    toast.success(t('formCleared'));
+  };
+
   const onSubmit = async (data: CreateEventFormData) => {
     if (!user) {
       toast.error('You must be logged in to create an event');
@@ -126,6 +132,7 @@ export default function CreateEventPage() {
                 formValues={formValues}
                 isSubmitting={isSubmitting}
                 mainImagePreview={mainImagePreview}
+                onClearForm={handleClearForm}
               />
             </div>
             <div className='lg:col-span-2'>
