@@ -46,7 +46,12 @@
   "NotFoundPage": {
     "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
     "title": "Page not found",
-    "goHome": "Go to Home"
+    "goHome": "Go to Home",
+    "event": {
+      "title": "Event not found",
+      "description": "The event you're looking for could not be found. It may have been deleted or the URL might be incorrect.",
+      "backToEvents": "Back to Events"
+    }
   },
   "LocaleSwitcher": {
     "label": "Change language",

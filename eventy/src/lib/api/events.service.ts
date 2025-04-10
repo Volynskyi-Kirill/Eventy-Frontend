@@ -8,6 +8,66 @@ export interface Category {
   name: string;
 }
 
+export interface EventDate {
+  id: number;
+  date: string;
+  eventId: number;
+}
+
+export interface EventZone {
+  id: number;
+  eventId: number;
+  name: string;
+  price: number;
+  currency: string;
+  seatCount: number;
+}
+
+export interface SocialMedia {
+  id: number;
+  eventId: number;
+  platform: string;
+  link: string;
+}
+
+export interface User {
+  id: number;
+  userName: string;
+  userSurname: string;
+  email: string;
+  avatarUrl: string;
+  phoneNumber?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  pwdHash?: string;
+  provider?: string;
+  providerId?: string;
+}
+
+export interface Event {
+  id: number;
+  ownerId: number;
+  title: string;
+  country: string;
+  state: string;
+  city: string;
+  street: string;
+  buildingNumber: string;
+  shortDescription: string;
+  fullDescription: string;
+  coverImg: string;
+  logoImg: string;
+  mainImg: string;
+  userId: number | null;
+  dates: EventDate[];
+  eventZones: EventZone[];
+  socialMedia: SocialMedia[];
+  categories: Category[];
+  speakers: User[];
+  owner: User;
+}
+
 export const eventsService = {
   async getCategories() {
     const response = await axiosInstance.get<Category[]>(
@@ -33,9 +93,9 @@ export const eventsService = {
     return response.data;
   },
 
-  async getEvent(id: number) {
-    const response = await axiosInstance.get(
-      API_ENDPOINTS.EVENTS.GET_BY_ID(id)
+  async getEvent(id: string | number) {
+    const response = await axiosInstance.get<Event>(
+      API_ENDPOINTS.EVENTS.GET_BY_ID(Number(id))
     );
     return response.data;
   },
