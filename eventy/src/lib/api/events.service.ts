@@ -2,71 +2,24 @@ import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { extractLocationNames } from '../utils/location';
+import { buildEventsQueryParams } from '../utils/event-query-params';
+import { Category, Event, EventsResponse } from '../types/event.types';
+import { EventsQueryParams } from '../types/events-query.types';
 
-export interface Category {
-  id: number;
-  name: string;
-}
+export type {
+  Category,
+  Event,
+  EventDate,
+  EventListItem,
+  EventsResponse,
+  EventZone,
+  SocialMedia,
+  User,
+} from '../types/event.types';
 
-export interface EventDate {
-  id: number;
-  date: string;
-  eventId: number;
-}
+export { SortDirection } from '../types/events-query.types';
 
-export interface EventZone {
-  id: number;
-  eventId: number;
-  name: string;
-  price: number;
-  currency: string;
-  seatCount: number;
-}
-
-export interface SocialMedia {
-  id: number;
-  eventId: number;
-  platform: string;
-  link: string;
-}
-
-export interface User {
-  id: number;
-  userName: string;
-  userSurname: string;
-  email: string;
-  avatarUrl: string;
-  phoneNumber?: string;
-  country?: string;
-  state?: string;
-  city?: string;
-  pwdHash?: string;
-  provider?: string;
-  providerId?: string;
-}
-
-export interface Event {
-  id: number;
-  ownerId: number;
-  title: string;
-  country: string;
-  state: string;
-  city: string;
-  street: string;
-  buildingNumber: string;
-  shortDescription: string;
-  fullDescription: string;
-  coverImg: string;
-  logoImg: string;
-  mainImg: string;
-  userId: number | null;
-  dates: EventDate[];
-  eventZones: EventZone[];
-  socialMedia: SocialMedia[];
-  categories: Category[];
-  speakers: User[];
-  owner: User;
-}
+export type { EventsQueryParams } from '../types/events-query.types';
 
 export const eventsService = {
   async getCategories() {
@@ -88,8 +41,10 @@ export const eventsService = {
     return response.data;
   },
 
-  async getEvents() {
-    const response = await axiosInstance.get(API_ENDPOINTS.EVENTS.GET_ALL);
+  async getEvents(params?: EventsQueryParams) {
+    const queryParams = buildEventsQueryParams(params);
+    const url = `${API_ENDPOINTS.EVENTS.GET_ALL}?${queryParams.toString()}`;
+    const response = await axiosInstance.get<EventsResponse>(url);
     return response.data;
   },
 

@@ -1,4 +1,5 @@
-import { eventsService, Event } from '@/lib/api/events.service';
+import { eventsService } from '@/lib/api/events.service';
+import type { Event } from '@/lib/types/event.types';
 import { notFound } from 'next/navigation';
 
 type EventPageProps = {

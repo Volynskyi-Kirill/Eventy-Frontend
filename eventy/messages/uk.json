@@ -239,5 +239,21 @@
     "clearConfirmDescription": "Ви впевнені, що хочете очистити всю форму? Ця дія не може бути скасована.",
     "clearConfirmYes": "Так, очистити форму",
     "clearConfirmNo": "Ні, зберегти форму"
+  },
+  "EventsPage": {
+    "price": "Ціна",
+    "free": "Безкоштовно",
+    "location": "Місцезнаходження",
+    "selectCity": "Оберіть місто",
+    "allCities": "Всі міста",
+    "categories": "Категорії",
+    "sortBy": "Сортувати за",
+    "newest": "Найновіші",
+    "oldest": "Найстаріші",
+    "priceLowToHigh": "Ціна: від низької до високої",
+    "priceHighToLow": "Ціна: від високої до низької",
+    "viewEvent": "Переглянути подію",
+    "noEventsFound": "Події не знайдено",
+    "loading": "Завантаження подій..."
   }
 }

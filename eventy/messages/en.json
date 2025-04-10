@@ -239,5 +239,21 @@
     "clearConfirmDescription": "Are you sure you want to clear the entire form? This action cannot be undone.",
     "clearConfirmYes": "Yes, clear form",
     "clearConfirmNo": "No, keep form"
+  },
+  "EventsPage": {
+    "price": "Price",
+    "free": "Free",
+    "location": "Location",
+    "selectCity": "Select city",
+    "allCities": "All cities",
+    "categories": "Categories",
+    "sortBy": "Sort by",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "priceLowToHigh": "Price: low to high",
+    "priceHighToLow": "Price: high to low",
+    "viewEvent": "View event",
+    "noEventsFound": "No events found",
+    "loading": "Loading events..."
   }
 }
