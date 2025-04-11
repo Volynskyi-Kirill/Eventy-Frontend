@@ -243,6 +243,7 @@
   "EventsPage": {
     "price": "Ціна",
     "free": "Безкоштовно",
+    "currency": "грн",
     "location": "Місцезнаходження",
     "selectCity": "Оберіть місто",
     "allCities": "Всі міста",

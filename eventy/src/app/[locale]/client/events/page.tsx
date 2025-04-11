@@ -31,6 +31,7 @@ import {
 import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants';
+import { useDebounce } from 'use-debounce';
 
 export default function EventsPage() {
   const t = useTranslations('EventsPage');
@@ -50,8 +51,10 @@ export default function EventsPage() {
     sortDirection: SortDirection.DESC,
   });
 
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-  const [selectedCity, setSelectedCity] = useState<string>('');
+  const [priceRangeLocal, setPriceRangeLocal] = useState<[number, number]>([
+    0, 1000,
+  ]);
+  const [debouncedPriceRange] = useDebounce(priceRangeLocal, 500);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,11 +69,10 @@ export default function EventsPage() {
       try {
         const params: EventsQueryParams = {
           ...filters,
-          minPrice: priceRange[0],
-          maxPrice: priceRange[1],
+          minPrice: debouncedPriceRange[0],
+          maxPrice: debouncedPriceRange[1],
           categoryIds:
             selectedCategories.length > 0 ? selectedCategories : undefined,
-          city: selectedCity || undefined,
         };
 
         const data: EventsResponse = await eventsService.getEvents(params);
@@ -84,7 +86,7 @@ export default function EventsPage() {
     };
 
     fetchEvents();
-  }, [filters, priceRange, selectedCity, selectedCategories]);
+  }, [filters, debouncedPriceRange, selectedCategories]);
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({
@@ -104,11 +106,7 @@ export default function EventsPage() {
   };
 
   const handlePriceChange = (value: [number, number]) => {
-    setPriceRange(value);
-  };
-
-  const handleCityChange = (value: string) => {
-    setSelectedCity(value);
+    setPriceRangeLocal(value);
   };
 
   const toggleCategory = (categoryId: number) => {
@@ -139,13 +137,17 @@ export default function EventsPage() {
                 min={0}
                 max={1000}
                 step={10}
-                value={priceRange}
+                value={priceRangeLocal}
                 onValueChange={handlePriceChange}
                 className='mt-6'
               />
               <div className='flex justify-between'>
-                <span>{t('free')}</span>
-                <span>{priceRange[1]} грн</span>
+                <span>
+                  {priceRangeLocal[0] === 0
+                    ? t('free')
+                    : `${priceRangeLocal[0]} ${t('currency')}`}
+                </span>
+                <span>{`${priceRangeLocal[1]} ${t('currency')}`}</span>
               </div>
             </div>
           </div>
@@ -269,7 +271,7 @@ export default function EventsPage() {
                           <div className='mt-4 text-xl font-bold'>
                             {event.price.min === 0 && event.price.max === 0
                               ? t('free')
-                              : `${event.price.min} ${event.price.currency}`}
+                              : `${event.price.min} - ${event.price.max} ${event.price.currency}`}
                           </div>
                         </CardContent>
                         <CardFooter className='flex justify-between pt-0'>
