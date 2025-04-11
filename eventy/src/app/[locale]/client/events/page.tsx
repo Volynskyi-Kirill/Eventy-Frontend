@@ -207,10 +207,10 @@ export default function EventsPage() {
                 <SelectContent>
                   <SelectItem value='createdAt:desc'>{t('newest')}</SelectItem>
                   <SelectItem value='createdAt:asc'>{t('oldest')}</SelectItem>
-                  <SelectItem value='price.min:asc'>
+                  <SelectItem value='price:asc'>
                     {t('priceLowToHigh')}
                   </SelectItem>
-                  <SelectItem value='price.min:desc'>
+                  <SelectItem value='price:desc'>
                     {t('priceHighToLow')}
                   </SelectItem>
                 </SelectContent>
