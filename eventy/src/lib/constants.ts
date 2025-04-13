@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
 
 export const QUERY_KEYS = {
   CATEGORIES: 'categories',
+  EVENTS: 'events',
 };
 
 export const ERROR_MESSAGES = {

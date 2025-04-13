@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { eventsService } from '@/lib/api/events.service';
-import type { EventListItem, EventsResponse } from '@/lib/types/event.types';
 import type { EventsQueryParams } from '@/lib/types/events-query.types';
 import { SortDirection } from '@/lib/types/events-query.types';
 import { Button } from '@/components/ui/button';
@@ -32,17 +31,10 @@ import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/lib/constants';
 import { useDebounce } from 'use-debounce';
+import { buildImageUrl } from '@/lib/utils/imageUrl';
 
 export default function EventsPage() {
   const t = useTranslations('EventsPage');
-
-  const [events, setEvents] = useState<EventListItem[]>([]);
-  const [pagination, setPagination] = useState({
-    total: 0,
-    page: 1,
-    limit: 10,
-    pages: 1,
-  });
 
   const [filters, setFilters] = useState<EventsQueryParams>({
     page: 1,
@@ -56,37 +48,39 @@ export default function EventsPage() {
   ]);
   const [debouncedPriceRange] = useDebounce(priceRangeLocal, 500);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const { data: categories = [] } = useQuery({
     queryKey: [QUERY_KEYS.CATEGORIES],
     queryFn: eventsService.getCategories,
   });
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      setIsLoading(true);
-      try {
-        const params: EventsQueryParams = {
-          ...filters,
-          minPrice: debouncedPriceRange[0],
-          maxPrice: debouncedPriceRange[1],
-          categoryIds:
-            selectedCategories.length > 0 ? selectedCategories : undefined,
-        };
+  const { data: eventsData, isLoading } = useQuery({
+    queryKey: [
+      QUERY_KEYS.EVENTS,
+      filters,
+      debouncedPriceRange,
+      selectedCategories,
+    ],
+    queryFn: async () => {
+      const params: EventsQueryParams = {
+        ...filters,
+        minPrice: debouncedPriceRange[0],
+        maxPrice: debouncedPriceRange[1],
+        categoryIds:
+          selectedCategories.length > 0 ? selectedCategories : undefined,
+      };
 
-        const data: EventsResponse = await eventsService.getEvents(params);
-        setEvents(data.events);
-        setPagination(data.pagination);
-      } catch (error) {
-        console.error('Failed to fetch events:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      return eventsService.getEvents(params);
+    },
+  });
 
-    fetchEvents();
-  }, [filters, debouncedPriceRange, selectedCategories]);
+  const events = eventsData?.events ?? [];
+  const pagination = eventsData?.pagination ?? {
+    total: 0,
+    page: 1,
+    limit: 10,
+    pages: 1,
+  };
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({
@@ -231,7 +225,7 @@ export default function EventsPage() {
                       <Card className='h-full overflow-hidden hover:shadow-lg transition-shadow'>
                         <div className='relative h-48'>
                           <Image
-                            src={event.mainImg || '/placeholder.jpg'}
+                            src={buildImageUrl(event.mainImg)}
                             alt={event.title}
                             fill
                             className='object-cover'

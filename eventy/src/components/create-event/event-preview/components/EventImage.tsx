@@ -1,9 +1,10 @@
+import { buildImageUrl } from '@/lib/utils/imageUrl';
 import Image from 'next/image';
 
 interface EventImageProps {
   mainImagePreview?: string;
   title?: string;
-  t: any; // Translation function
+  t: any;
 }
 
 export function EventImage({ mainImagePreview, title, t }: EventImageProps) {
@@ -14,7 +15,7 @@ export function EventImage({ mainImagePreview, title, t }: EventImageProps) {
     <div className='relative h-64 w-full bg-gray-200'>
       {hasImage ? (
         <Image
-          src={mainImagePreview || '/placeholder.svg'}
+          src={buildImageUrl(mainImagePreview)}
           alt={imageAlt}
           fill
           className='object-cover'

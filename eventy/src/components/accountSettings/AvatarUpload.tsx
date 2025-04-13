@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/authStore';
 import { toast } from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
+import { buildImageUrl } from '@/lib/utils/imageUrl';
 
 export function AvatarUpload() {
   const { user, fetchUser } = useAuthStore();
@@ -40,7 +41,7 @@ export function AvatarUpload() {
   return (
     <div className='flex flex-col items-center space-y-4'>
       <Avatar className='h-32 w-32'>
-        <AvatarImage src={user.avatarUrl || ''} />
+        <AvatarImage src={buildImageUrl(user.avatarUrl)} />
         <AvatarFallback>
           {user.userName?.[0]}
           {user.userSurname?.[0]}

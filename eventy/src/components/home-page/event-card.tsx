@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Users, Calendar, Clock } from 'lucide-react';
 import Image from 'next/image';
 import type { Event } from '@/app/[locale]/client/home/page';
+import { buildImageUrl } from '@/lib/utils/imageUrl';
 
 interface EventCardProps {
   event: Event;
@@ -12,7 +13,7 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <div className='relative h-[100dvh] w-full overflow-hidden'>
       <Image
-        src={event.backgroundImage || '/placeholder.svg'}
+        src={buildImageUrl(event.backgroundImage)}
         alt=''
         fill
         className='object-cover'

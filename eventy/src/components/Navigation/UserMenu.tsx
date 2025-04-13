@@ -12,6 +12,7 @@ import { useTranslations } from 'next-intl';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'next/navigation';
 import { URLS } from './urls';
+import { buildImageUrl } from '@/lib/utils/imageUrl';
 
 export function UserMenu() {
   const t = useTranslations('Navigation');
@@ -29,7 +30,7 @@ export function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
           <Avatar className='h-8 w-8'>
-            <AvatarImage src={user?.avatarUrl as string} alt='@username' />
+            <AvatarImage src={buildImageUrl(user?.avatarUrl)} alt='@username' />
             <AvatarFallback>
               {user?.userName?.[0]}
               {user?.userSurname?.[0]}
