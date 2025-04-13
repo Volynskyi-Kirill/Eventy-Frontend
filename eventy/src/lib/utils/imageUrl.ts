@@ -3,8 +3,7 @@ export const buildImageUrl = (imagePath: string | undefined | null): string => {
     return '/placeholder.jpg';
   }
 
-  const isExternalImage =
-    imagePath.startsWith('http') || imagePath.startsWith('/');
+  const isExternalImage = imagePath.startsWith('http');
   if (isExternalImage) {
     return imagePath;
   }
