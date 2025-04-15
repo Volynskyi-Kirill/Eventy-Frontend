@@ -256,5 +256,18 @@
     "viewEvent": "View event",
     "noEventsFound": "No events found",
     "loading": "Loading events..."
+  },
+  "EventPage": {
+    "bookTicket": "Book ticket",
+    "speakers": "SPEAKERS",
+    "fullDescription": "FULL DESCRIPTION",
+    "showOnMap": "Show on map",
+    "eventLocation": "Event Location",
+    "logoAlt": "{title} logo",
+    "mainImageAlt": "{title} main image",
+    "address": "ADDRESS",
+    "availableDates": "AVAILABLE DATES",
+    "availableTimes": "Available times",
+    "selectDate": "Select a date to view available times"
   }
 }

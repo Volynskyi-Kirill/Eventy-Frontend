@@ -5,9 +5,10 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent } from '@/components/ui/card';
-import { Clock, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import { buildImageUrl } from '@/lib/utils/imageUrl';
+import { getTranslations } from 'next-intl/server';
+import { DateTimeSelector } from '@/components/events/DateTimeSelector';
 
 type EventPageProps = {
   params: Promise<{
@@ -17,7 +18,8 @@ type EventPageProps = {
 };
 
 export default async function EventPage({ params }: EventPageProps) {
-  const { id } = await params;
+  const { id, locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'EventPage' });
 
   let event: Event;
 
@@ -49,121 +51,109 @@ export default async function EventPage({ params }: EventPageProps) {
     return {
       day: dateObj.getDate().toString().padStart(2, '0'),
       month: (dateObj.getMonth() + 1).toString().padStart(2, '0'),
-      year: dateObj.getFullYear(),
+      year: dateObj.getFullYear().toString(),
       time: dateObj.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
       }),
+      originalDate: date.date,
     };
   });
 
+  // Build address for map
+  const addressParts = [
+    event.street,
+    event.buildingNumber,
+    event.city,
+    event.country,
+  ].filter(Boolean);
+  const fullAddress = addressParts.join(', ');
+
   return (
-    <div className='flex flex-col w-full'>
-      {/* Banner section */}
+    <div className='flex flex-col w-full items-center'>
       <div className='relative w-full h-[300px] overflow-hidden'>
         <Image
-          src={
-            buildImageUrl(event.mainImg) || '/home-page/background-event.png'
-          }
+          src={buildImageUrl(event.coverImg)}
           alt={event.title}
           fill
-          className='object-cover'
+          className='object-cover w-full'
           priority
         />
-        <div className='absolute inset-0 bg-gradient-to-t from-black/60 to-transparent'></div>
-      </div>
 
-      {/* Event header section */}
-      <div className='container px-4 md:px-6 -mt-16 relative z-10'>
-        <div className='flex flex-col md:flex-row gap-6'>
-          {/* Event logo/image */}
-          <div className='flex-shrink-0'>
-            <Image
-              src={buildImageUrl(event.logoImg) || '/logo-nav-black.svg'}
-              alt={`${event.title} logo`}
-              width={200}
-              height={200}
-              className='rounded-lg border-4 border-white shadow-lg object-cover bg-white'
-            />
-          </div>
+        <div className='absolute inset-0 bg-gradient-to-t from-black/70 to-transparent'></div>
 
-          {/* Event details */}
-          <div className='flex-grow mt-4'>
-            {/* Categories */}
-            <div className='flex flex-wrap gap-2 mb-3'>
-              {event.categories.map((category) => (
-                <Badge key={category.id} variant='secondary'>
-                  {category.name}
-                </Badge>
-              ))}
-            </div>
+        <div className='absolute bottom-10 left-90 md:left-50 z-10'>
+          <Image
+            src={buildImageUrl(event.logoImg)}
+            alt={t('logoAlt', { title: event.title })}
+            width={150}
+            height={50}
+            className='rounded-lg border-4 border-white shadow-lg object-cover bg-white'
+          />
+        </div>
 
-            {/* Title */}
-            <h1 className='text-3xl md:text-4xl font-bold text-foreground'>
-              {event.title}
-            </h1>
-
-            {/* Short description */}
-            <p className='mt-2 text-muted-foreground max-w-3xl'>
-              {event.shortDescription}
-            </p>
-
-            {/* Location info */}
-            <div className='flex items-center gap-1 mt-4 text-sm text-muted-foreground'>
-              <MapPin className='h-4 w-4' />
-              <span>
-                {event.city}, {event.country}
-              </span>
-              <span>
-                {event.street} {event.buildingNumber}
-              </span>
-            </div>
-
-            {/* Price and seats info */}
-            <div className='mt-6 text-lg font-semibold'>
-              {minPrice === maxPrice
-                ? `${minPrice} ${currency}`
-                : `${minPrice} - ${maxPrice} ${currency}`}
-            </div>
-
-            {/* Booking button */}
-            <Button className='mt-4' size='lg'>
-              Book ticket
-            </Button>
-          </div>
+        <div className='absolute bottom-10 left-10 md:left-20 z-10'>
+          <Image
+            src={buildImageUrl(event.mainImg)}
+            alt={t('mainImageAlt', { title: event.title })}
+            width={150}
+            height={150}
+            className='rounded-lg border-4 border-white shadow-lg object-cover bg-white'
+          />
         </div>
       </div>
 
-      {/* Date section */}
-      <div className='container px-4 md:px-6 mt-8'>
-        <Card className='overflow-hidden'>
-          <CardContent className='p-0'>
-            <div className='flex flex-wrap'>
-              {formattedDates.slice(0, 4).map((date, index) => (
-                <Button
-                  key={index}
-                  variant={index === 0 ? 'default' : 'outline'}
-                  className='rounded-none border-r border-b flex-1'
-                >
-                  <div className='flex flex-col items-center py-2'>
-                    <div className='flex items-center gap-2'>
-                      <Clock className='h-4 w-4' />
-                      <span>{date.time}</span>
-                    </div>
-                    <div className='text-sm'>
-                      {date.day}.{date.month}.{date.year}
-                    </div>
-                  </div>
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+      <div className='container px-4 md:px-6 mt-8 max-w-4xl mx-auto'>
+        <div className='flex flex-col items-center text-center'>
+          <div className='flex flex-wrap gap-2 mb-3 justify-center'>
+            {event.categories.map((category) => (
+              <Badge key={category.id} variant='secondary'>
+                {category.name}
+              </Badge>
+            ))}
+          </div>
+
+          <h1 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
+            {event.title}
+          </h1>
+
+          <p className='mt-2 text-muted-foreground'>{event.shortDescription}</p>
+
+          <div className='flex items-center gap-1 mt-4 text-sm text-muted-foreground'>
+            <MapPin className='h-4 w-4' />
+            <span>
+              {event.city}, {event.country}
+            </span>
+            <span>
+              {event.street} {event.buildingNumber}
+            </span>
+          </div>
+
+          <div className='mt-6 text-lg font-semibold'>
+            {minPrice === maxPrice
+              ? `${minPrice} ${currency}`
+              : `${minPrice} - ${maxPrice} ${currency}`}
+          </div>
+
+          <Button className='mt-4' size='lg'>
+            {t('bookTicket')}
+          </Button>
+        </div>
       </div>
 
-      {/* Speakers section */}
-      <div className='container px-4 md:px-6 mt-12'>
-        <h2 className='text-2xl font-bold mb-6'>SPEAKERS</h2>
+      <div className='container px-4 md:px-6 mt-8 max-w-4xl mx-auto'>
+        <DateTimeSelector
+          dates={formattedDates}
+          translations={{
+            availableDates: t('availableDates'),
+            availableTimes: t('availableTimes'),
+            selectDate: t('selectDate'),
+          }}
+        />
+      </div>
+
+      <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
+        <h2 className='text-2xl font-bold mb-6 text-center'>{t('speakers')}</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
           {event.speakers.map((speaker) => (
             <div
@@ -187,9 +177,10 @@ export default async function EventPage({ params }: EventPageProps) {
         </div>
       </div>
 
-      {/* Full description section */}
-      <div className='container px-4 md:px-6 mt-12'>
-        <h2 className='text-2xl font-bold mb-4'>FULL DESCRIPTION</h2>
+      <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
+        <h2 className='text-2xl font-bold mb-4 text-center'>
+          {t('fullDescription')}
+        </h2>
         <div className='h-px bg-border w-full mb-6'></div>
         <div className='prose max-w-none'>
           {event.fullDescription.split('\n').map((paragraph, index) => (
@@ -200,15 +191,26 @@ export default async function EventPage({ params }: EventPageProps) {
         </div>
       </div>
 
-      {/* Map section */}
-      <div className='container px-4 md:px-6 mt-12 mb-12'>
+      <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
+        <h2 className='text-2xl font-bold mb-4 text-center'>{t('address')}</h2>
+        <div className='h-px bg-border w-full mb-6'></div>
+      </div>
+
+      {/* todo: подставить свой API key из енв */}
+      <div className='container px-4 md:px-6 mt-4 mb-12 max-w-4xl mx-auto'>
         <div className='w-full h-[300px] relative rounded-lg overflow-hidden bg-muted'>
-          <div className='absolute inset-0 flex items-center justify-center text-muted-foreground'>
-            Map location placeholder
-          </div>
-          <Button className='absolute bottom-4 left-1/2 -translate-x-1/2 z-10'>
-            Show on map
-          </Button>
+          <iframe
+            title={t('eventLocation')}
+            width='100%'
+            height='100%'
+            frameBorder='0'
+            style={{ border: 0 }}
+            src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(
+              fullAddress
+            )}`}
+            allowFullScreen
+            className='absolute inset-0'
+          ></iframe>
         </div>
       </div>
     </div>
