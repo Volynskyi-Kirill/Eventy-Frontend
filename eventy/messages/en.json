@@ -268,6 +268,7 @@
     "address": "ADDRESS",
     "availableDates": "AVAILABLE DATES",
     "availableTimes": "Available times",
-    "selectDate": "Select a date to view available times"
+    "selectDate": "Select a date to view available times",
+    "viewOnMap": "View location on map"
   }
 }

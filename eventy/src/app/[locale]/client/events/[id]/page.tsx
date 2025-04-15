@@ -121,12 +121,14 @@ export default async function EventPage({ params }: EventPageProps) {
 
           <div className='flex items-center gap-1 mt-4 text-sm text-muted-foreground'>
             <MapPin className='h-4 w-4' />
-            <span>
-              {event.city}, {event.country}
-            </span>
-            <span>
-              {event.street} {event.buildingNumber}
-            </span>
+            <a
+              href='#map-location'
+              className='hover:text-primary transition-colors cursor-pointer'
+              aria-label={t('viewOnMap')}
+            >
+              {event.city}, {event.country} {event.street}{' '}
+              {event.buildingNumber}
+            </a>
           </div>
 
           <div className='mt-6 text-lg font-semibold'>
@@ -142,6 +144,7 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       <div className='container px-4 md:px-6 mt-8 max-w-4xl mx-auto'>
+        <div className='h-px bg-border w-full mb-6'></div>
         <DateTimeSelector
           dates={formattedDates}
           translations={{
@@ -153,6 +156,7 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
+        <div className='h-px bg-border w-full mb-6'></div>
         <h2 className='text-2xl font-bold mb-6 text-center'>{t('speakers')}</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
           {event.speakers.map((speaker) => (
@@ -178,10 +182,10 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
+        <div className='h-px bg-border w-full mb-6'></div>
         <h2 className='text-2xl font-bold mb-4 text-center'>
           {t('fullDescription')}
         </h2>
-        <div className='h-px bg-border w-full mb-6'></div>
         <div className='prose max-w-none'>
           {event.fullDescription.split('\n').map((paragraph, index) => (
             <p key={index} className='mb-4'>
@@ -192,12 +196,15 @@ export default async function EventPage({ params }: EventPageProps) {
       </div>
 
       <div className='container px-4 md:px-6 mt-12 max-w-4xl mx-auto'>
-        <h2 className='text-2xl font-bold mb-4 text-center'>{t('address')}</h2>
         <div className='h-px bg-border w-full mb-6'></div>
+        <h2 className='text-2xl font-bold mb-4 text-center'>{t('address')}</h2>
       </div>
 
       {/* todo: подставить свой API key из енв */}
-      <div className='container px-4 md:px-6 mt-4 mb-12 max-w-4xl mx-auto'>
+      <div
+        id='map-location'
+        className='container px-4 md:px-6 mt-4 mb-12 max-w-4xl mx-auto'
+      >
         <div className='w-full h-[300px] relative rounded-lg overflow-hidden bg-muted'>
           <iframe
             title={t('eventLocation')}
