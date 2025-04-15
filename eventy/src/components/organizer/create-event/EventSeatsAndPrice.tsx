@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/select';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
-import { FormField } from '@/components/auth/FormField';
+import { FormField } from '@/components/shared/FormField';
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD'];
 

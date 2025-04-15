@@ -4,8 +4,8 @@ import {
   CitySelectInput,
   CountrySelectInput,
   StateSelectInput,
-} from '@/components/accountSettings/LocationSelects';
-import { FormField } from '@/components/auth/FormField';
+} from '@/components/shared/accountSettings/LocationSelects';
+import { FormField } from '@/components/shared/FormField';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';

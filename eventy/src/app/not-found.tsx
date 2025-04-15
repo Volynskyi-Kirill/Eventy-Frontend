@@ -1,5 +1,5 @@
-import BaseLayout from '@/components/BaseLayout';
-import NotFoundPage from '@/components/NotFoundPage';
+import BaseLayout from '@/components/shared/BaseLayout';
+import NotFoundPage from '@/components/shared/NotFoundPage';
 
 import { routing } from '@/i18n/routing';
 

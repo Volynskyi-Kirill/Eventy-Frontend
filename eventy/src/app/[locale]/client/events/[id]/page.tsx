@@ -2,14 +2,14 @@ import { eventsService } from '@/lib/api/events.service';
 import type { Event } from '@/lib/types/event.types';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-import { DateTimeSelector } from '@/components/event/DateTimeSelector';
-import EventHeader from '@/components/event/EventHeader';
-import EventSpeakers from '@/components/event/EventSpeakers';
-import EventDescription from '@/components/event/EventDescription';
-import EventLocation from '@/components/event/EventLocation';
-import { formatEventDates } from '@/components/event/utils/formatEventDates';
-import { formatEventPrice } from '@/components/event/utils/formatEventPrice';
-import { buildEventAddress } from '@/components/event/utils/buildEventAddress';
+import { DateTimeSelector } from '@/components/client/event-page/DateTimeSelector';
+import EventHeader from '@/components/client/event-page/EventHeader';
+import EventSpeakers from '@/components/client/event-page/EventSpeakers';
+import EventDescription from '@/components/client/event-page/EventDescription';
+import EventLocation from '@/components/client/event-page/EventLocation';
+import { formatEventDates } from '@/components/client/event-page/utils/formatEventDates';
+import { formatEventPrice } from '@/components/client/event-page/utils/formatEventPrice';
+import { buildEventAddress } from '@/components/client/event-page/utils/buildEventAddress';
 
 type EventPageProps = {
   params: Promise<{

@@ -4,7 +4,7 @@ import {
   CityType,
   CountryType,
   StateType,
-} from '@/components/accountSettings/LocationSelects';
+} from '@/components/shared/accountSettings/LocationSelects';
 import citiesData from '@/lib/countryData/citiesminified.json';
 import countriesData from '@/lib/countryData/countriesminified.json';
 import statesData from '@/lib/countryData/statesminified.json';

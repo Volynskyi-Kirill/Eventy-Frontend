@@ -1,10 +1,10 @@
 'use client';
 
-import { EventImages } from '@/components/create-event/EventImages';
-import { EventInformation } from '@/components/create-event/EventInformation';
-import { EventSeatsAndPrice } from '@/components/create-event/EventSeatsAndPrice';
-import { EventSocialMedia } from '@/components/create-event/EventSocialMedia';
-import { EventPreview } from '@/components/create-event/event-preview/EventPreview';
+import { EventImages } from '@/components/organizer/create-event/EventImages';
+import { EventInformation } from '@/components/organizer/create-event/EventInformation';
+import { EventSeatsAndPrice } from '@/components/organizer/create-event/EventSeatsAndPrice';
+import { EventSocialMedia } from '@/components/organizer/create-event/EventSocialMedia';
+import { EventPreview } from '@/components/organizer/create-event/event-preview/EventPreview';
 import { eventsService } from '@/lib/api/events.service';
 import { createEventDefaultValues } from '@/lib/validation/createEventDefaultValues';
 import {

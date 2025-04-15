@@ -1,7 +1,7 @@
 'use client';
 
-import { FormField } from '@/components/auth/FormField';
-import { URLS } from '@/components/Navigation/urls';
+import { FormField } from '@/components/shared/FormField';
+import { URLS } from '@/components/shared/Navigation/urls';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { Link, useRouter } from '@/i18n/routing';

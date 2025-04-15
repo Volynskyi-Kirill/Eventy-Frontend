@@ -1,18 +1,18 @@
 'use client';
 
-import { AvatarUpload } from '@/components/accountSettings/AvatarUpload';
+import { AvatarUpload } from '@/components/shared/accountSettings/AvatarUpload';
 import {
   CitySelectInput,
   CountrySelectInput,
   StateSelectInput,
-} from '@/components/accountSettings/LocationSelects';
+} from '@/components/shared/accountSettings/LocationSelects';
 import {
   convertLocation,
   getCityByName,
   getCountryByName,
   getStateByName,
-} from '@/components/accountSettings/utils';
-import { FormField } from '@/components/auth/FormField';
+} from '@/components/shared/accountSettings/utils';
+import { FormField } from '@/components/shared/FormField';
 import { Button } from '@/components/ui/button';
 import {
   Card,

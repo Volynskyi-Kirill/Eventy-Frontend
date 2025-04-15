@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { URLS } from '@/components/Navigation/urls';
+import { URLS } from '@/components/shared/Navigation/urls';
 import { Button } from '@/components/ui/button';
 import {
   Card,

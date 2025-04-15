@@ -1,6 +1,6 @@
 'use client';
 
-import { FormField } from '@/components/auth/FormField';
+import { FormField } from '@/components/shared/FormField';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { X } from 'lucide-react';

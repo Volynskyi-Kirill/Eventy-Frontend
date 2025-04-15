@@ -10,10 +10,10 @@ import { useDebounce } from 'use-debounce';
 import {
   EventFilters,
   SelectedCategoriesFilter,
-} from '@/components/events-page/EventFilters';
-import { EventGrid } from '@/components/events-page/EventGrid';
-import { EventPagination } from '@/components/events-page/EventPagination';
-import { EventSort } from '@/components/events-page/EventSort';
+} from '@/components/client/events-page/EventFilters';
+import { EventGrid } from '@/components/client/events-page/EventGrid';
+import { EventPagination } from '@/components/client/events-page/EventPagination';
+import { EventSort } from '@/components/client/events-page/EventSort';
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
@@ -21,7 +21,7 @@ import {
   DEFAULT_SORT_BY,
   DEFAULT_SORT_DIRECTION,
   PRICE_FILTER_DEBOUNCE_MS,
-} from '@/components/events-page/constants';
+} from '@/components/client/events-page/constants';
 
 export default function EventsPage() {
   const [filters, setFilters] = useState<EventsQueryParams>({

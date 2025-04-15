@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/authStore';
-import { URLS } from '@/components/Navigation/urls';
+import { URLS } from '@/components/shared/Navigation/urls';
 
 const GoogleAuthHandler = () => {
   const router = useRouter();

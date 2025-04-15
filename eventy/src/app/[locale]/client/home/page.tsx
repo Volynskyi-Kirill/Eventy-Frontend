@@ -1,4 +1,4 @@
-import { EventHero } from '@/components/home-page/event-hero';
+import { EventHero } from '@/components/client/home-page/event-hero';
 
 export type Event = {
   title: string;

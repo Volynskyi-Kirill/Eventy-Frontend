@@ -13,7 +13,8 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <div className='relative h-[100dvh] w-full overflow-hidden'>
       <Image
-        src={buildImageUrl(event.backgroundImage)}
+        src={event.backgroundImage}
+        // src={buildImageUrl(event.backgroundImage)}
         alt=''
         fill
         className='object-cover'
