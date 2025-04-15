@@ -16,7 +16,7 @@ import {
 import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
 
-const SOCIAL_PLATFORMS = [
+export const SOCIAL_PLATFORMS = [
   'Instagram',
   'Facebook',
   'Twitter',
