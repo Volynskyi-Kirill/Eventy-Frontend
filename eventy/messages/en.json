@@ -270,5 +270,12 @@
     "availableTimes": "Available times",
     "selectDate": "Select a date to view available times",
     "viewOnMap": "View location on map"
+  },
+  "BookingPage": {
+    "bookTicketsFor": "Book Tickets for",
+    "bookingPagePlaceholder": "Booking functionality is coming soon",
+    "eventNotFound": "Event Not Found",
+    "eventNotFoundDescription": "The event you're trying to book tickets for could not be found.",
+    "backToEvents": "Back to Events"
   }
 }

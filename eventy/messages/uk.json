@@ -262,13 +262,20 @@
     "speakers": "СПІКЕРИ",
     "fullDescription": "ПОВНИЙ ОПИС",
     "showOnMap": "Показати на карті",
-    "eventLocation": "Місцезнаходження події",
-    "logoAlt": "Логотип {title}",
-    "mainImageAlt": "Головне зображення {title}",
+    "eventLocation": "Місце проведення",
+    "logoAlt": "логотип {title}",
+    "mainImageAlt": "головне зображення {title}",
     "address": "АДРЕСА",
     "availableDates": "ДОСТУПНІ ДАТИ",
-    "availableTimes": "Доступні часи",
-    "selectDate": "Оберіть дату, щоб переглянути доступний час",
-    "viewOnMap": "Переглянути розташування на карті"
+    "availableTimes": "Доступний час",
+    "selectDate": "Виберіть дату, щоб побачити доступний час",
+    "viewOnMap": "Переглянути на карті"
+  },
+  "BookingPage": {
+    "bookTicketsFor": "Забронювати квитки на",
+    "bookingPagePlaceholder": "Функціонал бронювання буде доступний незабаром",
+    "eventNotFound": "Подію не знайдено",
+    "eventNotFoundDescription": "Подію, для якої ви намагаєтеся забронювати квитки, не знайдено.",
+    "backToEvents": "Назад до подій"
   }
 }

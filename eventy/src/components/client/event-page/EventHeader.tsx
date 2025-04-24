@@ -5,6 +5,8 @@ import { MapPin } from 'lucide-react';
 import { buildImageUrl } from '@/lib/utils/imageUrl';
 import SocialMediaLinks from './SocialMediaLinks';
 import { Event } from '@/lib/types/event.types';
+import Link from 'next/link';
+import { URLS } from '@/components/shared/Navigation/urls';
 
 type EventHeaderProps = {
   event: Event;
@@ -96,9 +98,11 @@ const EventHeader = ({
 
             <div className='mt-6 text-lg font-semibold'>{priceDisplay}</div>
 
-            <Button className='mt-4' size='lg'>
-              {t('bookTicket')}
-            </Button>
+            <Link href={URLS.CLIENT.BOOK_EVENT(event.id)}>
+              <Button className='mt-4' size='lg'>
+                {t('bookTicket')}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
