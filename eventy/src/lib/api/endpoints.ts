@@ -3,6 +3,7 @@ const BASE_PATHS = {
   USERS: '/users',
   EVENTS: '/events',
   CATEGORIES: '/categories',
+  TICKETS: '/tickets',
 };
 
 export const API_ENDPOINTS = {
@@ -27,5 +28,10 @@ export const API_ENDPOINTS = {
   },
   CATEGORIES: {
     GET_ALL: BASE_PATHS.CATEGORIES,
+  },
+  TICKETS: {
+    GET_AVAILABLE_TICKETS: (eventId: number) =>
+      `${BASE_PATHS.TICKETS}/event/${eventId}`,
+    PURCHASE: `${BASE_PATHS.TICKETS}/purchase`,
   },
 };
