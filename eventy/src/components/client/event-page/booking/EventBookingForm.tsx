@@ -118,76 +118,77 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
             <div>
               <EventCard event={event} compact />
+            </div>
 
+            <div>
               <DateTimeZoneSelector
                 groupedTickets={groupedTickets}
                 onSelect={handleDateZoneSelect}
               />
             </div>
-
-            <div className='flex flex-col space-y-6'>
-              {selectedZone && selectedDate && (
-                <>
-                  <div className='p-6 border rounded-lg'>
-                    <h3 className='text-xl font-semibold mb-4'>
-                      {t('selectedOptions')}
-                    </h3>
-                    <div className='space-y-2'>
-                      <p>
-                        <span className='font-medium'>{t('date')}:</span>{' '}
-                        {selectedDate.formattedDate}
-                      </p>
-                      <p>
-                        <span className='font-medium'>{t('time')}:</span>{' '}
-                        {selectedDate.time}
-                      </p>
-                      <p>
-                        <span className='font-medium'>{t('zone')}:</span>{' '}
-                        {selectedZone.zoneName}
-                      </p>
-                      <p>
-                        <span className='font-medium'>
-                          {t('pricePerTicket')}:
-                        </span>{' '}
-                        {selectedZone.price} {selectedZone.currency}
-                      </p>
-                    </div>
-                  </div>
-
-                  <TicketQuantitySelector
-                    maxTickets={Math.min(
-                      10,
-                      availableTickets?.filter(
-                        (t) =>
-                          t.eventZoneId === selectedZone.zoneId &&
-                          t.eventDateId === selectedDate.dateId
-                      ).length || 0
-                    )}
-                    ticketCount={ticketCount}
-                    onChange={handleTicketCountChange}
-                    translations={ticketTranslations}
-                  />
-
-                  <div className='p-6 border rounded-lg mt-auto'>
-                    <div className='flex justify-between items-center text-xl font-bold'>
-                      <span>{t('totalPrice')}</span>
-                      <span>
-                        {totalPrice} {selectedZone.currency}
-                      </span>
-                    </div>
-                  </div>
-
-                  <Button
-                    size='lg'
-                    onClick={handleNextStep}
-                    disabled={!selectedDate || !selectedZone || ticketCount < 1}
-                  >
-                    {t('next')}
-                  </Button>
-                </>
-              )}
-            </div>
           </div>
+
+          {selectedZone && selectedDate && (
+            <div className='mt-8 grid grid-cols-1 md:grid-cols-2 gap-6'>
+              <div className='p-6 border rounded-lg'>
+                <h3 className='text-xl font-semibold mb-4'>
+                  {t('selectedOptions')}
+                </h3>
+                <div className='space-y-2'>
+                  <p>
+                    <span className='font-medium'>{t('date')}:</span>{' '}
+                    {selectedDate.formattedDate}
+                  </p>
+                  <p>
+                    <span className='font-medium'>{t('time')}:</span>{' '}
+                    {selectedDate.time}
+                  </p>
+                  <p>
+                    <span className='font-medium'>{t('zone')}:</span>{' '}
+                    {selectedZone.zoneName}
+                  </p>
+                  <p>
+                    <span className='font-medium'>{t('pricePerTicket')}:</span>{' '}
+                    {selectedZone.price} {selectedZone.currency}
+                  </p>
+                </div>
+              </div>
+
+              <div className='flex flex-col space-y-4'>
+                <TicketQuantitySelector
+                  maxTickets={Math.min(
+                    10,
+                    availableTickets?.filter(
+                      (t) =>
+                        t.eventZoneId === selectedZone.zoneId &&
+                        t.eventDateId === selectedDate.dateId
+                    ).length || 0
+                  )}
+                  ticketCount={ticketCount}
+                  onChange={handleTicketCountChange}
+                  translations={ticketTranslations}
+                />
+
+                <div className='p-6 border rounded-lg'>
+                  <div className='flex justify-between items-center text-xl font-bold'>
+                    <span>{t('totalPrice')}</span>
+                    <span>
+                      {totalPrice} {selectedZone.currency}
+                    </span>
+                  </div>
+                </div>
+
+                <Button
+                  size='lg'
+                  onClick={handleNextStep}
+                  disabled={!selectedDate || !selectedZone || ticketCount < 1}
+                  className='mt-2'
+                >
+                  {t('next')}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div className='p-6'>
