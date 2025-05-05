@@ -48,8 +48,16 @@ const DateTimeZoneSelector = ({
   onSelect,
 }: DateTimeZoneSelectorProps) => {
   const t = useTranslations('BookingPage');
+
+  // Sort dates in ascending order
+  const sortedDates = [...groupedTickets].sort((a, b) => {
+    const dateA = new Date(a.dateStr);
+    const dateB = new Date(b.dateStr);
+    return dateA.getTime() - dateB.getTime();
+  });
+
   const [selectedDate, setSelectedDate] = useState<string | null>(
-    groupedTickets.length > 0 ? groupedTickets[0].dateStr : null
+    sortedDates.length > 0 ? sortedDates[0].dateStr : null
   );
   const [selectedZone, setSelectedZone] = useState<number | null>(null);
 
@@ -84,7 +92,7 @@ const DateTimeZoneSelector = ({
     );
   };
 
-  if (groupedTickets.length === 0) {
+  if (sortedDates.length === 0) {
     return (
       <div className='mt-6 p-6 border rounded-lg text-center'>
         <p className='text-muted-foreground'>{t('noTicketsAvailable')}</p>
@@ -92,7 +100,7 @@ const DateTimeZoneSelector = ({
     );
   }
 
-  const selectedDateData = groupedTickets.find(
+  const selectedDateData = sortedDates.find(
     (date) => date.dateStr === selectedDate
   );
 
@@ -108,7 +116,7 @@ const DateTimeZoneSelector = ({
         </CardHeader>
         <CardContent>
           <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
-            {groupedTickets.map((date) => {
+            {sortedDates.map((date) => {
               const { formattedDate } = date;
               const dateStr = `${formattedDate.day}.${formattedDate.month}.${formattedDate.year}`;
 
