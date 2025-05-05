@@ -59,6 +59,13 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
     setSelectedTickets(tickets.slice(0, ticketCount));
   };
 
+  const handleDateChange = () => {
+    // Reset all selections when date changes
+    setSelectedZone(null);
+    setSelectedTickets([]);
+    setTicketCount(1);
+  };
+
   const handleTicketCountChange = (count: number) => {
     setTicketCount(count);
     // Update selected tickets based on count
@@ -124,6 +131,7 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
               <DateTimeZoneSelector
                 groupedTickets={groupedTickets}
                 onSelect={handleDateZoneSelect}
+                onDateChange={handleDateChange}
               />
             </div>
           </div>

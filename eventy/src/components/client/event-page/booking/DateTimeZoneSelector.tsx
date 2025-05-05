@@ -41,11 +41,13 @@ type DateTimeZoneSelectorProps = {
     },
     tickets: Ticket[]
   ) => void;
+  onDateChange: () => void;
 };
 
 const DateTimeZoneSelector = ({
   groupedTickets,
   onSelect,
+  onDateChange,
 }: DateTimeZoneSelectorProps) => {
   const t = useTranslations('BookingPage');
 
@@ -64,6 +66,7 @@ const DateTimeZoneSelector = ({
   const handleDateSelect = (dateStr: string) => {
     setSelectedDate(dateStr);
     setSelectedZone(null);
+    onDateChange(); // Notify parent that date has changed
   };
 
   const handleZoneSelect = (
