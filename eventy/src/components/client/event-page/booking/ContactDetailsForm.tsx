@@ -1,16 +1,14 @@
 'use client';
 
 import { FormField } from '@/components/shared/FormField';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
-import { useTranslations } from 'next-intl';
+import { DEFAULT_COUNTRY_PHONE_CODE } from '@/lib/constants';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import Link from 'next/link';
-import { DEFAULT_COUNTRY_PHONE_CODE } from '@/lib/constants';
-
 const contactFormSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
   email: z.string().email({ message: 'Please enter a valid email address' }),
