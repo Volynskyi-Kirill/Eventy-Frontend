@@ -4,6 +4,7 @@ import { FormField } from '@/components/shared/FormField';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form } from '@/components/ui/form';
 import { DEFAULT_COUNTRY_PHONE_CODE } from '@/lib/constants';
+import { useAuthStore } from '@/store/authStore';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -25,6 +26,7 @@ type ContactDetailsFormProps = {
 const ContactDetailsForm = ({ onSubmit }: ContactDetailsFormProps) => {
   const t = useTranslations('BookingPage');
   const validation = useTranslations('BookingPage.validation');
+  const { user } = useAuthStore();
 
   const contactFormSchema = z.object({
     name: z.string().min(2, { message: validation('nameMin') }),
@@ -39,9 +41,9 @@ const ContactDetailsForm = ({ onSubmit }: ContactDetailsFormProps) => {
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
+      name: user?.userName ?? '',
+      email: user?.email ?? '',
+      phone: user?.phoneNumber ?? '',
       agreeToTerms: false,
       marketingConsent: false,
     },
