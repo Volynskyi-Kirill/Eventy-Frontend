@@ -9,17 +9,14 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: 'Name must be at least 2 characters' }),
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  phone: z.string().min(5, { message: 'Please enter a valid phone number' }),
-  agreeToTerms: z.boolean().refine((value) => value === true, {
-    message: 'You must agree to the terms',
-  }),
-  marketingConsent: z.boolean().optional(),
-});
 
-type ContactFormValues = z.infer<typeof contactFormSchema>;
+type ContactFormValues = {
+  name: string;
+  email: string;
+  phone: string;
+  agreeToTerms: boolean;
+  marketingConsent?: boolean;
+};
 
 type ContactDetailsFormProps = {
   onSubmit: (data: ContactFormValues) => void;
@@ -27,6 +24,17 @@ type ContactDetailsFormProps = {
 
 const ContactDetailsForm = ({ onSubmit }: ContactDetailsFormProps) => {
   const t = useTranslations('BookingPage');
+  const validation = useTranslations('BookingPage.validation');
+
+  const contactFormSchema = z.object({
+    name: z.string().min(2, { message: validation('nameMin') }),
+    email: z.string().email({ message: validation('emailInvalid') }),
+    phone: z.string().min(5, { message: validation('phoneMin') }),
+    agreeToTerms: z.boolean().refine((value) => value === true, {
+      message: validation('agreeToTermsRequired'),
+    }),
+    marketingConsent: z.boolean().optional(),
+  });
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),

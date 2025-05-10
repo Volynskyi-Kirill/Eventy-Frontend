@@ -302,7 +302,13 @@
     "tickets": "Tickets",
     "date": "Date",
     "time": "Time",
-    "selectDate": "Select Date"
+    "selectDate": "Select Date",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneMin": "Please enter a valid phone number",
+      "agreeToTermsRequired": "You must agree to the terms"
+    }
   },
   "Tickets": {
     "tickets": "Tickets",

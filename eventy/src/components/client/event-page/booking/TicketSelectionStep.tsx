@@ -5,7 +5,6 @@ import EventCard from '../EventCard';
 import DateTimeZoneSelector from './DateTimeZoneSelector';
 import TicketQuantitySelector from './TicketQuantitySelector';
 
-// Types
 type DateInfo = {
   dateId: number;
   dateStr: string;

@@ -10,29 +10,24 @@ import { TicketSelectionStep, DateInfo, ZoneInfo } from './TicketSelectionStep';
 import { PaymentDetailsStep } from './PaymentDetailsStep';
 import { LoadingBookingForm } from './LoadingBookingForm';
 
-// Constants for form steps
 const BOOKING_STEPS = {
   TICKET_SELECTION: 'TICKET_SELECTION',
   PAYMENT_DETAILS: 'PAYMENT_DETAILS',
 };
 
-// Default state values
 const DEFAULT_VALUES = {
   TICKET_COUNT: 1,
   PAYMENT_METHOD: 'credit',
 };
 
-// Main component props
 type EventBookingFormProps = {
   event: Event;
 };
 
-// Main component
 const EventBookingForm = ({ event }: EventBookingFormProps) => {
   const t = useTranslations('BookingPage');
   const ticketT = useTranslations('Tickets');
 
-  // Form state
   const [currentStep, setCurrentStep] = useState(
     BOOKING_STEPS.TICKET_SELECTION
   );
@@ -44,7 +39,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
     DEFAULT_VALUES.PAYMENT_METHOD
   );
 
-  // Fetch available tickets
   const { data: availableTickets, isLoading } = useQuery({
     queryKey: [QUERY_KEYS.AVAILABLE_TICKETS, event.id],
     queryFn: () => ticketsService.getAvailableTickets(event.id),
@@ -57,7 +51,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
 
   const totalPrice = selectedZone ? selectedZone.price * ticketCount : 0;
 
-  // Event handlers
   const handleDateZoneSelect = (
     dateInfo: DateInfo,
     zoneInfo: ZoneInfo,
@@ -69,7 +62,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
   };
 
   const handleDateChange = () => {
-    // Reset all selections when date changes
     setSelectedZone(null);
     setSelectedTickets([]);
     setTicketCount(DEFAULT_VALUES.TICKET_COUNT);
@@ -77,8 +69,9 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
 
   const handleTicketCountChange = (count: number) => {
     setTicketCount(count);
-    // Update selected tickets based on count
-    if (selectedTickets.length > 0) {
+
+    const isSelectedTickets = selectedTickets.length > 0;
+    if (isSelectedTickets) {
       setSelectedTickets((prev) => prev.slice(0, count));
     }
   };
@@ -91,7 +84,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
     setCurrentStep(BOOKING_STEPS.TICKET_SELECTION);
   };
 
-  // Purchase handler
   const handleCompletePurchase = async (contactInfo: any) => {
     if (!selectedTickets.length || !selectedZone) return;
 
@@ -103,9 +95,7 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
         agreeToTerms: true,
       });
 
-      // Handle success (redirect to success page or show success message)
       console.log('Purchase successful');
-      // Redirect to success page
     } catch (error) {
       console.error('Purchase failed:', error);
     }
@@ -118,7 +108,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
     decrease: ticketT('decrease'),
   };
 
-  // Loading state
   if (isLoading) {
     return <LoadingBookingForm />;
   }
