@@ -92,7 +92,6 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
         ticketIds: selectedTickets.map((ticket) => ticket.id),
         paymentMethod,
         contactInfo,
-        agreeToTerms: true,
       });
 
       console.log('Purchase successful');

@@ -34,9 +34,9 @@ export type TicketPurchaseData = {
     name: string;
     email: string;
     phone: string;
+    agreeToTerms: boolean;
+    marketingConsent?: boolean;
   };
-  agreeToTerms: boolean;
-  marketingConsent?: boolean;
 };
 
 export const ticketsService = {
