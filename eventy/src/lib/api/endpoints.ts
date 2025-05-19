@@ -25,6 +25,7 @@ export const API_ENDPOINTS = {
     UPDATE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     DELETE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     UPLOAD_IMAGE: `${BASE_PATHS.EVENTS}/upload-image`,
+    RECOMMENDED: `${BASE_PATHS.EVENTS}/recommended`,
   },
   CATEGORIES: {
     GET_ALL: BASE_PATHS.CATEGORIES,

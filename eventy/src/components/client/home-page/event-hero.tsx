@@ -1,6 +1,5 @@
 'use client';
 
-import type { Event } from '@/app/[locale]/client/home/page';
 import {
   Carousel,
   CarouselContent,
@@ -12,15 +11,18 @@ import { useEffect, useState } from 'react';
 import { EventCard } from './event-card';
 import type { CarouselApi } from '@/components/ui/carousel';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
+import { RecommendedEvent } from '@/lib/api/events.service';
 
 interface EventHeroProps {
-  events: Event[];
+  events: RecommendedEvent[];
 }
 
 export function EventHero({ events }: EventHeroProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+  const t = useTranslations('EventsPage');
 
   useEffect(() => {
     if (!api) {
@@ -39,6 +41,14 @@ export function EventHero({ events }: EventHeroProps) {
     api?.scrollTo(index);
   };
 
+  if (events.length === 0) {
+    return (
+      <div className='h-[100dvh] flex items-center justify-center'>
+        {t('noEventsFound')}
+      </div>
+    );
+  }
+
   return (
     <section className='absolute top-0 left-0 h-[100dvh] w-full overflow-hidden z-0'>
       <Carousel
@@ -51,7 +61,7 @@ export function EventHero({ events }: EventHeroProps) {
       >
         <CarouselContent>
           {events.map((event, index) => (
-            <CarouselItem key={index}>
+            <CarouselItem key={event.id || index}>
               <EventCard event={event} />
             </CarouselItem>
           ))}

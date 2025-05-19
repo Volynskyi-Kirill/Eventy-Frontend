@@ -263,7 +263,8 @@
     "priceHighToLow": "Price: high to low",
     "viewEvent": "View event",
     "noEventsFound": "No events found",
-    "loading": "Loading events..."
+    "loading": "Loading events...",
+    "bookTicket": "Book ticket"
   },
   "EventPage": {
     "bookTicket": "Book ticket",
