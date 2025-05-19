@@ -18,6 +18,14 @@
     "loginError": "Login error. Please try later.",
     "loginSuccess": "Login successful! Welcome!"
   },
+  "Auth": {
+    "authRequired": {
+      "title": "Authentication Required",
+      "description": "You need to be logged in to access this feature.",
+      "login": "Log In",
+      "register": "Sign Up"
+    }
+  },
   "Navigation": {
     "client": {
       "home": "Home",
