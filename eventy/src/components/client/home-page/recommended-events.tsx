@@ -4,6 +4,7 @@ import { eventsService, RecommendedEvent } from '@/lib/api/events.service';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { EventHero } from './event-hero';
+import { NoEventsFound } from './no-events-found';
 
 export function RecommendedEvents() {
   const [events, setEvents] = useState<RecommendedEvent[]>([]);
@@ -45,11 +46,7 @@ export function RecommendedEvents() {
   }
 
   if (events.length === 0) {
-    return (
-      <div className='h-[100dvh] flex items-center justify-center'>
-        {t('noEventsFound')}
-      </div>
-    );
+    return <NoEventsFound />;
   }
 
   return <EventHero events={events} />;

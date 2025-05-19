@@ -264,7 +264,10 @@
     "viewEvent": "View event",
     "noEventsFound": "No events found",
     "loading": "Loading events...",
-    "bookTicket": "Book ticket"
+    "bookTicket": "Book ticket",
+    "noUpcomingEvents": "No upcoming events",
+    "checkBackSoon": "Check back soon as new events are added regularly!",
+    "browseAllEvents": "Browse all events"
   },
   "EventPage": {
     "bookTicket": "Book ticket",
