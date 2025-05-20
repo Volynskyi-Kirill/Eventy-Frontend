@@ -301,6 +301,9 @@
     "next": "Next",
     "back": "Back",
     "paymentMethod": "Payment Method",
+    "paymentMethods": {
+      "onsite": "Pay at the venue"
+    },
     "contactDetails": "Contact Details",
     "name": "Name",
     "enterName": "Enter your name",

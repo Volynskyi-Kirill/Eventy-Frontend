@@ -4,6 +4,7 @@ import { useAuthStore } from '@/store/authStore';
 import { toast } from 'react-hot-toast';
 import { useTranslations } from 'next-intl';
 import { buildImageUrl } from '@/lib/utils/imageUrl';
+import { usersService } from '@/lib/api/users.service';
 
 export function AvatarUpload() {
   const { user, fetchUser } = useAuthStore();
@@ -16,10 +17,7 @@ export function AvatarUpload() {
     if (!file) return;
 
     try {
-      // const response = await usersService.uploadAvatar(file);
-      toast.success(t('uploadLater'));
-      return;
-
+      await usersService.uploadAvatar(file);
       await fetchUser();
       toast.success(t('uploadSuccess'));
     } catch (error) {
@@ -41,13 +39,12 @@ export function AvatarUpload() {
   return (
     <div className='flex flex-col items-center space-y-4'>
       <Avatar className='h-32 w-32'>
-        <AvatarImage src={buildImageUrl(user.avatarUrl)} />
+        <AvatarImage src={buildImageUrl(user.avatarUrl)} alt={user.userName} />
         <AvatarFallback>
           {user.userName?.[0]}
           {user.userSurname?.[0]}
         </AvatarFallback>
       </Avatar>
-      {/* TODO убрать вообще кнопку на мвп */}
       <Button variant='outline' className='relative' asChild>
         <label>
           {t('loadPhoto')}

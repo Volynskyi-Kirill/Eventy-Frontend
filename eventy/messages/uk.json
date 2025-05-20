@@ -301,6 +301,9 @@
     "next": "Далі",
     "back": "Назад",
     "paymentMethod": "Спосіб оплати",
+    "paymentMethods": {
+      "onsite": "Оплата на місці"
+    },
     "contactDetails": "Контактні дані",
     "name": "Ім'я",
     "enterName": "Введіть ваше ім'я",

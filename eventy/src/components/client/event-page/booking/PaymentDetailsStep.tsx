@@ -19,6 +19,9 @@ type PaymentDetailsStepProps = {
   };
 };
 
+// const PAYMENT_METHODS = ['credit', 'paypal', 'other'];
+const PAYMENT_METHODS = ['onsite']; // payment on site/location
+
 const PaymentDetailsStep = ({
   event,
   selectedDate,
@@ -72,7 +75,7 @@ const PaymentDetailsStep = ({
           <div className='mb-6'>
             <h3 className='text-xl font-semibold mb-4'>{t('paymentMethod')}</h3>
             <div className='grid grid-cols-3 gap-4'>
-              {['credit', 'paypal', 'other'].map((method) => (
+              {PAYMENT_METHODS.map((method) => (
                 <div
                   key={method}
                   className={`p-4 border rounded-lg text-center cursor-pointer ${
@@ -83,7 +86,9 @@ const PaymentDetailsStep = ({
                   onClick={() => onPaymentMethodChange(method)}
                 >
                   <div className='h-8 w-full bg-muted rounded mb-2'></div>
-                  <p className='text-sm font-medium capitalize'>{method}</p>
+                  <p className='text-sm font-medium capitalize'>
+                    {t(`paymentMethods.${method}`)}
+                  </p>
                 </div>
               ))}
             </div>
