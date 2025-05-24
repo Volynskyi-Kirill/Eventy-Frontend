@@ -17,7 +17,7 @@ const BOOKING_STEPS = {
 
 const DEFAULT_VALUES = {
   TICKET_COUNT: 1,
-  PAYMENT_METHOD: 'credit',
+  PAYMENT_METHOD: 'onsite',
 };
 
 type EventBookingFormProps = {
@@ -70,9 +70,13 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
   const handleTicketCountChange = (count: number) => {
     setTicketCount(count);
 
-    const isSelectedTickets = selectedTickets.length > 0;
-    if (isSelectedTickets) {
-      setSelectedTickets((prev) => prev.slice(0, count));
+    if (selectedZone && selectedDate && availableTickets) {
+      const ticketsForSelectedZoneAndDate = availableTickets.filter(
+        (ticket) =>
+          ticket.eventZoneId === selectedZone.zoneId &&
+          ticket.eventDateId === selectedDate.dateId
+      );
+      setSelectedTickets(ticketsForSelectedZoneAndDate.slice(0, count));
     }
   };
 

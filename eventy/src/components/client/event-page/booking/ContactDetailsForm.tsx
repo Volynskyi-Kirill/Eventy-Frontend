@@ -45,7 +45,7 @@ const ContactDetailsForm = ({ onSubmit }: ContactDetailsFormProps) => {
       email: user?.email ?? '',
       phone: user?.phoneNumber ?? '',
       agreeToTerms: false,
-      marketingConsent: false,
+      marketingConsent: user?.marketingConsent ?? false,
     },
   });
 
