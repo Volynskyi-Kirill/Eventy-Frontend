@@ -57,6 +57,7 @@ export default async function EventPage({ params }: EventPageProps) {
             availableDates: t('availableDates'),
             availableTimes: t('availableTimes'),
             selectDate: t('selectDate'),
+            allDatesHavePassed: t('allDatesHavePassed'),
           }}
         />
       </div>

@@ -53,14 +53,14 @@ export function EventActions({
         >
           {isSubmitting ? t('creating') : t('saveButton')}
         </Button>
-        <Button
+        {/* <Button
           type='button'
           variant='outline'
           className='w-full'
           onClick={handleCancel}
         >
           {t('cancelButton')}
-        </Button>
+        </Button> */}
         <Button
           type='button'
           variant='outline'

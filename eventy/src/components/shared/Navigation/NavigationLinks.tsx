@@ -19,9 +19,9 @@ const CLIENT_NAV_LINKS = [
 const ORGANIZER_NAV_LINKS = [
   { href: URLS.ORGANIZER.DASHBOARD, labelKey: 'dashboard' },
   { href: URLS.ORGANIZER.EVENTS, labelKey: 'events' },
-  { href: URLS.ORGANIZER.TICKETS, labelKey: 'tickets' },
-  { href: URLS.ORGANIZER.TARGET, labelKey: 'target' },
-  { href: URLS.ORGANIZER.PEOPLE, labelKey: 'people' },
+  // { href: URLS.ORGANIZER.TICKETS, labelKey: 'tickets' },
+  // { href: URLS.ORGANIZER.TARGET, labelKey: 'target' },
+  // { href: URLS.ORGANIZER.PEOPLE, labelKey: 'people' },
 ];
 
 export function NavigationLinks({

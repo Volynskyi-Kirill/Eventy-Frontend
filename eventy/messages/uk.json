@@ -18,6 +18,14 @@
     "loginError": "Помилка входу. Будь ласка, спробуйте пізніше",
     "loginSuccess": "Вхід успішний! Ласкаво просимо!"
   },
+  "Auth": {
+    "authRequired": {
+      "title": "Потрібна авторизація",
+      "description": "Вам потрібно увійти в обліковий запис, щоб отримати доступ до цієї функції.",
+      "login": "Увійти",
+      "register": "Зареєструватися"
+    }
+  },
   "Navigation": {
     "client": {
       "home": "Головна",
@@ -35,7 +43,8 @@
     },
     "userMenu": {
       "logout": "Вийти",
-      "accountSettings": "Налаштування"
+      "accountSettings": "Налаштування",
+      "myTickets": "Мої квитки"
     },
     "roleSwitcher": {
       "client": "Клієнт",
@@ -255,7 +264,14 @@
     "priceHighToLow": "Ціна: від високої до низької",
     "viewEvent": "Переглянути подію",
     "noEventsFound": "Події не знайдено",
-    "loading": "Завантаження подій..."
+    "loading": "Завантаження подій...",
+    "bookTicket": "Забронювати квиток",
+    "noUpcomingEvents": "Немає майбутніх подій",
+    "checkBackSoon": "Перевірте незабаром, нові події додаються регулярно!",
+    "browseAllEvents": "Переглянути всі події",
+    "upcomingEvents": "Майбутні події",
+    "pastEvents": "Минулі події",
+    "noPastEvents": "Немає минулих подій"
   },
   "EventPage": {
     "bookTicket": "Забронювати квиток",
@@ -269,13 +285,85 @@
     "availableDates": "ДОСТУПНІ ДАТИ",
     "availableTimes": "Доступний час",
     "selectDate": "Виберіть дату, щоб побачити доступний час",
-    "viewOnMap": "Переглянути на карті"
+    "viewOnMap": "Переглянути на карті",
+    "eventCompleted": "Подія завершена",
+    "eventCompletedTooltip": "Ця подія вже закінчилася",
+    "pastEvent": "Минула подія",
+    "allDatesHavePassed": "Всі дати цієї події вже минули"
   },
   "BookingPage": {
     "bookTicketsFor": "Забронювати квитки на",
     "bookingPagePlaceholder": "Функціонал бронювання буде доступний незабаром",
     "eventNotFound": "Подію не знайдено",
     "eventNotFoundDescription": "Подію, для якої ви намагаєтеся забронювати квитки, не знайдено.",
-    "backToEvents": "Назад до подій"
+    "backToEvents": "Назад до подій",
+    "dateTime": "Дата і час",
+    "zone": "Зона",
+    "selectZone": "Виберіть зону",
+    "selectDateFirst": "Спочатку виберіть дату",
+    "noTicketsAvailable": "Для цієї події немає доступних квитків",
+    "seatsAvailable": "місць доступно",
+    "selectedOptions": "Вибрані опції",
+    "pricePerTicket": "Ціна за квиток",
+    "totalPrice": "Загальна ціна",
+    "next": "Далі",
+    "back": "Назад",
+    "paymentMethod": "Спосіб оплати",
+    "paymentMethods": {
+      "onsite": "Оплата на місці"
+    },
+    "contactDetails": "Контактні дані",
+    "name": "Ім'я",
+    "enterName": "Введіть ваше ім'я",
+    "phoneNumber": "Номер телефону",
+    "email": "Електронна пошта",
+    "enterEmail": "Введіть вашу електронну пошту",
+    "agreeToTerms": "Я погоджуюсь з умовами та правилами",
+    "termsLink": "Умови та правила",
+    "marketingConsent": "Я хотів би отримувати маркетингові пропозиції та оновлення про майбутні події",
+    "buyTickets": "Купити квитки",
+    "tickets": "Квитки",
+    "date": "Дата",
+    "time": "Час",
+    "selectDate": "Виберіть дату",
+    "validation": {
+      "nameMin": "Ім'я повинно містити щонайменше 2 символи",
+      "emailInvalid": "Будь ласка, введіть дійсну електронну адресу",
+      "phoneMin": "Будь ласка, введіть дійсний номер телефону",
+      "agreeToTermsRequired": "Ви повинні погодитися з умовами"
+    }
+  },
+  "Tickets": {
+    "tickets": "Квитки",
+    "ticketCount": "Кількість квитків",
+    "increase": "Збільшити",
+    "decrease": "Зменшити"
+  },
+  "MyTicketsPage": {
+    "title": "Мої квитки",
+    "noTickets": "У вас поки немає квитків",
+    "noTicketsDescription": "Коли ви придбаєте квитки на події, вони з'являться тут.",
+    "browseEvents": "Переглянути події",
+    "loading": "Завантаження ваших квитків...",
+    "error": "Не вдалося завантажити квитки. Будь ласка, спробуйте ще раз.",
+    "ticketInfo": "Квиток №{seatNumber}",
+    "zone": "Зона",
+    "date": "Дата",
+    "time": "Час",
+    "price": "Ціна",
+    "paymentMethod": "Спосіб оплати",
+    "purchaseDate": "Придбано",
+    "status": "Статус",
+    "eventDetails": "Деталі події",
+    "location": "Місцезнаходження",
+    "viewEvent": "Переглянути подію",
+    "upcomingEvents": "Майбутні події",
+    "pastEvents": "Минулі події",
+    "noUpcomingEvents": "Немає майбутніх подій",
+    "noPastEvents": "Немає минулих подій",
+    "completed": "Завершено",
+    "paymentMethods": {
+      "onsite": "Оплата на місці"
+    }
   }
 }

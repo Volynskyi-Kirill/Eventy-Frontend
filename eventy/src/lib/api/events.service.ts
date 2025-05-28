@@ -1,10 +1,15 @@
+import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
+import {
+  Category,
+  Event,
+  EventsResponse,
+  RecommendedEvent,
+} from '../types/event.types';
+import { EventsQueryParams } from '../types/events-query.types';
+import { buildEventsQueryParams } from '../utils/event-query-params';
+import { extractLocationNames } from '../utils/location';
 import axiosInstance from './axios';
 import { API_ENDPOINTS } from './endpoints';
-import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
-import { extractLocationNames } from '../utils/location';
-import { buildEventsQueryParams } from '../utils/event-query-params';
-import { Category, Event, EventsResponse } from '../types/event.types';
-import { EventsQueryParams } from '../types/events-query.types';
 
 export type {
   Category,
@@ -13,6 +18,9 @@ export type {
   EventListItem,
   EventsResponse,
   EventZone,
+  RecommendedEvent,
+  RecommendedEventDate,
+  RecommendedEventOwner,
   SocialMedia,
   User,
 } from '../types/event.types';
@@ -45,6 +53,13 @@ export const eventsService = {
     const queryParams = buildEventsQueryParams(params);
     const url = `${API_ENDPOINTS.EVENTS.GET_ALL}?${queryParams.toString()}`;
     const response = await axiosInstance.get<EventsResponse>(url);
+    return response.data;
+  },
+
+  async getRecommendedEvents() {
+    const response = await axiosInstance.get<RecommendedEvent[]>(
+      API_ENDPOINTS.EVENTS.RECOMMENDED
+    );
     return response.data;
   },
 

@@ -18,6 +18,14 @@
     "loginError": "Login error. Please try later.",
     "loginSuccess": "Login successful! Welcome!"
   },
+  "Auth": {
+    "authRequired": {
+      "title": "Authentication Required",
+      "description": "You need to be logged in to access this feature.",
+      "login": "Log In",
+      "register": "Sign Up"
+    }
+  },
   "Navigation": {
     "client": {
       "home": "Home",
@@ -35,6 +43,7 @@
     },
     "userMenu": {
       "accountSettings": "Account Settings",
+      "myTickets": "My Tickets",
       "logout": "Log Out"
     },
     "roleSwitcher": {
@@ -255,7 +264,14 @@
     "priceHighToLow": "Price: high to low",
     "viewEvent": "View event",
     "noEventsFound": "No events found",
-    "loading": "Loading events..."
+    "loading": "Loading events...",
+    "bookTicket": "Book ticket",
+    "noUpcomingEvents": "No upcoming events",
+    "checkBackSoon": "Check back soon as new events are added regularly!",
+    "browseAllEvents": "Browse all events",
+    "upcomingEvents": "Upcoming Events",
+    "pastEvents": "Past Events",
+    "noPastEvents": "No past events"
   },
   "EventPage": {
     "bookTicket": "Book ticket",
@@ -269,13 +285,85 @@
     "availableDates": "AVAILABLE DATES",
     "availableTimes": "Available times",
     "selectDate": "Select a date to view available times",
-    "viewOnMap": "View location on map"
+    "viewOnMap": "View location on map",
+    "eventCompleted": "Event Completed",
+    "eventCompletedTooltip": "This event has already ended",
+    "pastEvent": "Past Event",
+    "allDatesHavePassed": "All dates for this event have passed"
   },
   "BookingPage": {
     "bookTicketsFor": "Book Tickets for",
     "bookingPagePlaceholder": "Booking functionality is coming soon",
     "eventNotFound": "Event Not Found",
     "eventNotFoundDescription": "The event you're trying to book tickets for could not be found.",
-    "backToEvents": "Back to Events"
+    "backToEvents": "Back to Events",
+    "dateTime": "Date & Time",
+    "zone": "Zone",
+    "selectZone": "Select Zone",
+    "selectDateFirst": "Please select a date first",
+    "noTicketsAvailable": "No tickets available for this event",
+    "seatsAvailable": "seats available",
+    "selectedOptions": "Selected Options",
+    "pricePerTicket": "Price per ticket",
+    "totalPrice": "Total Price",
+    "next": "Next",
+    "back": "Back",
+    "paymentMethod": "Payment Method",
+    "paymentMethods": {
+      "onsite": "Pay at the venue"
+    },
+    "contactDetails": "Contact Details",
+    "name": "Name",
+    "enterName": "Enter your name",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "enterEmail": "Enter your email",
+    "agreeToTerms": "I agree to the terms and conditions",
+    "termsLink": "Terms & Conditions",
+    "marketingConsent": "I would like to receive marketing offers and updates about upcoming events",
+    "buyTickets": "Buy Tickets",
+    "tickets": "Tickets",
+    "date": "Date",
+    "time": "Time",
+    "selectDate": "Select Date",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneMin": "Please enter a valid phone number",
+      "agreeToTermsRequired": "You must agree to the terms"
+    }
+  },
+  "Tickets": {
+    "tickets": "Tickets",
+    "ticketCount": "Ticket Count",
+    "increase": "Increase",
+    "decrease": "Decrease"
+  },
+  "MyTicketsPage": {
+    "title": "My Tickets",
+    "noTickets": "You don't have any tickets yet",
+    "noTicketsDescription": "When you purchase tickets for events, they will appear here.",
+    "browseEvents": "Browse Events",
+    "loading": "Loading your tickets...",
+    "error": "Failed to load tickets. Please try again.",
+    "ticketInfo": "Ticket #{seatNumber}",
+    "zone": "Zone",
+    "date": "Date",
+    "time": "Time",
+    "price": "Price",
+    "paymentMethod": "Payment Method",
+    "purchaseDate": "Purchased",
+    "status": "Status",
+    "eventDetails": "Event Details",
+    "location": "Location",
+    "viewEvent": "View Event",
+    "upcomingEvents": "Upcoming Events",
+    "pastEvents": "Past Events",
+    "noUpcomingEvents": "No upcoming events",
+    "noPastEvents": "No past events",
+    "completed": "Completed",
+    "paymentMethods": {
+      "onsite": "Pay at the venue"
+    }
   }
 }

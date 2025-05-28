@@ -3,6 +3,7 @@ const BASE_PATHS = {
   USERS: '/users',
   EVENTS: '/events',
   CATEGORIES: '/categories',
+  TICKETS: '/tickets',
 };
 
 export const API_ENDPOINTS = {
@@ -24,8 +25,15 @@ export const API_ENDPOINTS = {
     UPDATE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     DELETE: (id: number) => `${BASE_PATHS.EVENTS}/${id}`,
     UPLOAD_IMAGE: `${BASE_PATHS.EVENTS}/upload-image`,
+    RECOMMENDED: `${BASE_PATHS.EVENTS}/recommended`,
   },
   CATEGORIES: {
     GET_ALL: BASE_PATHS.CATEGORIES,
+  },
+  TICKETS: {
+    GET_AVAILABLE_TICKETS: (eventId: number) =>
+      `${BASE_PATHS.TICKETS}/event/${eventId}`,
+    PURCHASE: `${BASE_PATHS.TICKETS}/purchase`,
+    USER_TICKETS: `${BASE_PATHS.TICKETS}/user`,
   },
 };

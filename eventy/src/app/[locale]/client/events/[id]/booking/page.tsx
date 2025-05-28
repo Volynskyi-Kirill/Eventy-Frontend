@@ -2,6 +2,7 @@ import { eventsService } from '@/lib/api/events.service';
 import type { Event } from '@/lib/types/event.types';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import EventBookingForm from '@/components/client/event-page/booking/EventBookingForm';
 
 type BookingPageProps = {
   params: Promise<{
@@ -28,14 +29,12 @@ export default async function BookingPage({ params }: BookingPageProps) {
   }
 
   return (
-    <div className='container px-4 md:px-6 py-8 max-w-4xl mx-auto'>
+    <div className='container px-4 md:px-6 py-8 max-w-5xl mx-auto'>
       <h1 className='text-3xl font-bold mb-6'>
         {t('bookTicketsFor')} {event.title}
       </h1>
-      <div className='p-8 border rounded-lg shadow-sm'>
-        <p className='text-lg text-center text-muted-foreground'>
-          {t('bookingPagePlaceholder')}
-        </p>
+      <div className='bg-background rounded-lg shadow-sm'>
+        <EventBookingForm event={event} />
       </div>
     </div>
   );

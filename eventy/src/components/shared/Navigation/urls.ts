@@ -7,9 +7,11 @@ export const URLS = {
   CLIENT: {
     HOME: '/client/home',
     EVENTS: '/client/events',
+    EVENT: (eventId: number) => `/client/events/${eventId}`,
     BOOK_EVENT: (eventId: number) => `/client/events/${eventId}/booking`,
     OPEN_SPACE: '/client/open-space',
     SUBSCRIBERS: '/client/subscribers',
+    MY_TICKETS: '/client/my-tickets',
   },
   ORGANIZER: {
     DASHBOARD: '/organizer/dashboard',

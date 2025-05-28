@@ -19,6 +19,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useSpeakersStore } from '@/store/speakersStore';
 import { STORAGE_KEYS } from '@/lib/constants';
+import { URLS } from '@/components/shared/Navigation/urls';
+import { useRouter } from '@/i18n/routing';
 
 export default function CreateEventPage() {
   const { user } = useAuthStore();
@@ -30,6 +32,7 @@ export default function CreateEventPage() {
   const tEventSocialMedia = useTranslations('EventSocialMedia');
   const [isClient, setIsClient] = useState(false);
   const { clearSpeakers } = useSpeakersStore();
+  const router = useRouter();
 
   const methods = useForm<CreateEventFormData>({
     resolver: zodResolver(
@@ -107,7 +110,7 @@ export default function CreateEventPage() {
       };
 
       console.log('eventData: ', eventData);
-      await eventsService.createEvent(eventData);
+      const event = await eventsService.createEvent(eventData);
 
       localStorage.removeItem(STORAGE_KEYS.EVENT_FORM_DATA);
       clearSpeakers();
@@ -116,6 +119,8 @@ export default function CreateEventPage() {
       setMainImagePreview('');
 
       toast.success(t('success'));
+
+      router.push(URLS.CLIENT.EVENT(event.id));
     } catch (error) {
       console.error('Error creating event:', error);
       toast.error(t('error'));

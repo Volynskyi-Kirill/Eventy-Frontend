@@ -50,6 +50,7 @@ export interface EventSortProps {
 
 export interface EventCardProps {
   event: Event;
+  isPast?: boolean;
 }
 
 export interface EventGridProps {

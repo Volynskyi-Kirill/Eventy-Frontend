@@ -16,6 +16,7 @@ interface User {
   avatarUrl: string | null;
   provider: string | null;
   providerId: string | null;
+  marketingConsent: boolean | null;
 }
 
 interface AuthState {

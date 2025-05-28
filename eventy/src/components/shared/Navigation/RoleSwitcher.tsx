@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import { USER_ROLES, useRoleStore } from '@/store/roleStore';
+import { useAuthRequired } from '@/lib/hooks/useAuthRequired';
+import { AuthRequiredModal } from '@/components/shared/AuthRequiredModal';
 
 interface RoleSwitcherProps {
   isDarkBackground?: boolean;
@@ -22,6 +24,8 @@ const inactiveLightClass = 'text-black hover:bg-black/10';
 
 export function RoleSwitcher({ isDarkBackground = false }: RoleSwitcherProps) {
   const { role, setRole } = useRoleStore();
+  const { isAuthModalOpen, setIsAuthModalOpen, handleAuthRequiredAction } =
+    useAuthRequired();
   const t = useTranslations('Navigation');
 
   const getButtonClasses = (buttonRole: USER_ROLES) => {
@@ -39,26 +43,39 @@ export function RoleSwitcher({ isDarkBackground = false }: RoleSwitcherProps) {
     return cn(buttonBaseClass, inactiveLightClass);
   };
 
-  return (
-    <div
-      className={cn(
-        containerBaseClass,
-        isDarkBackground ? 'border-white/20' : 'border-black/20'
-      )}
-    >
-      <button
-        onClick={() => setRole(USER_ROLES.CLIENT)}
-        className={getButtonClasses(USER_ROLES.CLIENT)}
-      >
-        {t('roleSwitcher.client')}
-      </button>
+  const handleOrganizerClick = () => {
+    handleAuthRequiredAction(() => {
+      setRole(USER_ROLES.ORGANIZER);
+    });
+  };
 
-      <button
-        onClick={() => setRole(USER_ROLES.ORGANIZER)}
-        className={getButtonClasses(USER_ROLES.ORGANIZER)}
+  return (
+    <>
+      <div
+        className={cn(
+          containerBaseClass,
+          isDarkBackground ? 'border-white/20' : 'border-black/20'
+        )}
       >
-        {t('roleSwitcher.organizer')}
-      </button>
-    </div>
+        <button
+          onClick={() => setRole(USER_ROLES.CLIENT)}
+          className={getButtonClasses(USER_ROLES.CLIENT)}
+        >
+          {t('roleSwitcher.client')}
+        </button>
+
+        <button
+          onClick={handleOrganizerClick}
+          className={getButtonClasses(USER_ROLES.ORGANIZER)}
+        >
+          {t('roleSwitcher.organizer')}
+        </button>
+      </div>
+
+      <AuthRequiredModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+      />
+    </>
   );
 }

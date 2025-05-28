@@ -1,0 +1,194 @@
+'use client';
+
+import { URLS } from '@/components/shared/Navigation/urls';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { ticketsService, UserTicket } from '@/lib/api/tickets.service';
+import { QUERY_KEYS } from '@/lib/constants';
+import { useAuthStore } from '@/store/authStore';
+import { useQuery } from '@tanstack/react-query';
+import { Loader2, MapPin, Ticket } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { TicketCard } from './TicketCard';
+
+export function MyTicketsContent() {
+  const t = useTranslations('MyTicketsPage');
+  const router = useRouter();
+  const { user } = useAuthStore();
+
+  const {
+    data: userTickets,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: [QUERY_KEYS.USER_TICKETS],
+    queryFn: () => ticketsService.getUserTickets(),
+    enabled: !!user,
+  });
+
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center py-12'>
+        <div className='flex items-center gap-2'>
+          <Loader2 className='h-6 w-6 animate-spin' />
+          <span className='text-lg'>{t('loading')}</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card className='p-8 text-center'>
+        <CardContent>
+          <div className='flex flex-col items-center gap-4'>
+            <Ticket className='h-12 w-12 text-muted-foreground' />
+            <div>
+              <h3 className='text-lg font-semibold mb-2'>{t('error')}</h3>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!userTickets || userTickets.length === 0) {
+    return (
+      <Card className='p-8 text-center'>
+        <CardContent>
+          <div className='flex flex-col items-center gap-4'>
+            <Ticket className='h-12 w-12 text-muted-foreground' />
+            <div>
+              <h3 className='text-lg font-semibold mb-2'>{t('noTickets')}</h3>
+              <p className='text-muted-foreground mb-4'>
+                {t('noTicketsDescription')}
+              </p>
+              <Button onClick={() => router.push(URLS.CLIENT.EVENTS)}>
+                {t('browseEvents')}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Group tickets by event
+  const ticketsByEvent = userTickets.reduce<Record<number, UserTicket[]>>(
+    (groups, ticket) => {
+      const eventId = ticket.ticket.eventZone.event.id;
+      if (!groups[eventId]) {
+        groups[eventId] = [];
+      }
+      groups[eventId].push(ticket);
+      return groups;
+    },
+    {}
+  );
+
+  // Separate upcoming and past events
+  const currentDate = new Date();
+  const upcomingEvents: Array<[string, UserTicket[]]> = [];
+  const pastEvents: Array<[string, UserTicket[]]> = [];
+
+  Object.entries(ticketsByEvent).forEach(([eventId, tickets]) => {
+    // Get the earliest event date for this event
+    const eventDates = tickets.map(
+      (ticket) => new Date(ticket.ticket.eventDate.date)
+    );
+    const earliestEventDate = new Date(
+      Math.min(...eventDates.map((date) => date.getTime()))
+    );
+
+    if (earliestEventDate >= currentDate) {
+      upcomingEvents.push([eventId, tickets]);
+    } else {
+      pastEvents.push([eventId, tickets]);
+    }
+  });
+
+  // Sort events by date (upcoming: earliest first, past: latest first)
+  upcomingEvents.sort(([, ticketsA], [, ticketsB]) => {
+    const dateA = new Date(ticketsA[0].ticket.eventDate.date);
+    const dateB = new Date(ticketsB[0].ticket.eventDate.date);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  pastEvents.sort(([, ticketsA], [, ticketsB]) => {
+    const dateA = new Date(ticketsA[0].ticket.eventDate.date);
+    const dateB = new Date(ticketsB[0].ticket.eventDate.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  const renderEventSection = (events: Array<[string, UserTicket[]]>) => {
+    return events.map(([eventId, tickets]) => {
+      const event = tickets[0].ticket.eventZone.event;
+      return (
+        <div key={eventId} className='space-y-4'>
+          <div className='flex items-center justify-between'>
+            <div>
+              <h3 className='text-xl font-semibold'>{event.title}</h3>
+              <div className='flex items-center gap-4 text-sm text-muted-foreground mt-1'>
+                <div className='flex items-center gap-1'>
+                  <MapPin className='h-4 w-4' />
+                  <span>
+                    {event.city}, {event.state}, {event.country}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant='outline'
+              onClick={() => router.push(URLS.CLIENT.EVENT(event.id))}
+            >
+              {t('viewEvent')}
+            </Button>
+          </div>
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            {tickets.map((userTicket) => (
+              <TicketCard key={userTicket.ticketId} userTicket={userTicket} />
+            ))}
+          </div>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div className='space-y-8'>
+      {/* Upcoming Events Section */}
+      {upcomingEvents.length > 0 && (
+        <div className='space-y-6'>
+          <div className='border-b pb-2'>
+            <h2 className='text-2xl font-bold text-primary'>
+              {t('upcomingEvents')}
+            </h2>
+          </div>
+          {renderEventSection(upcomingEvents)}
+        </div>
+      )}
+
+      {/* Past Events Section */}
+      {pastEvents.length > 0 && (
+        <div className='space-y-6'>
+          <div className='border-b pb-2'>
+            <h2 className='text-2xl font-bold text-muted-foreground'>
+              {t('pastEvents')}
+            </h2>
+          </div>
+          {renderEventSection(pastEvents)}
+        </div>
+      )}
+
+      {/* Empty states */}
+      {upcomingEvents.length === 0 && pastEvents.length === 0 && (
+        <div className='text-center text-muted-foreground py-8'>
+          <p>
+            {t('noUpcomingEvents')} & {t('noPastEvents')}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}

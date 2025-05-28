@@ -104,3 +104,32 @@ export interface EventsResponse {
   events: EventListItem[];
   pagination: PaginationInfo;
 }
+
+export interface RecommendedEventDate {
+  date: string;
+  time: string;
+  dateObj: string;
+}
+
+export interface RecommendedEventOwner {
+  id: number;
+  userName: string;
+  userSurname: string;
+}
+
+export interface RecommendedEvent {
+  id: number;
+  title: string;
+  description: string;
+  categories: string[];
+  minPrice: number;
+  maxPrice: number;
+  currency: string;
+  numberOfSeats: number;
+  nearestDate: RecommendedEventDate;
+  dates: RecommendedEventDate[];
+  country: string;
+  city: string;
+  backgroundImage: string;
+  owner: RecommendedEventOwner;
+}

@@ -1,0 +1,214 @@
+'use client';
+
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Calendar, TicketCheck } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Ticket } from '@/lib/api/tickets.service';
+import { useTranslations } from 'next-intl';
+
+type GroupedTicket = {
+  dateId: number;
+  dateStr: string;
+  formattedDate: { day: string; month: string; year: string };
+  time: string;
+  zones: {
+    zoneId: number;
+    zoneName: string;
+    price: number;
+    currency: string;
+    totalSeats: number;
+    availableSeats: number;
+    tickets: Ticket[];
+  }[];
+};
+
+type DateTimeZoneSelectorProps = {
+  groupedTickets: GroupedTicket[];
+  onSelect: (
+    dateInfo: {
+      dateId: number;
+      dateStr: string;
+      formattedDate: string;
+      time: string;
+    },
+    zoneInfo: {
+      zoneId: number;
+      zoneName: string;
+      price: number;
+      currency: string;
+    },
+    tickets: Ticket[]
+  ) => void;
+  onDateChange: () => void;
+};
+
+const DateTimeZoneSelector = ({
+  groupedTickets,
+  onSelect,
+  onDateChange,
+}: DateTimeZoneSelectorProps) => {
+  const t = useTranslations('BookingPage');
+
+  // Sort dates in ascending order
+  const sortedDates = [...groupedTickets].sort((a, b) => {
+    const dateA = new Date(a.dateStr);
+    const dateB = new Date(b.dateStr);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  const [selectedDate, setSelectedDate] = useState<string | null>(
+    sortedDates.length > 0 ? sortedDates[0].dateStr : null
+  );
+  const [selectedZone, setSelectedZone] = useState<number | null>(null);
+
+  const handleDateSelect = (dateStr: string) => {
+    setSelectedDate(dateStr);
+    setSelectedZone(null);
+    onDateChange(); // Notify parent that date has changed
+  };
+
+  const handleZoneSelect = (
+    dateId: number,
+    dateStr: string,
+    formattedDate: { day: string; month: string; year: string },
+    time: string,
+    zone: GroupedTicket['zones'][0]
+  ) => {
+    setSelectedZone(zone.zoneId);
+
+    onSelect(
+      {
+        dateId,
+        dateStr,
+        formattedDate: `${formattedDate.day}.${formattedDate.month}.${formattedDate.year}`,
+        time,
+      },
+      {
+        zoneId: zone.zoneId,
+        zoneName: zone.zoneName,
+        price: zone.price,
+        currency: zone.currency,
+      },
+      zone.tickets
+    );
+  };
+
+  if (sortedDates.length === 0) {
+    return (
+      <div className='mt-6 p-6 border rounded-lg text-center'>
+        <p className='text-muted-foreground'>{t('noTicketsAvailable')}</p>
+      </div>
+    );
+  }
+
+  const selectedDateData = sortedDates.find(
+    (date) => date.dateStr === selectedDate
+  );
+
+  return (
+    <div className='mt-6 space-y-6'>
+      {/* Date & Time Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle className='text-lg flex items-center gap-2'>
+            <Calendar className='h-5 w-5' />
+            {t('selectDate')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='grid grid-cols-2 sm:grid-cols-3 gap-2'>
+            {sortedDates.map((date) => {
+              const { formattedDate } = date;
+              const dateStr = `${formattedDate.day}.${formattedDate.month}.${formattedDate.year}`;
+
+              return (
+                <Button
+                  key={date.dateStr}
+                  variant={
+                    selectedDate === date.dateStr ? 'default' : 'outline'
+                  }
+                  className='h-auto py-2 flex-col'
+                  onClick={() => handleDateSelect(date.dateStr)}
+                >
+                  <div className='flex flex-col'>
+                    <span>{dateStr}</span>
+                    <span className='text-xs mt-1'>{date.time}</span>
+                  </div>
+                </Button>
+              );
+            })}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Zone Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle className='text-lg flex items-center gap-2'>
+            <TicketCheck className='h-5 w-5' />
+            {t('selectZone')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!selectedDate ? (
+            <p className='text-center text-muted-foreground'>
+              {t('selectDateFirst')}
+            </p>
+          ) : (
+            <div className='space-y-4'>
+              {selectedDateData?.zones.map((zone) => (
+                <div
+                  key={zone.zoneId}
+                  className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                    selectedZone === zone.zoneId
+                      ? 'border-primary bg-primary/5'
+                      : ''
+                  }`}
+                  onClick={() =>
+                    handleZoneSelect(
+                      selectedDateData.dateId,
+                      selectedDateData.dateStr,
+                      selectedDateData.formattedDate,
+                      selectedDateData.time,
+                      zone
+                    )
+                  }
+                >
+                  <div className='flex justify-between items-center'>
+                    <div>
+                      <h4 className='font-medium'>{zone.zoneName}</h4>
+                      <div className='flex items-center gap-2 mt-1'>
+                        <Badge variant='outline' className='text-xs'>
+                          {zone.availableSeats}/{zone.totalSeats}{' '}
+                          {t('seatsAvailable')}
+                        </Badge>
+                        <span className='text-sm font-medium'>
+                          {zone.price} {zone.currency}
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      className={`h-6 w-6 rounded-full border-2 flex items-center justify-center ${
+                        selectedZone === zone.zoneId
+                          ? 'border-primary'
+                          : 'border-muted'
+                      }`}
+                    >
+                      {selectedZone === zone.zoneId && (
+                        <div className='h-3 w-3 rounded-full bg-primary'></div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default DateTimeZoneSelector;
