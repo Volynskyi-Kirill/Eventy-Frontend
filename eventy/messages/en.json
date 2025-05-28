@@ -285,7 +285,11 @@
     "availableDates": "AVAILABLE DATES",
     "availableTimes": "Available times",
     "selectDate": "Select a date to view available times",
-    "viewOnMap": "View location on map"
+    "viewOnMap": "View location on map",
+    "eventCompleted": "Event Completed",
+    "eventCompletedTooltip": "This event has already ended",
+    "pastEvent": "Past Event",
+    "allDatesHavePassed": "All dates for this event have passed"
   },
   "BookingPage": {
     "bookTicketsFor": "Book Tickets for",

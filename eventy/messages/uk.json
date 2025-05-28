@@ -285,7 +285,11 @@
     "availableDates": "ДОСТУПНІ ДАТИ",
     "availableTimes": "Доступний час",
     "selectDate": "Виберіть дату, щоб побачити доступний час",
-    "viewOnMap": "Переглянути на карті"
+    "viewOnMap": "Переглянути на карті",
+    "eventCompleted": "Подія завершена",
+    "eventCompletedTooltip": "Ця подія вже закінчилася",
+    "pastEvent": "Минула подія",
+    "allDatesHavePassed": "Всі дати цієї події вже минули"
   },
   "BookingPage": {
     "bookTicketsFor": "Забронювати квитки на",

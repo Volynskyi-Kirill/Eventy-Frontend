@@ -7,6 +7,12 @@ import SocialMediaLinks from './SocialMediaLinks';
 import { Event } from '@/lib/types/event.types';
 import Link from 'next/link';
 import { URLS } from '@/components/shared/Navigation/urls';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 type EventHeaderProps = {
   event: Event;
@@ -29,6 +35,14 @@ const EventHeader = ({
     ? `${minPrice} ${currency}`
     : `${minPrice} - ${maxPrice} ${currency}`;
 
+  // Check if all event dates have passed
+  const currentDate = new Date();
+  const allEventDates = event.dates.map((date) => new Date(date.date));
+  const latestEventDate = new Date(
+    Math.max(...allEventDates.map((date) => date.getTime()))
+  );
+  const isEventPast = latestEventDate < currentDate;
+
   return (
     <>
       <div className='relative w-full h-[300px] overflow-hidden'>
@@ -36,9 +50,19 @@ const EventHeader = ({
           src={buildImageUrl(event.coverImg)}
           alt={event.title}
           fill
-          className='object-cover w-full'
+          className={`object-cover w-full ${isEventPast ? 'grayscale' : ''}`}
           priority
         />
+        {isEventPast && (
+          <div className='absolute top-4 right-4'>
+            <Badge
+              variant='secondary'
+              className='bg-muted text-muted-foreground'
+            >
+              {t('pastEvent')}
+            </Badge>
+          </div>
+        )}
       </div>
 
       <div className='container px-4 md:px-6 -mt-12 max-w-6xl mx-auto relative z-10'>
@@ -49,7 +73,9 @@ const EventHeader = ({
               alt={t('mainImageAlt', { title: event.title })}
               width={192}
               height={192}
-              className='rounded-md border-4 border-white shadow-lg object-cover bg-white'
+              className={`rounded-md border-4 border-white shadow-lg object-cover bg-white ${
+                isEventPast ? 'grayscale' : ''
+              }`}
             />
 
             {hasSocialMedia && (
@@ -64,19 +90,33 @@ const EventHeader = ({
                 alt={t('logoAlt', { title: event.title })}
                 width={120}
                 height={40}
-                className='object-contain bg-white rounded-md p-1 shadow-sm'
+                className={`object-contain bg-white rounded-md p-1 shadow-sm ${
+                  isEventPast ? 'grayscale' : ''
+                }`}
               />
             </div>
 
             <div className='flex flex-wrap gap-2 mb-3'>
               {event.categories.map((category) => (
-                <Badge key={category.id} variant='secondary'>
+                <Badge
+                  key={category.id}
+                  variant={isEventPast ? 'outline' : 'secondary'}
+                  className={
+                    isEventPast
+                      ? 'text-muted-foreground border-muted-foreground'
+                      : ''
+                  }
+                >
                   {category.name}
                 </Badge>
               ))}
             </div>
 
-            <h1 className='text-3xl md:text-4xl font-bold text-foreground mb-4'>
+            <h1
+              className={`text-3xl md:text-4xl font-bold mb-4 ${
+                isEventPast ? 'text-muted-foreground' : 'text-foreground'
+              }`}
+            >
               {event.title}
             </h1>
 
@@ -96,13 +136,36 @@ const EventHeader = ({
               </a>
             </div>
 
-            <div className='mt-6 text-lg font-semibold'>{priceDisplay}</div>
+            <div
+              className={`mt-6 text-lg font-semibold ${
+                isEventPast ? 'text-muted-foreground' : ''
+              }`}
+            >
+              {priceDisplay}
+            </div>
 
-            <Link href={URLS.CLIENT.BOOK_EVENT(event.id)}>
-              <Button className='mt-4' size='lg'>
-                {t('bookTicket')}
-              </Button>
-            </Link>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className='mt-4 inline-block'>
+                    {isEventPast ? (
+                      <Button disabled size='lg' variant='secondary'>
+                        {t('eventCompleted')}
+                      </Button>
+                    ) : (
+                      <Link href={URLS.CLIENT.BOOK_EVENT(event.id)}>
+                        <Button size='lg'>{t('bookTicket')}</Button>
+                      </Link>
+                    )}
+                  </div>
+                </TooltipTrigger>
+                {isEventPast && (
+                  <TooltipContent>
+                    <p>{t('eventCompletedTooltip')}</p>
+                  </TooltipContent>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>
