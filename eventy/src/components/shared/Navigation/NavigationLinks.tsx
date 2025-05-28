@@ -12,8 +12,8 @@ type NavigationLinksProps = {
 const CLIENT_NAV_LINKS = [
   { href: URLS.CLIENT.HOME, labelKey: 'home' },
   { href: URLS.CLIENT.EVENTS, labelKey: 'events' },
-  { href: URLS.CLIENT.SUBSCRIBERS, labelKey: 'subscribers' },
-  { href: URLS.CLIENT.OPEN_SPACE, labelKey: 'openSpace' },
+  // { href: URLS.CLIENT.SUBSCRIBERS, labelKey: 'subscribers' },
+  // { href: URLS.CLIENT.OPEN_SPACE, labelKey: 'openSpace' },
 ];
 
 const ORGANIZER_NAV_LINKS = [
