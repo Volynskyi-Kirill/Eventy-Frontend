@@ -43,7 +43,8 @@
     },
     "userMenu": {
       "logout": "Вийти",
-      "accountSettings": "Налаштування"
+      "accountSettings": "Налаштування",
+      "myTickets": "Мої квитки"
     },
     "roleSwitcher": {
       "client": "Клієнт",
@@ -330,5 +331,27 @@
     "ticketCount": "Кількість квитків",
     "increase": "Збільшити",
     "decrease": "Зменшити"
+  },
+  "MyTicketsPage": {
+    "title": "Мої квитки",
+    "noTickets": "У вас поки немає квитків",
+    "noTicketsDescription": "Коли ви придбаєте квитки на події, вони з'являться тут.",
+    "browseEvents": "Переглянути події",
+    "loading": "Завантаження ваших квитків...",
+    "error": "Не вдалося завантажити квитки. Будь ласка, спробуйте ще раз.",
+    "ticketInfo": "Квиток №{seatNumber}",
+    "zone": "Зона",
+    "date": "Дата",
+    "time": "Час",
+    "price": "Ціна",
+    "paymentMethod": "Спосіб оплати",
+    "purchaseDate": "Придбано",
+    "status": "Статус",
+    "eventDetails": "Деталі події",
+    "location": "Місцезнаходження",
+    "viewEvent": "Переглянути подію",
+    "paymentMethods": {
+      "onsite": "Оплата на місці"
+    }
   }
 }

@@ -9,6 +9,7 @@ export const QUERY_KEYS = {
   CATEGORIES: 'categories',
   EVENTS: 'events',
   AVAILABLE_TICKETS: 'availableTickets',
+  USER_TICKETS: 'userTickets',
 };
 
 export const ERROR_MESSAGES = {

@@ -43,6 +43,7 @@
     },
     "userMenu": {
       "accountSettings": "Account Settings",
+      "myTickets": "My Tickets",
       "logout": "Log Out"
     },
     "roleSwitcher": {
@@ -330,5 +331,27 @@
     "ticketCount": "Ticket Count",
     "increase": "Increase",
     "decrease": "Decrease"
+  },
+  "MyTicketsPage": {
+    "title": "My Tickets",
+    "noTickets": "You don't have any tickets yet",
+    "noTicketsDescription": "When you purchase tickets for events, they will appear here.",
+    "browseEvents": "Browse Events",
+    "loading": "Loading your tickets...",
+    "error": "Failed to load tickets. Please try again.",
+    "ticketInfo": "Ticket #{seatNumber}",
+    "zone": "Zone",
+    "date": "Date",
+    "time": "Time",
+    "price": "Price",
+    "paymentMethod": "Payment Method",
+    "purchaseDate": "Purchased",
+    "status": "Status",
+    "eventDetails": "Event Details",
+    "location": "Location",
+    "viewEvent": "View Event",
+    "paymentMethods": {
+      "onsite": "Pay at the venue"
+    }
   }
 }

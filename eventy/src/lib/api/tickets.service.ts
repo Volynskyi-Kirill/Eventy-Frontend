@@ -39,6 +39,53 @@ export type TicketPurchaseData = {
   };
 };
 
+export type UserTicket = {
+  ticketId: number;
+  buyerId: number;
+  soldAt: string;
+  paymentMethod: string;
+  purchaseContactId: number | null;
+  ticket: {
+    id: number;
+    eventZoneId: number;
+    eventDateId: number;
+    seatNumber: number;
+    status: 'AVAILABLE' | 'RESERVED' | 'SOLD';
+    eventZone: {
+      id: number;
+      eventId: number;
+      name: string;
+      price: number;
+      currency: string;
+      seatCount: number;
+      event: {
+        id: number;
+        ownerId: number;
+        title: string;
+        country: string;
+        state: string;
+        city: string;
+        street: string;
+        buildingNumber: string;
+        shortDescription: string;
+        fullDescription: string;
+        coverImg: string | null;
+        logoImg: string | null;
+        mainImg: string | null;
+        userId: number | null;
+        createdAt: string;
+        updatedAt: string;
+      };
+    };
+    eventDate: {
+      id: number;
+      date: string;
+      eventId: number;
+    };
+  };
+  purchaseContactInfo: any | null;
+};
+
 export const ticketsService = {
   async getAvailableTickets(eventId: number, zoneId?: number) {
     const params = new URLSearchParams();
@@ -57,6 +104,13 @@ export const ticketsService = {
     const response = await axiosInstance.post(
       API_ENDPOINTS.TICKETS.PURCHASE,
       ticketData
+    );
+    return response.data;
+  },
+
+  async getUserTickets() {
+    const response = await axiosInstance.get<UserTicket[]>(
+      API_ENDPOINTS.TICKETS.USER_TICKETS
     );
     return response.data;
   },

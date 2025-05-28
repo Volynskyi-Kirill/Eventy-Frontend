@@ -34,5 +34,6 @@ export const API_ENDPOINTS = {
     GET_AVAILABLE_TICKETS: (eventId: number) =>
       `${BASE_PATHS.TICKETS}/event/${eventId}`,
     PURCHASE: `${BASE_PATHS.TICKETS}/purchase`,
+    USER_TICKETS: `${BASE_PATHS.TICKETS}/user`,
   },
 };

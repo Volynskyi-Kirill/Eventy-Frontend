@@ -44,6 +44,9 @@ export function UserMenu() {
         >
           {t('userMenu.accountSettings')}
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push(URLS.CLIENT.MY_TICKETS)}>
+          {t('userMenu.myTickets')}
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={handleLogout}
           className='text-red-500 hover:text-red-700'

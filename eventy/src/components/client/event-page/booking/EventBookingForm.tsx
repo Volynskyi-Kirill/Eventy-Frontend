@@ -9,6 +9,8 @@ import { QUERY_KEYS } from '@/lib/constants';
 import { TicketSelectionStep, DateInfo, ZoneInfo } from './TicketSelectionStep';
 import { PaymentDetailsStep } from './PaymentDetailsStep';
 import { LoadingBookingForm } from './LoadingBookingForm';
+import { useRouter } from 'next/navigation';
+import { URLS } from '@/components/shared/Navigation/urls';
 
 const BOOKING_STEPS = {
   TICKET_SELECTION: 'TICKET_SELECTION',
@@ -27,6 +29,7 @@ type EventBookingFormProps = {
 const EventBookingForm = ({ event }: EventBookingFormProps) => {
   const t = useTranslations('BookingPage');
   const ticketT = useTranslations('Tickets');
+  const router = useRouter();
 
   const [currentStep, setCurrentStep] = useState(
     BOOKING_STEPS.TICKET_SELECTION
@@ -99,6 +102,7 @@ const EventBookingForm = ({ event }: EventBookingFormProps) => {
       });
 
       console.log('Purchase successful');
+      router.push(URLS.CLIENT.MY_TICKETS);
     } catch (error) {
       console.error('Purchase failed:', error);
     }
