@@ -20,6 +20,8 @@ export function TicketCard({ userTicket }: TicketCardProps) {
 
   const eventDateTime = new Date(eventDate.date);
   const purchaseDateTime = new Date(soldAt);
+  const currentDate = new Date();
+  const isEventPast = eventDateTime < currentDate;
 
   const formatEventDate = (date: Date) => {
     return date.toLocaleDateString([], {
@@ -65,13 +67,26 @@ export function TicketCard({ userTicket }: TicketCardProps) {
   };
 
   return (
-    <Card className='overflow-hidden hover:shadow-md transition-shadow'>
+    <Card
+      className={`overflow-hidden hover:shadow-md transition-shadow ${
+        isEventPast ? 'opacity-75 border-muted-foreground/30' : ''
+      }`}
+    >
       <CardHeader className='pb-3'>
         <div className='flex items-start justify-between'>
-          <CardTitle className='text-lg flex items-center gap-2'>
+          <CardTitle
+            className={`text-lg flex items-center gap-2 ${
+              isEventPast ? 'text-muted-foreground' : ''
+            }`}
+          >
             <Hash className='h-4 w-4' />
             {t('ticketInfo', { seatNumber: ticket.seatNumber })}
           </CardTitle>
+          {isEventPast && (
+            <div className='text-xs text-muted-foreground bg-muted px-2 py-1 rounded'>
+              {t('completed')}
+            </div>
+          )}
           {/* <Badge className={getStatusColor(ticket.status)}>
             {ticket.status}
           </Badge> */}
@@ -80,7 +95,11 @@ export function TicketCard({ userTicket }: TicketCardProps) {
       <CardContent className='space-y-4'>
         {/* Event Image */}
         {event.mainImg && (
-          <div className='aspect-video rounded-lg overflow-hidden bg-muted'>
+          <div
+            className={`aspect-video rounded-lg overflow-hidden bg-muted ${
+              isEventPast ? 'grayscale' : ''
+            }`}
+          >
             <Image
               src={buildImageUrl(event.mainImg)}
               alt={event.title}

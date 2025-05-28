@@ -350,6 +350,11 @@
     "eventDetails": "Деталі події",
     "location": "Місцезнаходження",
     "viewEvent": "Переглянути подію",
+    "upcomingEvents": "Майбутні події",
+    "pastEvents": "Минулі події",
+    "noUpcomingEvents": "Немає майбутніх подій",
+    "noPastEvents": "Немає минулих подій",
+    "completed": "Завершено",
     "paymentMethods": {
       "onsite": "Оплата на місці"
     }

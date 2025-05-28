@@ -87,39 +87,108 @@ export function MyTicketsContent() {
     {}
   );
 
-  return (
-    <div className='space-y-6'>
-      {Object.entries(ticketsByEvent).map(([eventId, tickets]) => {
-        const event = tickets[0].ticket.eventZone.event;
-        return (
-          <div key={eventId} className='space-y-4'>
-            <div className='flex items-center justify-between'>
-              <div>
-                <h2 className='text-xl font-semibold'>{event.title}</h2>
-                <div className='flex items-center gap-4 text-sm text-muted-foreground mt-1'>
-                  <div className='flex items-center gap-1'>
-                    <MapPin className='h-4 w-4' />
-                    <span>
-                      {event.city}, {event.state}, {event.country}
-                    </span>
-                  </div>
+  // Separate upcoming and past events
+  const currentDate = new Date();
+  const upcomingEvents: Array<[string, UserTicket[]]> = [];
+  const pastEvents: Array<[string, UserTicket[]]> = [];
+
+  Object.entries(ticketsByEvent).forEach(([eventId, tickets]) => {
+    // Get the earliest event date for this event
+    const eventDates = tickets.map(
+      (ticket) => new Date(ticket.ticket.eventDate.date)
+    );
+    const earliestEventDate = new Date(
+      Math.min(...eventDates.map((date) => date.getTime()))
+    );
+
+    if (earliestEventDate >= currentDate) {
+      upcomingEvents.push([eventId, tickets]);
+    } else {
+      pastEvents.push([eventId, tickets]);
+    }
+  });
+
+  // Sort events by date (upcoming: earliest first, past: latest first)
+  upcomingEvents.sort(([, ticketsA], [, ticketsB]) => {
+    const dateA = new Date(ticketsA[0].ticket.eventDate.date);
+    const dateB = new Date(ticketsB[0].ticket.eventDate.date);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  pastEvents.sort(([, ticketsA], [, ticketsB]) => {
+    const dateA = new Date(ticketsA[0].ticket.eventDate.date);
+    const dateB = new Date(ticketsB[0].ticket.eventDate.date);
+    return dateB.getTime() - dateA.getTime();
+  });
+
+  const renderEventSection = (events: Array<[string, UserTicket[]]>) => {
+    return events.map(([eventId, tickets]) => {
+      const event = tickets[0].ticket.eventZone.event;
+      return (
+        <div key={eventId} className='space-y-4'>
+          <div className='flex items-center justify-between'>
+            <div>
+              <h3 className='text-xl font-semibold'>{event.title}</h3>
+              <div className='flex items-center gap-4 text-sm text-muted-foreground mt-1'>
+                <div className='flex items-center gap-1'>
+                  <MapPin className='h-4 w-4' />
+                  <span>
+                    {event.city}, {event.state}, {event.country}
+                  </span>
                 </div>
               </div>
-              <Button
-                variant='outline'
-                onClick={() => router.push(URLS.CLIENT.EVENT(event.id))}
-              >
-                {t('viewEvent')}
-              </Button>
             </div>
-            <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
-              {tickets.map((userTicket) => (
-                <TicketCard key={userTicket.ticketId} userTicket={userTicket} />
-              ))}
-            </div>
+            <Button
+              variant='outline'
+              onClick={() => router.push(URLS.CLIENT.EVENT(event.id))}
+            >
+              {t('viewEvent')}
+            </Button>
           </div>
-        );
-      })}
+          <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+            {tickets.map((userTicket) => (
+              <TicketCard key={userTicket.ticketId} userTicket={userTicket} />
+            ))}
+          </div>
+        </div>
+      );
+    });
+  };
+
+  return (
+    <div className='space-y-8'>
+      {/* Upcoming Events Section */}
+      {upcomingEvents.length > 0 && (
+        <div className='space-y-6'>
+          <div className='border-b pb-2'>
+            <h2 className='text-2xl font-bold text-primary'>
+              {t('upcomingEvents')}
+            </h2>
+          </div>
+          {renderEventSection(upcomingEvents)}
+        </div>
+      )}
+
+      {/* Past Events Section */}
+      {pastEvents.length > 0 && (
+        <div className='space-y-6'>
+          <div className='border-b pb-2'>
+            <h2 className='text-2xl font-bold text-muted-foreground'>
+              {t('pastEvents')}
+            </h2>
+          </div>
+          {renderEventSection(pastEvents)}
+        </div>
+      )}
+
+      {/* Empty states */}
+      {upcomingEvents.length === 0 && pastEvents.length === 0 && (
+        <div className='text-center text-muted-foreground py-8'>
+          <p>
+            {t('noUpcomingEvents')} & {t('noPastEvents')}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

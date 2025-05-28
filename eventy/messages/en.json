@@ -350,6 +350,11 @@
     "eventDetails": "Event Details",
     "location": "Location",
     "viewEvent": "View Event",
+    "upcomingEvents": "Upcoming Events",
+    "pastEvents": "Past Events",
+    "noUpcomingEvents": "No upcoming events",
+    "noPastEvents": "No past events",
+    "completed": "Completed",
     "paymentMethods": {
       "onsite": "Pay at the venue"
     }
