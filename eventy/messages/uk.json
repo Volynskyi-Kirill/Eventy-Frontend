@@ -268,7 +268,10 @@
     "bookTicket": "Забронювати квиток",
     "noUpcomingEvents": "Немає майбутніх подій",
     "checkBackSoon": "Перевірте незабаром, нові події додаються регулярно!",
-    "browseAllEvents": "Переглянути всі події"
+    "browseAllEvents": "Переглянути всі події",
+    "upcomingEvents": "Майбутні події",
+    "pastEvents": "Минулі події",
+    "noPastEvents": "Немає минулих подій"
   },
   "EventPage": {
     "bookTicket": "Забронювати квиток",

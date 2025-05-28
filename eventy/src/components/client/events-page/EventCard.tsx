@@ -14,7 +14,7 @@ import {
 } from './constants';
 import { EventCardProps } from './types';
 
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, isPast = false }: EventCardProps) {
   const t = useTranslations('EventsPage');
 
   const formatEventDate = (dateString: string) => {
@@ -28,13 +28,17 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <Link href={`/client/events/${event.id}`}>
-      <Card className='h-full overflow-hidden hover:shadow-lg transition-shadow'>
+      <Card
+        className={`h-full overflow-hidden hover:shadow-lg transition-shadow ${
+          isPast ? 'opacity-75' : ''
+        }`}
+      >
         <div className='relative h-48'>
           <Image
             src={buildImageUrl(event.mainImg)}
             alt={event.title}
             fill
-            className='object-cover'
+            className={`object-cover ${isPast ? 'grayscale' : ''}`}
           />
           {hasCategories && (
             <div className='absolute bottom-2 left-2 flex flex-wrap gap-1'>
@@ -43,7 +47,11 @@ export function EventCard({ event }: EventCardProps) {
                 .map((category) => (
                   <Badge
                     key={category.id}
-                    className='bg-primary/80 text-primary-foreground'
+                    className={`${
+                      isPast
+                        ? 'bg-muted text-muted-foreground'
+                        : 'bg-primary/80 text-primary-foreground'
+                    }`}
                   >
                     {category.name}
                   </Badge>
@@ -52,7 +60,13 @@ export function EventCard({ event }: EventCardProps) {
           )}
         </div>
         <CardContent className='pt-4'>
-          <h3 className='text-lg font-bold truncate'>{event.title}</h3>
+          <h3
+            className={`text-lg font-bold truncate ${
+              isPast ? 'text-muted-foreground' : ''
+            }`}
+          >
+            {event.title}
+          </h3>
           <div className='flex items-center text-sm text-muted-foreground mt-2'>
             <MapPin size={14} className='mr-1' />
             <span className='truncate'>
@@ -62,20 +76,24 @@ export function EventCard({ event }: EventCardProps) {
           {hasDates && (
             <div className='flex flex-wrap gap-1 mt-2 text-xs'>
               {event.dates.slice(0, MAX_DATES_DISPLAYED).map((date, index) => (
-                <Badge key={index} variant='outline'>
+                <Badge key={index} variant={isPast ? 'secondary' : 'outline'}>
                   {formatEventDate(date)}
                 </Badge>
               ))}
             </div>
           )}
-          <div className='mt-4 text-xl font-bold'>
+          <div
+            className={`mt-4 text-xl font-bold ${
+              isPast ? 'text-muted-foreground' : ''
+            }`}
+          >
             {isFreeEvent
               ? t('free')
               : `${event.price.min} - ${event.price.max} ${event.price.currency}`}
           </div>
         </CardContent>
         <CardFooter className='flex justify-between pt-0'>
-          <Button variant='outline' className='w-full'>
+          <Button variant={isPast ? 'secondary' : 'outline'} className='w-full'>
             {t('viewEvent')}
           </Button>
         </CardFooter>

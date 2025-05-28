@@ -268,7 +268,10 @@
     "bookTicket": "Book ticket",
     "noUpcomingEvents": "No upcoming events",
     "checkBackSoon": "Check back soon as new events are added regularly!",
-    "browseAllEvents": "Browse all events"
+    "browseAllEvents": "Browse all events",
+    "upcomingEvents": "Upcoming Events",
+    "pastEvents": "Past Events",
+    "noPastEvents": "No past events"
   },
   "EventPage": {
     "bookTicket": "Book ticket",
