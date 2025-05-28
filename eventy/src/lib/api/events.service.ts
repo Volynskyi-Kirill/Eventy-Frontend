@@ -5,6 +5,10 @@ import {
   EventsResponse,
   RecommendedEvent,
 } from '../types/event.types';
+import {
+  GroupedOrganizerEvents,
+  OrganizerEventsQueryParams,
+} from '../types/organizer-events.types';
 import { EventsQueryParams } from '../types/events-query.types';
 import { buildEventsQueryParams } from '../utils/event-query-params';
 import { extractLocationNames } from '../utils/location';
@@ -24,6 +28,12 @@ export type {
   SocialMedia,
   User,
 } from '../types/event.types';
+
+export {
+  GroupedOrganizerEvents,
+  OrganizerEventCard,
+  EventStatus,
+} from '../types/organizer-events.types';
 
 export { SortDirection } from '../types/events-query.types';
 
@@ -53,6 +63,17 @@ export const eventsService = {
     const queryParams = buildEventsQueryParams(params);
     const url = `${API_ENDPOINTS.EVENTS.GET_ALL}?${queryParams.toString()}`;
     const response = await axiosInstance.get<EventsResponse>(url);
+    return response.data;
+  },
+
+  async getOrganizerEvents(params?: OrganizerEventsQueryParams) {
+    const queryParams = new URLSearchParams();
+    if (params?.status) {
+      queryParams.append('status', params.status);
+    }
+
+    const url = `${API_ENDPOINTS.EVENTS.ORGANIZER}?${queryParams.toString()}`;
+    const response = await axiosInstance.get<GroupedOrganizerEvents>(url);
     return response.data;
   },
 

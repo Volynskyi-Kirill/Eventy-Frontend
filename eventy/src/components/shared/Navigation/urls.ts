@@ -16,6 +16,7 @@ export const URLS = {
   ORGANIZER: {
     DASHBOARD: '/organizer/dashboard',
     EVENTS: '/organizer/events',
+    EVENT: (eventId: number) => `/organizer/events/${eventId}`,
     EVENTS_NEW: '/organizer/events/new',
     TICKETS: '/organizer/tickets',
     TARGET: '/organizer/target',

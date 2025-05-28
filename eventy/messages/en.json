@@ -365,5 +365,20 @@
     "paymentMethods": {
       "onsite": "Pay at the venue"
     }
+  },
+  "OrganizerEventsPage": {
+    "pageTitle": "My Events",
+    "pageDescription": "Manage and view all your created events",
+    "createEvent": "Create Event",
+    "loading": "Loading events...",
+    "errorTitle": "Error Loading Events",
+    "errorDescription": "Failed to load your events. Please try again later.",
+    "noEventsTitle": "No Events Created",
+    "noEventsDescription": "You haven't created any events yet. Start by creating your first event!",
+    "upcomingEvents": "Upcoming Events",
+    "pastEvents": "Past Events",
+    "viewEvent": "View Event",
+    "seatsAvailable": "seats available",
+    "free": "Free"
   }
 }
