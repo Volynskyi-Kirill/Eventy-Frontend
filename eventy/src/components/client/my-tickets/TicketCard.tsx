@@ -1,11 +1,12 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserTicket } from '@/lib/api/tickets.service';
 import { buildImageUrl } from '@/lib/utils/imageUrl';
 import { Calendar, Clock, Hash, MapPin } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 type TicketCardProps = {
   userTicket: UserTicket;
@@ -71,18 +72,20 @@ export function TicketCard({ userTicket }: TicketCardProps) {
             <Hash className='h-4 w-4' />
             {t('ticketInfo', { seatNumber: ticket.seatNumber })}
           </CardTitle>
-          <Badge className={getStatusColor(ticket.status)}>
+          {/* <Badge className={getStatusColor(ticket.status)}>
             {ticket.status}
-          </Badge>
+          </Badge> */}
         </div>
       </CardHeader>
       <CardContent className='space-y-4'>
         {/* Event Image */}
         {event.mainImg && (
           <div className='aspect-video rounded-lg overflow-hidden bg-muted'>
-            <img
+            <Image
               src={buildImageUrl(event.mainImg)}
               alt={event.title}
+              width={400}
+              height={225}
               className='w-full h-full object-cover'
             />
           </div>
