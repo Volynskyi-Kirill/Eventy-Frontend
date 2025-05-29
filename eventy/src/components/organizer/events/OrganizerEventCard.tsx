@@ -154,7 +154,7 @@ export function OrganizerEventCard({
           className='w-full'
           asChild
         >
-          <Link href={`/organizer/events/${event.id}`}>
+          <Link href={URLS.ORGANIZER.EVENT(event.id)}>
             <Eye className='mr-2 h-4 w-4' />
             {t('viewEvent')}
           </Link>
