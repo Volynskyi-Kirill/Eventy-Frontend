@@ -425,5 +425,21 @@
     "eventDate": "Дата події",
     "purchaseDate": "Дата покупки",
     "contact": "Контактна інформація"
+  },
+  "EditEventPage": {
+    "pageTitle": "Редагувати подію",
+    "goBack": "Назад",
+    "comingSoonTitle": "Редагування подій скоро з'явиться!",
+    "comingSoonDescription": "Ми наполегливо працюємо, щоб надати вам потужний досвід редагування подій.",
+    "inDevelopment": "В розробці",
+    "upcomingFeatures": "Майбутні функції",
+    "editBasicInfo": "Редагувати основну інформацію",
+    "editBasicInfoDesc": "Оновити назву, опис, дати та місце події",
+    "manageTickets": "Керування квитками та цінами",
+    "manageTicketsDesc": "Налаштувати зони квитків, ціни та доступність",
+    "updateSchedule": "Оновити розклад",
+    "updateScheduleDesc": "Змінити дати, час та склад спікерів події",
+    "progressMessage": "Прогрес розробки",
+    "estimatedCompletion": "Орієнтовне завершення: скоро"
   }
 }

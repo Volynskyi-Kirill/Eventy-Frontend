@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { OrganizerEventsGrid } from '@/components/organizer/events/OrganizerEventsGrid';
 import { useOrganizerEvents } from '@/lib/hooks/useOrganizerEvents';
+import { URLS } from '@/components/shared/Navigation/urls';
 
 export default function OrganizerEventsPage() {
   const t = useTranslations('OrganizerEventsPage');
@@ -41,7 +42,7 @@ export default function OrganizerEventsPage() {
         </div>
 
         <Button asChild className='bg-primary hover:bg-primary/90'>
-          <Link href='/organizer/events/new'>
+          <Link href={URLS.ORGANIZER.EVENTS_NEW}>
             <Plus className='mr-2 h-4 w-4' />
             {t('createEvent')}
           </Link>

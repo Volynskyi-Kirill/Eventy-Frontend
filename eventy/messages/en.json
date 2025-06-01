@@ -425,5 +425,21 @@
     "eventDate": "Event Date",
     "purchaseDate": "Purchase Date",
     "contact": "Contact Info"
+  },
+  "EditEventPage": {
+    "pageTitle": "Edit Event",
+    "goBack": "Go Back",
+    "comingSoonTitle": "Event Editing Coming Soon!",
+    "comingSoonDescription": "We're working hard to bring you a powerful event editing experience.",
+    "inDevelopment": "In Development",
+    "upcomingFeatures": "Upcoming Features",
+    "editBasicInfo": "Edit Basic Information",
+    "editBasicInfoDesc": "Update event title, description, dates, and location",
+    "manageTickets": "Manage Tickets & Pricing",
+    "manageTicketsDesc": "Configure ticket zones, pricing, and availability",
+    "updateSchedule": "Update Schedule",
+    "updateScheduleDesc": "Modify event dates, times, and speaker lineup",
+    "progressMessage": "Development Progress",
+    "estimatedCompletion": "Estimated completion: Coming soon"
   }
 }

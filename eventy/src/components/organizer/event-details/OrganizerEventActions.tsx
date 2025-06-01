@@ -30,7 +30,7 @@ export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
       <CardContent className='p-4 space-y-3'>
         {/* Edit Event */}
         <Button variant='outline' className='w-full justify-start' asChild>
-          <Link href='/organizer/events/edit-placeholder'>
+          <Link href={URLS.ORGANIZER.EVENT_EDIT(event.id)}>
             <Edit className='mr-2 h-4 w-4' />
             {t('editEvent')}
           </Link>
