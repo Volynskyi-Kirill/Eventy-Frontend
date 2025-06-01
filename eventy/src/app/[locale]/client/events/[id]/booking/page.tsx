@@ -3,6 +3,7 @@ import type { Event } from '@/lib/types/event.types';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import EventBookingForm from '@/components/client/event-page/booking/EventBookingForm';
+import { WithAuthRequired } from '@/components/shared/withAuthRequired';
 
 type BookingPageProps = {
   params: Promise<{
@@ -29,13 +30,15 @@ export default async function BookingPage({ params }: BookingPageProps) {
   }
 
   return (
-    <div className='container px-4 md:px-6 py-8 max-w-5xl mx-auto'>
-      <h1 className='text-3xl font-bold mb-6'>
-        {t('bookTicketsFor')} {event.title}
-      </h1>
-      <div className='bg-background rounded-lg shadow-sm'>
-        <EventBookingForm event={event} />
+    <WithAuthRequired>
+      <div className='container px-4 md:px-6 py-8 max-w-5xl mx-auto'>
+        <h1 className='text-3xl font-bold mb-6'>
+          {t('bookTicketsFor')} {event.title}
+        </h1>
+        <div className='bg-background rounded-lg shadow-sm'>
+          <EventBookingForm event={event} />
+        </div>
       </div>
-    </div>
+    </WithAuthRequired>
   );
 }

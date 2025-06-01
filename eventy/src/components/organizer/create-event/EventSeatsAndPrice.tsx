@@ -31,7 +31,7 @@ export function EventSeatsAndPrice() {
     append({
       name: `Zone - ${fields.length + 1}`,
       price: 0,
-      currency: 'USD',
+      currency: 'UAH',
       seatCount: 100,
     });
   };
