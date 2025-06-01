@@ -27,6 +27,7 @@ export const API_ENDPOINTS = {
     UPLOAD_IMAGE: `${BASE_PATHS.EVENTS}/upload-image`,
     RECOMMENDED: `${BASE_PATHS.EVENTS}/recommended`,
     ORGANIZER: `${BASE_PATHS.EVENTS}/organizer`,
+    ORGANIZER_DETAILS: (id: number) => `${BASE_PATHS.EVENTS}/organizer/${id}`,
   },
   CATEGORIES: {
     GET_ALL: BASE_PATHS.CATEGORIES,

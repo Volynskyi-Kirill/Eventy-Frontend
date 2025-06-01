@@ -9,6 +9,10 @@ import {
   GroupedOrganizerEvents,
   OrganizerEventsQueryParams,
 } from '../types/organizer-events.types';
+import {
+  OrganizerEventDetails,
+  OrganizerEventDetailsQueryParams,
+} from '../types/organizer-event-details.types';
 import { EventsQueryParams } from '../types/events-query.types';
 import { buildEventsQueryParams } from '../utils/event-query-params';
 import { extractLocationNames } from '../utils/location';
@@ -34,6 +38,13 @@ export {
   OrganizerEventCard,
   EventStatus,
 } from '../types/organizer-events.types';
+
+export {
+  OrganizerEventDetails,
+  EventBooking,
+  EventStatistics,
+  EventDateTimeSlot,
+} from '../types/organizer-event-details.types';
 
 export { SortDirection } from '../types/events-query.types';
 
@@ -74,6 +85,22 @@ export const eventsService = {
 
     const url = `${API_ENDPOINTS.EVENTS.ORGANIZER}?${queryParams.toString()}`;
     const response = await axiosInstance.get<GroupedOrganizerEvents>(url);
+    return response.data;
+  },
+
+  async getOrganizerEventDetails(
+    id: number,
+    params?: OrganizerEventDetailsQueryParams
+  ) {
+    const queryParams = new URLSearchParams();
+    if (params?.selectedDate) {
+      queryParams.append('selectedDate', params.selectedDate);
+    }
+
+    const url = `${API_ENDPOINTS.EVENTS.ORGANIZER_DETAILS(
+      id
+    )}?${queryParams.toString()}`;
+    const response = await axiosInstance.get<OrganizerEventDetails>(url);
     return response.data;
   },
 
