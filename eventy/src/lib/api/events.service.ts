@@ -33,13 +33,13 @@ export type {
   User,
 } from '../types/event.types';
 
-export {
+export type {
   GroupedOrganizerEvents,
   OrganizerEventCard,
   EventStatus,
 } from '../types/organizer-events.types';
 
-export {
+export type {
   OrganizerEventDetails,
   EventBooking,
   EventStatistics,

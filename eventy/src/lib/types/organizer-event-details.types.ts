@@ -20,7 +20,7 @@ export interface EventBooking {
   buyerEmail: string;
   contactName?: string;
   contactEmail?: string;
-  contactPhone?: string;
+  contactPhone?: string | null;
 }
 
 export interface EventStatistics {
