@@ -13,6 +13,7 @@ import {
   EVENT_DATE_FORMAT,
 } from './constants';
 import { EventCardProps } from './types';
+import { URLS } from '@/components/shared/Navigation/urls';
 
 export function EventCard({ event, isPast = false }: EventCardProps) {
   const t = useTranslations('EventsPage');
@@ -27,7 +28,7 @@ export function EventCard({ event, isPast = false }: EventCardProps) {
   const isFreeEvent = event.price.min === 0 && event.price.max === 0;
 
   return (
-    <Link href={`/client/events/${event.id}`}>
+    <Link href={URLS.CLIENT.EVENT(event.id)}>
       <Card
         className={`h-full overflow-hidden hover:shadow-lg transition-shadow ${
           isPast ? 'opacity-75' : ''
