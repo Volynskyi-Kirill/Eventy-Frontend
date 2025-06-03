@@ -8,6 +8,12 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { URLS } from '@/components/shared/Navigation/urls';
 import { TopEventByTickets } from '@/lib/types/dashboard-stats.types';
+import {
+  formatCurrency,
+  formatDate,
+  getOccupancyPercentage,
+  getOccupancyColor,
+} from '@/lib/utils/dashboard-utils';
 
 interface TopEventsByTicketsProps {
   events: TopEventByTickets[];
@@ -15,26 +21,6 @@ interface TopEventsByTicketsProps {
 
 export function TopEventsByTickets({ events }: TopEventsByTicketsProps) {
   const t = useTranslations('DashboardPage');
-
-  const formatCurrency = (amount: number, currency: string) => {
-    return `${amount.toLocaleString()} ${currency}`;
-  };
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return t('noUpcomingDate');
-    return new Date(dateString).toLocaleDateString();
-  };
-
-  const getOccupancyPercentage = (sold: number, total: number) => {
-    if (total === 0) return 0;
-    return Math.round((sold / total) * 100);
-  };
-
-  const getOccupancyColor = (percentage: number) => {
-    if (percentage >= 80) return 'bg-green-100 text-green-800';
-    if (percentage >= 50) return 'bg-yellow-100 text-yellow-800';
-    return 'bg-red-100 text-red-800';
-  };
 
   if (events.length === 0) {
     return (
@@ -92,7 +78,9 @@ export function TopEventsByTickets({ events }: TopEventsByTicketsProps) {
                           {formatCurrency(event.revenue, event.currency)}
                         </span>
                         <span>
-                          {t('nextDate')}: {formatDate(event.nextEventDate)}
+                          {t('nextDate')}:{' '}
+                          {formatDate(event.nextEventDate) ||
+                            t('noUpcomingDate')}
                         </span>
                       </div>
                     </div>

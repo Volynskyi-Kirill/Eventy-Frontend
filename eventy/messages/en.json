@@ -505,6 +505,7 @@
     "almostFull": "Almost Full",
     "onSale": "On Sale",
     "noUpcomingDate": "No upcoming date",
-    "deleting": "Deleting..."
+    "deleting": "Deleting...",
+    "completed": "Completed"
   }
 }

@@ -8,6 +8,11 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { URLS } from '@/components/shared/Navigation/urls';
 import { RecentEvent } from '@/lib/types/dashboard-stats.types';
+import {
+  formatDate,
+  formatDateTime,
+  getTicketStatus,
+} from '@/lib/utils/dashboard-utils';
 
 interface RecentEventsTableProps {
   events: RecentEvent[];
@@ -15,31 +20,6 @@ interface RecentEventsTableProps {
 
 export function RecentEventsTable({ events }: RecentEventsTableProps) {
   const t = useTranslations('DashboardPage');
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
-  };
-
-  const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
-  };
-
-  const getTicketStatus = (sold: number, total: number) => {
-    if (total === 0)
-      return { text: t('noTickets'), color: 'bg-gray-100 text-gray-800' };
-
-    const percentage = (sold / total) * 100;
-
-    if (percentage === 0) {
-      return { text: t('notStarted'), color: 'bg-red-100 text-red-800' };
-    } else if (percentage === 100) {
-      return { text: t('soldOut'), color: 'bg-green-100 text-green-800' };
-    } else if (percentage >= 80) {
-      return { text: t('almostFull'), color: 'bg-yellow-100 text-yellow-800' };
-    } else {
-      return { text: t('onSale'), color: 'bg-blue-100 text-blue-800' };
-    }
-  };
 
   if (events.length === 0) {
     return (
@@ -72,7 +52,9 @@ export function RecentEventsTable({ events }: RecentEventsTableProps) {
           {events.map((event) => {
             const ticketStatus = getTicketStatus(
               event.ticketsSold,
-              event.totalTickets
+              event.totalTickets,
+              event.nextEventDate,
+              t
             );
 
             return (
@@ -93,9 +75,7 @@ export function RecentEventsTable({ events }: RecentEventsTableProps) {
                     </span>
                     <span>
                       {t('nextDate')}:{' '}
-                      {event.nextEventDate
-                        ? formatDate(event.nextEventDate)
-                        : t('noUpcomingDate')}
+                      {formatDate(event.nextEventDate) || t('noUpcomingDate')}
                     </span>
                     <span>
                       {t('tickets')}: {event.ticketsSold}/{event.totalTickets}

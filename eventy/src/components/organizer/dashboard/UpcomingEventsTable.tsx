@@ -8,6 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { URLS } from '@/components/shared/Navigation/urls';
 import { UpcomingEvent } from '@/lib/types/dashboard-stats.types';
+import {
+  formatCurrency,
+  formatDateTime,
+  getDaysUntilEvent,
+  getUrgencyColor,
+  getUrgencyText,
+  getTicketStatus,
+} from '@/lib/utils/dashboard-utils';
 
 interface UpcomingEventsTableProps {
   events: UpcomingEvent[];
@@ -15,58 +23,6 @@ interface UpcomingEventsTableProps {
 
 export function UpcomingEventsTable({ events }: UpcomingEventsTableProps) {
   const t = useTranslations('DashboardPage');
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
-  };
-
-  const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString();
-  };
-
-  const formatCurrency = (amount: number, currency: string) => {
-    return `${amount.toLocaleString()} ${currency}`;
-  };
-
-  const getDaysUntilEvent = (dateString: string) => {
-    const eventDate = new Date(dateString);
-    const now = new Date();
-    const diffTime = eventDate.getTime() - now.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
-  const getUrgencyColor = (days: number) => {
-    if (days <= 3) return 'bg-red-100 text-red-800';
-    if (days <= 7) return 'bg-yellow-100 text-yellow-800';
-    if (days <= 14) return 'bg-blue-100 text-blue-800';
-    return 'bg-green-100 text-green-800';
-  };
-
-  const getUrgencyText = (days: number) => {
-    if (days <= 0) return t('today');
-    if (days === 1) return t('tomorrow');
-    if (days <= 7) return t('thisWeek');
-    if (days <= 30) return t('thisMonth');
-    return t('upcoming');
-  };
-
-  const getTicketStatus = (sold: number, total: number) => {
-    if (total === 0)
-      return { text: t('noTickets'), color: 'bg-gray-100 text-gray-800' };
-
-    const percentage = (sold / total) * 100;
-
-    if (percentage === 0) {
-      return { text: t('notStarted'), color: 'bg-red-100 text-red-800' };
-    } else if (percentage === 100) {
-      return { text: t('soldOut'), color: 'bg-green-100 text-green-800' };
-    } else if (percentage >= 80) {
-      return { text: t('almostFull'), color: 'bg-yellow-100 text-yellow-800' };
-    } else {
-      return { text: t('onSale'), color: 'bg-blue-100 text-blue-800' };
-    }
-  };
 
   if (events.length === 0) {
     return (
@@ -100,7 +56,9 @@ export function UpcomingEventsTable({ events }: UpcomingEventsTableProps) {
             const daysUntil = getDaysUntilEvent(event.nextEventDate);
             const ticketStatus = getTicketStatus(
               event.ticketsSold,
-              event.totalTickets
+              event.totalTickets,
+              event.nextEventDate,
+              t
             );
 
             return (
@@ -114,7 +72,7 @@ export function UpcomingEventsTable({ events }: UpcomingEventsTableProps) {
                     <Badge className={getUrgencyColor(daysUntil)}>
                       {daysUntil > 0
                         ? `${daysUntil} ${t('daysLeft')}`
-                        : getUrgencyText(daysUntil)}
+                        : getUrgencyText(daysUntil, t)}
                     </Badge>
                     <Badge className={ticketStatus.color}>
                       {ticketStatus.text}
