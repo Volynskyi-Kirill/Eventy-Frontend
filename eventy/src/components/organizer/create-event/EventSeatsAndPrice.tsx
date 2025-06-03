@@ -16,7 +16,8 @@ import type { CreateEventFormData } from '@/lib/validation/createEventSchema';
 import { useTranslations } from 'next-intl';
 import { FormField } from '@/components/shared/FormField';
 
-const CURRENCIES = ['UAH', 'USD', 'EUR'];
+const CURRENCIES = ['UAH'];
+// const CURRENCIES = ['UAH', 'USD', 'EUR'];
 
 export function EventSeatsAndPrice() {
   const { control, setValue } = useFormContext<CreateEventFormData>();
