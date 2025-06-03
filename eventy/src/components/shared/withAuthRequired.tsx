@@ -19,7 +19,7 @@ export function WithAuthRequired({
   fallback,
 }: WithAuthRequiredProps) {
   const { isLoggedIn } = useAuthStore();
-  const { isAuthModalOpen, setIsAuthModalOpen } = useAuthRequired();
+  const { setIsAuthModalOpen } = useAuthRequired();
 
   // If user is logged in, render children
   if (isLoggedIn) {
@@ -50,7 +50,7 @@ export function withAuthRequired<P extends object>(
   Component: ComponentType<P>
 ) {
   return function AuthProtectedComponent(props: P) {
-    const { isAuthModalOpen, setIsAuthModalOpen } = useAuthRequired();
+    const { setIsAuthModalOpen } = useAuthRequired();
     const { isLoggedIn } = useAuthStore();
 
     if (!isLoggedIn) {

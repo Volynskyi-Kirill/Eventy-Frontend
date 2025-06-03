@@ -27,10 +27,9 @@ export function EventActions({
   // const router = useRouter();
   const { clearSpeakers } = useSpeakersStore();
   const [showClearDialog, setShowClearDialog] = useState(false);
-
-  const handleCancel = () => {
-    // router.push(URLS.ORGANIZER.EVENTS);
-  };
+  // const handleCancel = () => {
+  //   // router.push(URLS.ORGANIZER.EVENTS);
+  // };
 
   const openClearDialog = () => {
     setShowClearDialog(true);

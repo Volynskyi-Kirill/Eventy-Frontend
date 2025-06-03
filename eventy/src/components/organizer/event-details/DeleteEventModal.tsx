@@ -61,7 +61,9 @@ export function DeleteEventModal({
           <DialogDescription className='pt-2'>
             {t('deleteEventConfirmDescription')}
             <br />
-            <span className='font-semibold mt-2 block'>"{eventTitle}"</span>
+            <span className='font-semibold mt-2 block'>
+              &quot;{eventTitle}&quot;
+            </span>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='flex-col sm:flex-row gap-2'>

@@ -8,10 +8,9 @@ interface DateObject {
 
 interface EventDatesProps {
   dates?: DateObject[];
-  t: any;
 }
 
-export function EventDates({ dates, t }: EventDatesProps) {
+export function EventDates({ dates }: EventDatesProps) {
   const hasValidDates =
     dates && dates.length > 0 && dates.some((dateObj) => dateObj.date);
 

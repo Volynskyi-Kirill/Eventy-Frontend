@@ -64,7 +64,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
       <EventSpeakers event={event} t={t} />
       <EventDescription event={event} t={t} />
-      <EventLocation event={event} fullAddress={fullAddress} t={t} />
+      <EventLocation fullAddress={fullAddress} t={t} />
     </div>
   );
 }

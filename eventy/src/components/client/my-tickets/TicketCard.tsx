@@ -46,16 +46,16 @@ export function TicketCard({ userTicket }: TicketCardProps) {
     });
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'SOLD':
-        return 'bg-green-100 text-green-800';
-      case 'RESERVED':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
+  // const getStatusColor = (status: string) => {
+  //   switch (status) {
+  //     case 'SOLD':
+  //       return 'bg-green-100 text-green-800';
+  //     case 'RESERVED':
+  //       return 'bg-yellow-100 text-yellow-800';
+  //     default:
+  //       return 'bg-gray-100 text-gray-800';
+  //   }
+  // };
 
   const getPaymentMethodLabel = (method: string) => {
     switch (method) {

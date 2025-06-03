@@ -60,7 +60,7 @@ export function EventPreview({
             street={formValues.street}
             buildingNumber={formValues.buildingNumber}
           />
-          <EventDates dates={formValues.dates} t={t} />
+          <EventDates dates={formValues.dates} />
           <EventPricing eventZones={formValues.eventZones} t={t} />
           <EventSocialMedia socialMedia={formValues.socialMedia} t={t} />
           <EventActions

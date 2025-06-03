@@ -117,6 +117,7 @@ export const eventsService = {
     return response.data;
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getOrganizerDashboardStats(params?: DashboardStatsQueryParams) {
     const queryParams = new URLSearchParams();
     // Add future query parameters here if needed

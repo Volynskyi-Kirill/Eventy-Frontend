@@ -70,4 +70,5 @@ export interface DashboardStats {
 
 export interface DashboardStatsQueryParams {
   // Future filters can be added here
+  [key: string]: any;
 }

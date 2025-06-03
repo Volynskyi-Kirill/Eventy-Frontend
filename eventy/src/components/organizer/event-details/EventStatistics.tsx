@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Users, Ticket, DollarSign, UserCheck } from 'lucide-react';
 import { EventStatistics as EventStatisticsType } from '@/lib/types/organizer-event-details.types';
 

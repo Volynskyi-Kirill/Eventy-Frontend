@@ -1,14 +1,11 @@
-import { Event } from '@/lib/types/event.types';
-
 type EventLocationProps = {
-  event: Event;
   fullAddress: string;
   t: any; // Translation function
 };
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8'; // TODO: Move to environment variable and get my own key
 
-const EventLocation = ({ event, fullAddress, t }: EventLocationProps) => {
+const EventLocation = ({ fullAddress, t }: EventLocationProps) => {
   const hasAddress = fullAddress && fullAddress.trim().length > 0;
 
   if (!hasAddress) {
