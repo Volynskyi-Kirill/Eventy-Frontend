@@ -44,31 +44,23 @@ export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
   };
 
   const DeleteButton = () => {
-    const buttonContent = (
-      <Button
-        variant='outline'
-        className={`w-full justify-start ${
-          hasSoldTickets
-            ? 'text-muted-foreground cursor-not-allowed opacity-50'
-            : 'text-destructive hover:text-destructive'
-        }`}
-        onClick={handleDeleteEvent}
-        disabled={hasSoldTickets}
-      >
-        {hasSoldTickets ? (
-          <AlertCircle className='mr-2 h-4 w-4' />
-        ) : (
-          <Trash2 className='mr-2 h-4 w-4' />
-        )}
-        {t('deleteEvent')}
-      </Button>
-    );
-
     if (hasSoldTickets) {
       return (
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger asChild>{buttonContent}</TooltipTrigger>
+            <TooltipTrigger asChild>
+              <div className='w-full'>
+                <Button
+                  variant='outline'
+                  className='w-full justify-start text-muted-foreground cursor-not-allowed opacity-50'
+                  onClick={(e) => e.preventDefault()}
+                  disabled={true}
+                >
+                  <AlertCircle className='mr-2 h-4 w-4' />
+                  {t('deleteEvent')}
+                </Button>
+              </div>
+            </TooltipTrigger>
             <TooltipContent>
               <p>{t('deleteEventTooltip')}</p>
             </TooltipContent>
@@ -77,7 +69,16 @@ export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
       );
     }
 
-    return buttonContent;
+    return (
+      <Button
+        variant='outline'
+        className='w-full justify-start text-destructive hover:text-destructive'
+        onClick={handleDeleteEvent}
+      >
+        <Trash2 className='mr-2 h-4 w-4' />
+        {t('deleteEvent')}
+      </Button>
+    );
   };
 
   return (

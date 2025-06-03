@@ -429,7 +429,7 @@
     "eventDate": "Дата події",
     "purchaseDate": "Дата покупки",
     "contact": "Контактна інформація",
-    "deleteEventTooltip": "Неможливо видалити подію — вже придбано квитки",
+    "deleteEventTooltip": "Неможливо видалити подію — вже продано квитки",
     "deleteEventConfirmTitle": "Видалити подію",
     "deleteEventConfirmDescription": "Ви впевнені, що хочете видалити цю подію? Цю дію неможливо скасувати.",
     "deleteEventConfirmButton": "Видалити подію",
