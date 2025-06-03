@@ -428,7 +428,15 @@
     "paymentMethod": "Payment Method",
     "eventDate": "Event Date",
     "purchaseDate": "Purchase Date",
-    "contact": "Contact Info"
+    "contact": "Contact Info",
+    "deleteEventTooltip": "Cannot delete event — tickets have been purchased",
+    "deleteEventConfirmTitle": "Delete Event",
+    "deleteEventConfirmDescription": "Are you sure you want to delete this event? This action cannot be undone.",
+    "deleteEventConfirmButton": "Delete Event",
+    "deleteEventCancelButton": "Cancel",
+    "eventDeletedSuccessfully": "Event successfully deleted",
+    "errorDeletingEvent": "Error deleting event",
+    "cannotDeleteEventWithTickets": "Cannot delete event with sold tickets"
   },
   "EditEventPage": {
     "pageTitle": "Edit Event",

@@ -1,14 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Edit, Trash2, Share2, Eye } from 'lucide-react';
+import { Edit, Trash2, Share2, Eye, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { URLS } from '@/components/shared/Navigation/urls';
 import { OrganizerEventDetails } from '@/lib/types/organizer-event-details.types';
 import { ShareEventModal } from './ShareEventModal';
+import { DeleteEventModal } from './DeleteEventModal';
 
 interface OrganizerEventActionsProps {
   event: OrganizerEventDetails;
@@ -17,14 +24,60 @@ interface OrganizerEventActionsProps {
 export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
   const t = useTranslations('OrganizerEventDetailsPage');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  // Проверяем, есть ли проданные билеты
+  const hasSoldTickets = useMemo(() => {
+    return event.statistics.soldTickets > 0;
+  }, [event.statistics.soldTickets]);
 
   const handleDeleteEvent = () => {
-    // TODO: Implement delete functionality
-    console.log('Delete event:', event.id);
+    if (hasSoldTickets) {
+      // Если есть проданные билеты, не открываем модалку
+      return;
+    }
+    setIsDeleteModalOpen(true);
   };
 
   const handleShareEvent = () => {
     setIsShareModalOpen(true);
+  };
+
+  const DeleteButton = () => {
+    const buttonContent = (
+      <Button
+        variant='outline'
+        className={`w-full justify-start ${
+          hasSoldTickets
+            ? 'text-muted-foreground cursor-not-allowed opacity-50'
+            : 'text-destructive hover:text-destructive'
+        }`}
+        onClick={handleDeleteEvent}
+        disabled={hasSoldTickets}
+      >
+        {hasSoldTickets ? (
+          <AlertCircle className='mr-2 h-4 w-4' />
+        ) : (
+          <Trash2 className='mr-2 h-4 w-4' />
+        )}
+        {t('deleteEvent')}
+      </Button>
+    );
+
+    if (hasSoldTickets) {
+      return (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>{buttonContent}</TooltipTrigger>
+            <TooltipContent>
+              <p>{t('deleteEventTooltip')}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+    }
+
+    return buttonContent;
   };
 
   return (
@@ -40,14 +93,7 @@ export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
           </Button>
 
           {/* Delete Event */}
-          <Button
-            variant='outline'
-            className='w-full justify-start text-destructive hover:text-destructive'
-            onClick={handleDeleteEvent}
-          >
-            <Trash2 className='mr-2 h-4 w-4' />
-            {t('deleteEvent')}
-          </Button>
+          <DeleteButton />
 
           {/* Share Event */}
           <Button
@@ -78,6 +124,14 @@ export function OrganizerEventActions({ event }: OrganizerEventActionsProps) {
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         eventId={event.id}
+      />
+
+      {/* Delete Event Modal */}
+      <DeleteEventModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        eventId={event.id}
+        eventTitle={event.title}
       />
     </>
   );

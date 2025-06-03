@@ -428,7 +428,15 @@
     "paymentMethod": "Спосіб оплати",
     "eventDate": "Дата події",
     "purchaseDate": "Дата покупки",
-    "contact": "Контактна інформація"
+    "contact": "Контактна інформація",
+    "deleteEventTooltip": "Неможливо видалити подію — вже придбано квитки",
+    "deleteEventConfirmTitle": "Видалити подію",
+    "deleteEventConfirmDescription": "Ви впевнені, що хочете видалити цю подію? Цю дію неможливо скасувати.",
+    "deleteEventConfirmButton": "Видалити подію",
+    "deleteEventCancelButton": "Скасувати",
+    "eventDeletedSuccessfully": "Подію успішно видалено",
+    "errorDeletingEvent": "Помилка при видаленні події",
+    "cannotDeleteEventWithTickets": "Неможливо видалити подію з проданими квитками"
   },
   "EditEventPage": {
     "pageTitle": "Редагувати подію",
