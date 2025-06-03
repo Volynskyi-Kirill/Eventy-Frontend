@@ -34,27 +34,17 @@ export function DeleteEventModal({
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleConfirmDelete = async () => {
-    if (isDeleting) return;
-
+  const handleDelete = async () => {
     setIsDeleting(true);
     try {
       await eventsService.deleteEvent(eventId);
-
       toast.success(t('eventDeletedSuccessfully'));
       onClose();
-
-      // Редирект на список событий организатора
+      // Redirect to events page after successful deletion
       router.push(URLS.ORGANIZER.EVENTS);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error deleting event:', error);
-
-      const errorMessage = error.response?.data?.message;
-      if (errorMessage && errorMessage.includes('sold tickets')) {
-        toast.error(t('cannotDeleteEventWithTickets'));
-      } else {
-        toast.error(t('errorDeletingEvent'));
-      }
+      toast.error(t('errorDeletingEvent'));
     } finally {
       setIsDeleting(false);
     }
@@ -62,50 +52,43 @@ export function DeleteEventModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='sm:max-w-md'>
         <DialogHeader>
-          <div className='flex items-center gap-3'>
-            <div className='flex h-10 w-10 items-center justify-center rounded-full bg-destructive/10'>
-              <AlertTriangle className='h-5 w-5 text-destructive' />
-            </div>
-            <div>
-              <DialogTitle className='text-left'>
-                {t('deleteEventConfirmTitle')}
-              </DialogTitle>
-              <DialogDescription className='text-left mt-1'>
-                &quot;{eventTitle}&quot;
-              </DialogDescription>
-            </div>
-          </div>
-        </DialogHeader>
-
-        <div className='py-4'>
-          <p className='text-sm text-muted-foreground'>
+          <DialogTitle className='flex items-center gap-2 text-destructive'>
+            <AlertTriangle className='h-5 w-5' />
+            {t('deleteEventConfirmTitle')}
+          </DialogTitle>
+          <DialogDescription className='pt-2'>
             {t('deleteEventConfirmDescription')}
-          </p>
-        </div>
-
-        <DialogFooter className='gap-2'>
-          <Button variant='outline' onClick={onClose} disabled={isDeleting}>
+            <br />
+            <span className='font-semibold mt-2 block'>"{eventTitle}"</span>
+          </DialogDescription>
+        </DialogHeader>
+        <DialogFooter className='flex-col sm:flex-row gap-2'>
+          <Button
+            variant='outline'
+            onClick={onClose}
+            disabled={isDeleting}
+            className='w-full sm:w-auto'
+          >
             {t('deleteEventCancelButton')}
           </Button>
-
           <Button
             variant='destructive'
-            onClick={handleConfirmDelete}
+            onClick={handleDelete}
             disabled={isDeleting}
-            className='gap-2'
+            className='w-full sm:w-auto'
           >
             {isDeleting ? (
-              <>
+              <div className='flex items-center gap-2'>
                 <div className='h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent' />
-                {t('deleteEventConfirmButton')}
-              </>
+                <span>{t('deleting')}</span>
+              </div>
             ) : (
-              <>
+              <div className='flex items-center gap-2'>
                 <Trash2 className='h-4 w-4' />
-                {t('deleteEventConfirmButton')}
-              </>
+                <span>{t('deleteEventConfirmButton')}</span>
+              </div>
             )}
           </Button>
         </DialogFooter>

@@ -13,6 +13,10 @@ import {
   OrganizerEventDetails,
   OrganizerEventDetailsQueryParams,
 } from '../types/organizer-event-details.types';
+import {
+  DashboardStats,
+  DashboardStatsQueryParams,
+} from '../types/dashboard-stats.types';
 import { EventsQueryParams } from '../types/events-query.types';
 import { buildEventsQueryParams } from '../utils/event-query-params';
 import { extractLocationNames } from '../utils/location';
@@ -45,6 +49,15 @@ export type {
   EventStatistics,
   EventDateTimeSlot,
 } from '../types/organizer-event-details.types';
+
+export type {
+  DashboardStats,
+  TopEventByRevenue,
+  TopEventByTickets,
+  CategoryStats,
+  RecentEvent,
+  UpcomingEvent,
+} from '../types/dashboard-stats.types';
 
 export { SortDirection } from '../types/events-query.types';
 
@@ -101,6 +114,17 @@ export const eventsService = {
       id
     )}?${queryParams.toString()}`;
     const response = await axiosInstance.get<OrganizerEventDetails>(url);
+    return response.data;
+  },
+
+  async getOrganizerDashboardStats(params?: DashboardStatsQueryParams) {
+    const queryParams = new URLSearchParams();
+    // Add future query parameters here if needed
+
+    const url = `${
+      API_ENDPOINTS.EVENTS.ORGANIZER_DASHBOARD_STATS
+    }?${queryParams.toString()}`;
+    const response = await axiosInstance.get<DashboardStats>(url);
     return response.data;
   },
 

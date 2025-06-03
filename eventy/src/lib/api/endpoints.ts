@@ -28,6 +28,7 @@ export const API_ENDPOINTS = {
     RECOMMENDED: `${BASE_PATHS.EVENTS}/recommended`,
     ORGANIZER: `${BASE_PATHS.EVENTS}/organizer`,
     ORGANIZER_DETAILS: (id: number) => `${BASE_PATHS.EVENTS}/organizer/${id}`,
+    ORGANIZER_DASHBOARD_STATS: `${BASE_PATHS.EVENTS}/organizer/dashboard-stats`,
   },
   CATEGORIES: {
     GET_ALL: BASE_PATHS.CATEGORIES,

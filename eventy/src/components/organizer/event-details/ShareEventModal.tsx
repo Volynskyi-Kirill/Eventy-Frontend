@@ -27,28 +27,17 @@ export function ShareEventModal({
   eventId,
 }: ShareEventModalProps) {
   const t = useTranslations('OrganizerEventDetailsPage');
-  const [isCopied, setIsCopied] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  // Формируем полную ссылку на событие
   const eventUrl = `${window.location.origin}${URLS.CLIENT.EVENT(eventId)}`;
 
-  const handleCopyToClipboard = async () => {
+  const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(eventUrl);
-      setIsCopied(true);
-      // Сбрасываем состояние через 2 секунды
-      setTimeout(() => setIsCopied(false), 2000);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error('Failed to copy to clipboard:', error);
-      // Fallback для старых браузеров
-      const textArea = document.createElement('textarea');
-      textArea.value = eventUrl;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000);
     }
   };
 
@@ -64,11 +53,10 @@ export function ShareEventModal({
             {t('shareEventModalDescription')}
           </DialogDescription>
         </DialogHeader>
-
         <div className='space-y-4'>
           <div className='space-y-2'>
             <Label htmlFor='event-url'>{t('shareEventModalUrlLabel')}</Label>
-            <div className='flex gap-2'>
+            <div className='flex space-x-2'>
               <Input
                 id='event-url'
                 value={eventUrl}
@@ -78,20 +66,19 @@ export function ShareEventModal({
               <Button
                 type='button'
                 size='sm'
+                onClick={handleCopy}
                 className='px-3'
-                onClick={handleCopyToClipboard}
               >
-                {isCopied ? (
-                  <Check className='h-4 w-4' />
+                {copied ? (
+                  <Check className='h-4 w-4 text-green-600' />
                 ) : (
                   <Copy className='h-4 w-4' />
                 )}
               </Button>
             </div>
           </div>
-
-          {isCopied && (
-            <p className='text-sm text-green-600 font-medium'>
+          {copied && (
+            <p className='text-sm text-green-600'>
               {t('shareEventModalCopiedMessage')}
             </p>
           )}
